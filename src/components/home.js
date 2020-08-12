@@ -17,12 +17,15 @@ class Home extends React.Component {
 				<div className="w3-row-padding">
 					<div className="w3-col l3"><br/></div>
 					<div className="w3-col l6 w3-container w3-padding-large">
-						At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. <br/><br/>
-						Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. <br/><br/>
-						Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+						Trò chơi là một hoạt động thường dùng để giải trí và đôi khi cũng được sử dụng như một công cụ giáo dục. Nhiều trò chơi đã phát triển thành những môn thể thao và được tổ chức với quy mô lớn như các Đại hội thể thao. Những đặc điểm của trò chơi là: vui, độc lập (hạn chế trong một địa điểm và một khoảng thời gian), may rủi, không sinh lợi (những người chơi không đạt tới một lợi ích vật chất cụ thể), có luật chơi.<br/><br/>
+						Trong những buổi sinh hoạt, hoạt động của các tập thể, những trò chơi, những game show vui nhộn luôn là một phần không thể thiếu giúp để duy trì không khí trong suốt buổi sinh hoạt tập thể hay những buổi tiệc gala,…..Đóng vai trò như một khóa học hay khóa tập huấn ngắn về tinh thần đoàn kết, phối hợp đội nhóm, trò chơi tập thể không chỉ giúp người chơi thư giãn mà còn như một cầu nối giúp cả tập thể xích lại gần nhau hơn.<br/><br/>
+						Trên những tinh thần đó, Games4scout được ra đời để làm kho dữ liệu lưu trữ trực tuyến các trò chơi sinh hoạt dành cho mọi người. Mong rằng ai cũng sẽ được chơi, và chơi thật vui.<br/><br/>
+						-- GDD --<br/><br/>
+						(Nguồn: <a href="https://vi.wikipedia.org/wiki/Tr%C3%B2_ch%C6%A1i">Wikipedia</a>, <a href="https://vi.wikipedia.org/wiki/Tr%C3%B2_ch%C6%A1i">Netin Travel</a>)
 					</div>
 					<div className="w3-col l3"><br/></div>
 				</div>
+				<br/><br/>
 			</div>
 		);
 	}

@@ -20,6 +20,9 @@ class Verify extends React.Component{
 		this.handleConfirmButton = this.handleConfirmButton.bind(this);
 		this.handleNoButton = this.handleNoButton.bind(this);
 		this.handleYesButton = this.handleYesButton.bind(this);
+		this.handleConfirmButton2 = this.handleConfirmButton2.bind(this);
+		this.handleNoButton2 = this.handleNoButton2.bind(this);
+		this.handleYesButton2 = this.handleYesButton2.bind(this);
 	}
 	
 	getGames(){
@@ -31,12 +34,13 @@ class Verify extends React.Component{
 		}).then(res => {return res.data}).then(data => {
 			// console.log(data);
 			// this.shuffle(data);
-			let confirm_button = new Array();
+			let confirm_button = new Array(), confirm_button2 = new Array();
 			data.map(i => {
 				confirm_button.push(false);
+				confirm_button2.push(false);
 			});
 			// console.log(confirm_button);
-			this.setState({games: data, confirm_button: confirm_button});
+			this.setState({games: data, confirm_button: confirm_button, confirm_button2: confirm_button2});
 		})
 	}
 	
@@ -112,6 +116,35 @@ class Verify extends React.Component{
 		});
 	}
 	
+	handleConfirmButton2(ind){
+		// let id = this.state.games[ind]._id;
+		let clone = this.state.confirm_button2;
+		clone[ind] = true;
+		this.setState({confirm_button2: clone});
+	}
+	
+	handleNoButton2(ind){
+		let clone = this.state.confirm_button2;
+		clone[ind] = false;
+		this.setState({confirm_button2: clone});
+	}
+	
+	handleYesButton2(ind){
+		let id = this.state.games[ind]._id;
+		let data = {id: id};
+		data.ten = this.state.ten;
+		axios({
+			method: "post",
+			data: data,
+			url: URL + "/confirm_remove",
+		}).then(res => {return res.data}).then(data => {
+			if (data.status == "ok"){
+				// console.log("OK đã xác nhận");
+				this.getGames();
+			}
+		});
+	}
+	
 	render(){
 		let games = "";
 		games = this.state.games.map((i, ind) => {
@@ -137,7 +170,7 @@ class Verify extends React.Component{
 				
 				let buttons;
 				if (this.state.confirm_button[ind]){
-					buttons = 	(<div>
+					buttons = 	(<div className=" w3-animate-zoom">
 									<button className="w3-btn w3-green w3-margin-right" value={ind} 
 										onClick={() => {this.handleYesButton(ind)}}>Yes</button>
 									<button className="w3-btn w3-red" value={ind} 
@@ -145,8 +178,26 @@ class Verify extends React.Component{
 								</div>
 					);
 				}
+				
+				
 				else{
-					buttons = <button className="w3-btn w3-green" value={ind} onClick={() => {this.handleConfirmButton(ind)}}>Xác nhận</button>
+					buttons = <button className="w3-btn w3-green" value={ind} onClick={() => {this.handleConfirmButton(ind)}}>Trò này OK</button>
+				}
+				
+				let buttons2;
+				if (this.state.confirm_button2[ind]){
+					buttons2 = 	(<div className="w3-right w3-animate-zoom">
+									<button className="w3-btn w3-red w3-margin-right" value={ind} 
+										onClick={() => {this.handleYesButton2(ind)}}>Yes</button>
+									<button className="w3-btn w3-green" value={ind} 
+										onClick={() => {this.handleNoButton2(ind)}}>No</button>
+								</div>
+					);
+				}
+				
+				
+				else{
+					buttons2 = <button className="w3-btn w3-right w3-red" value={ind} onClick={() => {this.handleConfirmButton2(ind)}}>Xoá 4ever</button>
 				}
 				
 				return(
@@ -156,8 +207,11 @@ class Verify extends React.Component{
 							<div><b>Số lượng người chơi: </b>{so_luong}</div>
 							<div><b>Đội hình chơi: </b>{doi_hinh}</div>
 							<div><b>Kĩ năng rèn luyện: </b>{ki_nang}</div>
-							<div><b>Mô tả:</b><div className="w3-margin">{i.mo_ta}</div></div>
-							{buttons}
+							<div><b>Mô tả:</b><div className="w3-margin" style={{whiteSpace: "pre-wrap"}}>{i.mo_ta}</div></div>
+							<div className="w3-row-padding">
+								<div className="w3-col s6">{buttons}</div>
+								<div className="w3-col s6">{buttons2}</div>
+							</div>
 						</div>
 						<br/><br/>
 					</div>
@@ -185,6 +239,7 @@ class Verify extends React.Component{
 		return (
 			<div className="w3-container">
 				<h1 className="w3-center">Kiểm duyệt trò chơi</h1>
+				<h5 className="w3-center"><i>Cảm ơn bạn đã làm một việc cực kỳ quan trọng</i></h5>
 				<br/>
 				<div className="w3-center">--- Xin chào, {this.state.ten} ---</div>
 				<br/>

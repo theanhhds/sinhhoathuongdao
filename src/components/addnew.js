@@ -92,12 +92,13 @@ class AddNew extends React.Component {
 				<div className="w3-overlay w3-display-container" ref={this.overlayRef}>
 					<div className="w3-pale-red w3-display-middle w3-padding-large">
 						<h3 className="w3-red w3-padding w3-center">Cảm ơn bạn</h3>
-						<h4 className="w3-section">
+						<h5 className="w3-section">
 							Trò chơi đã được lưu vào dữ liệu và đang đợi để được xác nhận
-						</h4>
+						</h5>
 					</div>
 				</div>
 				<h1 className="w3-center">Thêm trò chơi mới</h1>
+				<h5 className="w3-center"><i>Bạn có ý tưởng trò chơi mới? Hãy chia sẻ ngay với chúng tôi nhé</i></h5>
 				<div className="w3-row">
 					<div className="w3-col l2"><br/></div>
 					<div className="w3-col l8 w3-container w3-padding-large">

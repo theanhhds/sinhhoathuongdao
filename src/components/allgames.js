@@ -5,7 +5,7 @@ import Verify from './verify';
 import {NavLink} from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faSearch, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
 
 class AllGames extends React.Component{
 	constructor(){
@@ -78,30 +78,30 @@ class AllGames extends React.Component{
 			if (1){		//If game has been checked
 				let so_luong;
 				{
-					if (i.so_luong == 1) so_luong = "Dưới 10 người";
-					else if (i.so_luong == 2) so_luong = "Từ 10 đến 25 người";
-					else so_luong = "Trên 25 người";
+					if (i.so_luong == 1) so_luong = "#dưới10người";
+					else if (i.so_luong == 2) so_luong = "#từ10đến25người";
+					else so_luong = "#trên25người";
 				}
 				
 				let doi_hinh = "";
 				{
-					if (i.doi_hinh == 1) doi_hinh = "Cá nhân";
-					else if (i.doi_hinh == 2) doi_hinh = "Vòng tròn";
-					else if (i.doi_hinh == 3) doi_hinh = "Chia nhóm";
-					else if (i.doi_hinh == 4) doi_hinh = "Khác";
+					if (i.doi_hinh == 1) doi_hinh = "#cánhân";
+					else if (i.doi_hinh == 2) doi_hinh = "#vòngtròn";
+					else if (i.doi_hinh == 3) doi_hinh = "#chianhóm";
+					else if (i.doi_hinh == 4) doi_hinh = "#khác";
 				}
 				
 				let ki_nang = i.ki_nang.map((j, ind) => {
 					if (j==1 && ind == 0) 
-							return <span className="w3-tag w3-margin-right w3-round-xlarge w3-deep-orange w3-padding-small">Nhanh nhẹn</span>;
+							return <span className="w3-tag w3-margin w3-round-xlarge w3-deep-orange w3-padding-small">Nhanh nhẹn</span>;
 					if (j==1 && ind == 1) 
-							return <span className="w3-tag w3-margin-right w3-round-xlarge w3-blue w3-padding-small">Hoạt bát</span>;
+							return <span className="w3-tag w3-margin w3-round-xlarge w3-blue w3-padding-small">Hoạt bát</span>;
 					if (j==1 && ind == 2) 
-							return <span className="w3-tag w3-margin-right w3-round-xlarge w3-green w3-padding-small">Trí tuệ</span>;
+							return <span className="w3-tag w3-margin w3-round-xlarge w3-green w3-padding-small">Trí tuệ</span>;
 					if (j==1 && ind == 3) 
-							return <span className="w3-tag w3-margin-right w3-round-xlarge w3-red w3-padding-small">Dũng cảm</span>;
+							return <span className="w3-tag w3-margin w3-round-xlarge w3-red w3-padding-small">Dũng cảm</span>;
 					if (j==1 && ind == 4) 
-							return <span className="w3-tag w3-margin-right w3-round-xlarge w3-purple w3-padding-small">Khéo léo</span>;
+							return <span className="w3-tag w3-margin w3-round-xlarge w3-purple w3-padding-small">Khéo léo</span>;
 					return "";
 				});
 				
@@ -113,10 +113,10 @@ class AllGames extends React.Component{
 						<div>
 							<div className="w3-container w3-card w3-pale-green">
 								<h3 className="w3-center">{i.ten}</h3>
-								<div><b>Số lượng người chơi: </b>{so_luong}</div>
-								<div><b>Đội hình chơi: </b>{doi_hinh}</div>
-								<div><b>Kĩ năng: </b><br/><div className="w3-margin">{ki_nang}</div></div>
-								<div><b>Mô tả:</b><div className="w3-margin">{i.mo_ta}</div></div>
+								<div className="w3-center w3-text-red"><i>{so_luong} {doi_hinh}</i></div>
+								<div><div className="w3-margin w3-center">{ki_nang}</div></div>
+								<div className="w3-clear"></div>
+								<div><div className="w3-margin" style={{whiteSpace: "pre-wrap"}}>{i.mo_ta}</div></div>
 							</div>
 							<br/><br/>
 						</div>
@@ -168,17 +168,24 @@ class AllGames extends React.Component{
 				</div>
 				
 				<h1 className="w3-center">Tất cả các trò chơi</h1>
+				<h5 className="w3-center"><i>Let's play!</i></h5>
 				<br/>
 				<br/>
 				<div className="w3-row-padding">
-					<div className="w3-col l3 w3-display-container w3-padding w3-margin-bottom">
-						<div className="w3-btn w3-large w3-text-green w3-display-topleft" onClick={this.handleSearch}>
-							<FontAwesomeIcon className="w3-margin-right" icon={faSearch}  size="lg"/>
-							Tìm kiếm
-						</div>
-						<br/>
-					</div>
+					<div className="w3-col l3"><br/></div>
 					<div className="w3-col l6 w3-container">
+						<div className="w3-display-container w3-padding w3-margin-bottom">
+							<div className="w3-btn w3-large w3-text-green w3-display-topleft" onClick={this.handleSearch}>
+								<FontAwesomeIcon className="w3-margin-right" icon={faSearch}  size="lg"/>
+								Tìm kiếm
+							</div>
+							<NavLink to="/verify">
+								<div className="w3-btn w3-large w3-text-green w3-display-topright" onClick={this.handleSearch}>
+									Kiểm duyệt <FontAwesomeIcon className="w3-margin-right" icon={faCheckSquare}  size="lg"/>
+								</div>
+							</NavLink>
+							<br/>
+						</div>
 						{games}
 					</div>
 					<div className="w3-col l3"><br/></div>

@@ -2,7 +2,7 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {NavLink} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faPlusCircle, faListAlt, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faPlusCircle, faListAlt } from '@fortawesome/free-solid-svg-icons';
 
 class Navbar extends React.Component{
 	constructor(){
@@ -16,15 +16,12 @@ class Navbar extends React.Component{
 					<NavLink to="/"><div className="w3-button w3-margin-right w3-green w3-bar-item">
 						<FontAwesomeIcon icon={faHome} size="lg" /> 
 					</div></NavLink> 
-					<NavLink to="/addnew"><div className="w3-button w3-margin-right w3-green w3-bar-item">
-						<FontAwesomeIcon icon={faPlusCircle} size="lg" /> 
-					</div></NavLink> 
 					<NavLink to="/allgames"><div className="w3-button w3-margin-right w3-green w3-bar-item">
 						<FontAwesomeIcon icon={faListAlt} size="lg" />
 					</div></NavLink> 
-					<NavLink to="/verify"><div className="w3-button w3-margin-right w3-green w3-bar-item">
-						<FontAwesomeIcon icon={faCheckSquare} size="lg" inverse />
-					</div></NavLink>
+					<NavLink to="/addnew"><div className="w3-button w3-margin-right w3-green w3-bar-item">
+						<FontAwesomeIcon icon={faPlusCircle} size="lg" /> 
+					</div></NavLink> 
 				</div>
 			</div>
 		);
