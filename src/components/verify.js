@@ -120,6 +120,11 @@ class Verify extends React.Component{
 				if (i.so_luong == 1) so_luong = "Dưới 10 người";
 					else if (i.so_luong == 2) so_luong = "Từ 10 đến 25 người";
 					else so_luong = "Trên 30 người";
+					
+				let doi_hinh = "";
+				if (i.doi_hinh == 1) doi_hinh = "Cá nhân";
+				else if (i.doi_hinh == 2) doi_hinh = "Vòng tròn";
+				else if (i.doi_hinh == 3) doi_hinh = "Chia nhóm";
 				
 				let ki_nang = i.ki_nang.map((j, ind) => {
 					if (j==1 && ind == 0) return "[Nhanh nhẹn] ";
@@ -149,6 +154,7 @@ class Verify extends React.Component{
 						<div className="w3-container w3-card w3-sand w3-padding">
 							<h3 className="w3-center">{i.ten}</h3>
 							<div><b>Số lượng người chơi: </b>{so_luong}</div>
+							<div><b>Đội hình chơi: </b>{doi_hinh}</div>
 							<div><b>Kĩ năng rèn luyện: </b>{ki_nang}</div>
 							<div><b>Mô tả:</b><div className="w3-margin">{i.mo_ta}</div></div>
 							{buttons}
@@ -187,6 +193,7 @@ class Verify extends React.Component{
 						{verify}
 					<div className="w3-col l3"><br/></div>
 				</div>
+				<br/><br/>
 			</div >
 		);
 	}
