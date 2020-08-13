@@ -46,6 +46,7 @@ class AllGames extends React.Component{
 			url : URL + "/getgames",
 		}).then(res => {return res.data}).then(data => {
 			this.setState({games: data});
+			console.log(data);
 			setTimeout(() => {this.overlayRef.current.style.display = "none"}, 1000);
 		})
 	}
@@ -108,13 +109,18 @@ class AllGames extends React.Component{
 				let cond = true;
 				cond = (this.state.f_soluong === "" || this.state.f_soluong === i.so_luong) && (this.state.f_doihinh === "" || this.state.f_doihinh === i.doi_hinh);
 				
+				let author = "Unknown";
+				if (i.dong_gop != "" && ('dong_gop' in i))
+					author = i.dong_gop;
+				
 				if (cond)
 					return(
 						<div>
 							<div className="w3-container w3-card w3-pale-green">
 								<h3 className="w3-center">{i.ten}</h3>
+								<div className="w3-center w3-text-grey"><i>by {author}</i></div>
 								<div className="w3-center w3-text-red"><i>{so_luong} {doi_hinh}</i></div>
-								<div><div className="w3-margin w3-center">{ki_nang}</div></div>
+								<div><div className="w3-center">{ki_nang}</div></div>
 								<div className="w3-clear"></div>
 								<div><div className="w3-margin" style={{whiteSpace: "pre-wrap"}}>{i.mo_ta}</div></div>
 							</div>
@@ -181,7 +187,7 @@ class AllGames extends React.Component{
 							</div>
 							<NavLink to="/verify">
 								<div className="w3-btn w3-large w3-text-green w3-display-topright" onClick={this.handleSearch}>
-									Kiểm duyệt <FontAwesomeIcon className="w3-margin-right" icon={faCheckSquare}  size="lg"/>
+									Quản lý <FontAwesomeIcon className="w3-margin-right" icon={faCheckSquare}  size="lg"/>
 								</div>
 							</NavLink>
 							<br/>

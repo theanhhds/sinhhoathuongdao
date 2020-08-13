@@ -9,6 +9,7 @@ class AddNew extends React.Component {
 		super();
 		this.state = {
 			n_ten: "",
+			n_donggop : "",
 			n_soluong: 0,
 			n_mota: "",
 			n_doihinh : 0,
@@ -67,17 +68,18 @@ class AddNew extends React.Component {
 		data.ki_nang = this.state.n_kinang;
 		data.mo_ta = this.state.n_mota;
 		data.doi_hinh = this.state.n_doihinh;
+		data.dong_gop = this.state.n_donggop;
 		// console.log(URL + "/addnew");
 		axios({
 			method: 'post',
 			url: URL+"/addnew",
 			data: data,
 		}).then(res =>{return res.data}).then(data => {
-			console.log(data);
+			// console.log(data);
 			// this.setState({n_ten: "", n_kinang: [], n_mota: "", n_soluong: 0, captcha_OK: false});
 			// document.querySelectorAll('input[type=checkbox]').forEach( el => el.checked = false );	//Uncheck all checkboxes
 			// alert("Trò chơi đã được lưu vào dữ liệu và đang đợi để được xác nhận bởi admin");
-			this.setState({n_ten : "", n_soluong: 0, n_doihinh: 0, n_mota: "", n_kinang : [0,0,0,0,0]});
+			this.setState({n_ten : "", n_soluong: 0, n_doihinh: 0, n_mota: "", n_kinang : [0,0,0,0,0], n_donggop: ""});
 			document.querySelectorAll('input[type=checkbox]').forEach( el => el.checked = false );	//Uncheck all checkboxes
 			setTimeout(() => {this.overlayRef.current.style.display = "none"}, 4000);
 			// this.props.history.push('/allgames');
@@ -137,6 +139,10 @@ class AddNew extends React.Component {
 						<lable><b> Mô tả </b></lable>
 							<textarea className="w3-block w3-margin" value={this.state.n_mota} style={{height:200}} name="n_mota"  
 								onChange={this.handleChange} />
+								
+						<lable><b> Người đóng góp </b></lable>
+							<input type="text" className="w3-input w3-margin" name="n_donggop" value={this.state.n_dongop} onChange={this.handleChange}/>
+							
 						<div className="w3-container w3-row">		
 							<div className="w3-padding-large">
 								<ReCAPTCHA
