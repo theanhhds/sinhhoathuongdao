@@ -3,7 +3,7 @@ import axios from 'axios';
 import {URL} from './url.js';
 import {withRouter} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 class Verify extends React.Component{
 	constructor(){
@@ -21,9 +21,12 @@ class Verify extends React.Component{
 			e_doihinh : 0,
 			e_mota: "",
 			e_id: "",
+			e_theloai : 0,
 			e_mess : " ",
 			editOpen : false,
 		}
+		this.overlayRef = React.createRef();
+		
 		this.getGames = this.getGames.bind(this);
 		this.shuffle = this.shuffle.bind(this);
 		this.handleUserChange = this.handleUserChange.bind(this);
@@ -40,6 +43,7 @@ class Verify extends React.Component{
 		this.handleEditChange = this.handleEditChange.bind(this);
 		this.handleEditSave = this.handleEditSave.bind(this);
 		this.handleEditOpen = this.handleEditOpen.bind(this);
+		this.closeOverlay = this.closeOverlay.bind(this);
 	}
 	
 	getGames(){
@@ -188,7 +192,7 @@ class Verify extends React.Component{
 		let id = e.target.value;
 		let game = this.state.games[id];
 		// console.log(game);
-		this.setState({e_ten: game.ten, e_soluong: game.so_luong, e_mota: game.mo_ta, e_doihinh: game.doi_hinh, e_id: game._id, e_mess: " "});
+		this.setState({e_ten: game.ten, e_soluong: game.so_luong, e_mota: game.mo_ta, e_doihinh: game.doi_hinh, e_id: game._id, e_mess: " ", e_theloai: game.the_loai});
 	}
 	
 	handleEditChange(e){
@@ -205,6 +209,7 @@ class Verify extends React.Component{
 		data.so_luong = this.state.e_soluong;
 		data.doi_hinh = this.state.e_doihinh;
 		data.mo_ta = this.state.e_mota;
+		data.the_loai = this.state.e_theloai;
 		axios({
 			method: 'post',
 			url: URL+"/editGame",
@@ -219,6 +224,12 @@ class Verify extends React.Component{
 	handleEditOpen(){
 		let value = !this.state.editOpen;
 		this.setState({editOpen: value});
+		this.overlayRef.current.style.display = "block";
+	}
+
+	closeOverlay(){
+		this.overlayRef.current.style.display = "none";
+		this.setState({editOpen: false});
 	}
 	
 	render(){
@@ -236,20 +247,15 @@ class Verify extends React.Component{
 				else if (i.doi_hinh == 3) doi_hinh = "Chia nhóm";
 				else if (i.doi_hinh == 4) doi_hinh = "Khác";
 				
-				let ki_nang = i.ki_nang.map((j, ind) => {
-					if (j==1 && ind == 0) return "[Nhanh nhẹn] ";
-					if (j==1 && ind == 1) return "[Hoạt bát] ";
-					if (j==1 && ind == 2) return "[Trí tuệ] ";
-					if (j==1 && ind == 3) return "[Dũng cảm] ";
-					if (j==1 && ind == 4) return "[Khéo léo] ";
-					return "";
-				});
+				let the_loai;
+				if (i.the_loai == 1) the_loai = "Trò chơi sinh hoạt tập thể";
+				else if (i.the_loai == 2) the_loai = "Trò chơi rèn luyện kỹ năng";
 				
 				let buttons;
 				if (this.state.confirm_button[ind]){
 					buttons = 	(<div className="w3-left w3-animate-zoom">
 									<button className="w3-btn w3-green w3-margin-right" value={ind} 
-										onClick={() => {this.handleYesButton(ind)}}>Yes</button>
+										onClick={() => {this.handleYesButton(ind)}}>Ok</button>
 									<button className="w3-btn w3-red" value={ind} 
 										onClick={() => {this.handleNoButton(ind)}}>No</button>
 								</div>
@@ -265,7 +271,7 @@ class Verify extends React.Component{
 				if (this.state.confirm_button2[ind]){
 					buttons2 = 	(<div className="w3-right w3-animate-zoom">
 									<button className="w3-btn w3-red w3-margin-right" value={ind} 
-										onClick={() => {this.handleYesButton2(ind)}}>Yes</button>
+										onClick={() => {this.handleYesButton2(ind)}}>Ok</button>
 									<button className="w3-btn w3-green" value={ind} 
 										onClick={() => {this.handleNoButton2(ind)}}>No</button>
 								</div>
@@ -298,14 +304,15 @@ class Verify extends React.Component{
 						hide += " w3-hide";
 				}
 				
+				
 				return(
 					<div className={hide}>
 						<div className={hide2}>
 							<h3 className="w3-center">{i.ten}</h3>
 							<div className={hide_style}><b>Status: </b>{hide_status}</div>
+							<div><b>Thể loại trò chơi: </b>{the_loai}</div>
 							<div><b>Số lượng người chơi: </b>{so_luong}</div>
 							<div><b>Đội hình chơi: </b>{doi_hinh}</div>							
-							<div><b>Kĩ năng rèn luyện: </b>{ki_nang}</div>
 							<div><b>Người đóng góp: </b>{i.dong_gop}</div>
 							<div><b>Mô tả:</b><div className="w3-margin" style={{whiteSpace: "pre-wrap"}}>{i.mo_ta}</div></div>
 							<div className="w3-row-padding">
@@ -319,52 +326,41 @@ class Verify extends React.Component{
 			}
 		})
 		
-		// ------------ MAIN -------------
 		
-		let verify, login;
-		
-		login = (
-			<div className="w3-container">
-				<input type='password' placeholder="" value={this.state.username} 
-					onChange={this.handleUserChange} className="w3-input" autofocus="true"/>
-				<div className="w3-center">{this.state.message}</div>
-				<br/>
-				<button className="w3-btn w3-red w3-right" onClick={this.handleUserConfirm}>Xác nhận</button>
-			</div>
-		);
-		
-		if (this.state.isUser) 
-			verify = (<div className="w3-container">{games}</div>);
-		else
-			verify = (login);
-		
-		// --------------- EDIT ------------
-		let option_list = this.state.games.map((i, ind) => {
-			let isHide = " (Hiện) ";
-			if (i.check == 0)
-				isHide = " (Ẩn) ";
-			return (
-				<option value={ind}>{i.ten + isHide}</option>
-			);
-		});
+		// ----------------- EDIT -----------------
 		
 		let edit, editHide = "w3-hide";
 		if (this.state.editOpen)
 			editHide = "w3-animate-opacity";
 		
+		let option_list = this.state.games.map((i, ind) => {
+			let isHide = " (Hiện) ";
+			if (i.check == 0)
+				isHide = " (Ẩn) ";
+			return (
+				<option value={ind}>{ isHide + i.ten }</option>
+			);
+		});
+		
 		edit = (
 			<div className="w3-pale-red w3-card w3-container w3-padding">
-				<div className="w3-center w3-margin-top">
-					<button className="w3-center w3-btn w3-large w3-deep-orange" onClick={this.handleEditOpen}>Chỉnh sửa trò chơi <FontAwesomeIcon icon={faEdit}/> </button>
-				</div>
-				<br/>
+				<div onClick={this.closeOverlay} className="w3-btn w3-right w3-text-red"><FontAwesomeIcon icon={faWindowClose} size="lg"/></div>
+				<br/><br/>
 				<div className={editHide}>
 					<select className="w3-select" onChange={this.handleChange}>
 						<option disabled selected>Chọn trò chơi để chỉnh sửa</option>
 						{option_list}
 					</select>
 					<br/><br/>
-					<input className="w3-input" placeholder="Tên trò chơi" name="e_ten" value={this.state.e_ten} onChange={this.handleEditChange}/>
+					
+					<div className="w3-row">
+						<input className="w3-input w3-margin w3-col l5" placeholder="Tên trò chơi" name="e_ten" value={this.state.e_ten} onChange={this.handleEditChange}/>
+						<select name="e_theloai" onChange={this.handleEditChange} value={this.state.e_theloai} className="w3-select w3-margin w3-col l5">
+							<option value="0" disabled selected>Thể loại trò chơi</option>
+							<option value="1">Trò chơi sinh hoạt tập thể</option>
+							<option value="2">Trò chơi rèn luyện kĩ năng</option>
+						</select>
+					</div>
 					
 					<div className="w3-row">
 						
@@ -386,12 +382,49 @@ class Verify extends React.Component{
 					<textarea className="w3-block" placeholder="Mô tả trò chơi" name="e_mota" value={this.state.e_mota} onChange={this.handleEditChange} style={{height: "200px"}}></textarea>
 					<br/>
 					<div className="w3-row">
-						<button className="w3-col l5 w3-btn w3-green" onClick={this.handleEditSave}>Save</button>
+						<button className="w3-btn w3-green w3-right" onClick={this.handleEditSave}>Save</button>
 						<div className="w3-col l5 w3-text-red w3-center">{this.state.e_mess}</div>
 					</div>
 				</div>
 			</div>
 		);
+		
+		// ------------ MAIN -------------
+		
+		let verify, login;
+		
+		login = (
+			<div className="w3-container">
+				<input type='password' placeholder="" value={this.state.username} 
+					onChange={this.handleUserChange} className="w3-input" autofocus="true"/>
+				<div className="w3-center">{this.state.message}</div>
+				<br/>
+				<button className="w3-btn w3-red w3-right" onClick={this.handleUserConfirm}>Xác nhận</button>
+			</div>
+		);
+		
+		if (this.state.isUser) 
+			verify   =  (<div className="w3-container">
+							<div className="w3-container">
+								<div className="w3-center w3-padding-large">
+									<input type="checkbox" className="w3-check" value={this.state.isHidden} 
+										onChange={this.handleHidden}/> 
+									&nbsp; &nbsp; {this.state.isHiddenMess}
+								</div>
+								<div className="w3-center w3-margin-top">
+									<button className="w3-center w3-btn w3-large w3-deep-orange" onClick={this.handleEditOpen}>Chỉnh sửa trò chơi <FontAwesomeIcon icon={faEdit}/> </button>
+								</div>
+								<div className="w3-modal" ref={this.overlayRef}>
+									<div className="w3-modal-content w3-animate-top">
+										{edit}
+									</div>
+								</div>
+								<br/>
+							</div>
+							{games}
+						</div>);
+		else
+			verify = (login);		
 		
 		return (
 			<div className="w3-container">
@@ -401,16 +434,10 @@ class Verify extends React.Component{
 				<div className="w3-center">--- Xin chào, {this.state.ten} ---</div>
 				<br/>
 				
-				<div className="w3-center w3-padding-large"><input type="checkbox" className="w3-check" value={this.state.isHidden} 
-					onChange={this.handleHidden}/> {this.state.isHiddenMess}</div>
 				<br/>
 				<div className="w3-row-padding">
 					<div className="w3-col l3"><br/></div>
 					<div className="w3-col l6">
-						<div className="w3-container">
-							{edit}
-							<br/>
-						</div>
 						{verify}
 					</div>
 					<div className="w3-col l3"><br/></div>

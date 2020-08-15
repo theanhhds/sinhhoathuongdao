@@ -15,15 +15,21 @@ class AllGames extends React.Component{
 		this.filterRef = React.createRef();
 		
 		this.state = {
+			games1 : [],
+			games2 : [],
 			games : [],
 			f_doihinh : "",
 			f_soluong : "",
+			the_loai : 1,
+			btn_sinhhoat: "w3-center w3-margin w3-col w3-large l5 w3-btn w3-green w3-padding",
+			btn_kinang: "w3-center w3-margin w3-col w3-large l5 w3-btn w3-border w3-border-green w3-padding",
 		}
 		this.getGames = this.getGames.bind(this);
 		this.shuffle = this.shuffle.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSearch = this.handleSearch.bind(this);
 		this.closeFilter = this.closeFilter.bind(this);
+		this.switchGames = this.switchGames.bind(this);
 	}
 	
 	shuffle(a) {
@@ -39,15 +45,23 @@ class AllGames extends React.Component{
 	
 	getGames(){
 		// console.log(URL);
-		var data = {psw: "sc0utgames"}
+		var data = {psw: "sc0utgames"}, i = 0;
 		axios({
 			method: "post",
 			data: data,
 			url : URL + "/getgames",
 		}).then(res => {return res.data}).then(data => {
-			this.setState({games: data});
-			console.log(data);
-			setTimeout(() => {this.overlayRef.current.style.display = "none"}, 1000);
+			let g1 = new Array(), g2 = new Array();
+			data.map((i) => {
+				if (i.the_loai == 1)
+					g1.push(i);
+				else if (i.the_loai == 2)
+					g2.push(i);
+			});
+			// console.log(g1,g2);
+			this.setState({games1: g1, games2: g2, games: g1});
+			// console.log(data);
+			setTimeout(() => {this.overlayRef.current.style.display = "none"}, 500);
 		})
 	}
 	
@@ -73,6 +87,33 @@ class AllGames extends React.Component{
 		this.filterRef.current.style.display = "none";
 	}
 	
+	switchGames(e){
+		let value = e.target.value;
+		
+		if (value == 1){
+			let games = this.state.games1;
+			// console.log(games);
+			this.setState({
+				games: games,
+				btn_sinhhoat: "w3-center w3-margin w3-col w3-large l5 w3-btn w3-green w3-padding",
+				btn_kinang: "w3-center w3-margin w3-col w3-large l5 w3-btn w3-border w3-border-green w3-padding",
+				f_doihinh : "",
+				f_soluong : "",
+			});
+		}
+		else if (value == 2){
+			let games = this.state.games2;
+			// console.log(games);
+			this.setState({
+				games: games,
+				btn_sinhhoat: "w3-center w3-margin w3-col w3-large l5 w3-btn w3-border w3-border-green w3-padding",
+				btn_kinang: "w3-center w3-margin w3-col w3-large l5 w3-btn w3-green w3-padding",
+				f_doihinh : "",
+				f_soluong : "",
+			});
+		}
+	}
+	
 	render(){
 		let games = "";
 		games = this.state.games.map((i) => {
@@ -92,20 +133,22 @@ class AllGames extends React.Component{
 					else if (i.doi_hinh == 4) doi_hinh = "#khác";
 				}
 				
-				let ki_nang = i.ki_nang.map((j, ind) => {
-					if (j==1 && ind == 0) 
-							return <span className="w3-tag w3-margin w3-round-xlarge w3-deep-orange w3-padding-small">Nhanh nhẹn</span>;
-					if (j==1 && ind == 1) 
-							return <span className="w3-tag w3-margin w3-round-xlarge w3-blue w3-padding-small">Hoạt bát</span>;
-					if (j==1 && ind == 2) 
-							return <span className="w3-tag w3-margin w3-round-xlarge w3-green w3-padding-small">Trí tuệ</span>;
-					if (j==1 && ind == 3) 
-							return <span className="w3-tag w3-margin w3-round-xlarge w3-red w3-padding-small">Dũng cảm</span>;
-					if (j==1 && ind == 4) 
-							return <span className="w3-tag w3-margin w3-round-xlarge w3-purple w3-padding-small">Khéo léo</span>;
-					return "";
-				});
+				let ki_nang, ten_ki_nang = [
+					[],
+					["Nhanh nhẹn", "Làm việc nhóm", "Trí tuệ", "Dũng cảm", "Khéo léo"],
+					["Nút dây", "Truyền tin", "Cứu thương", "Phương hướng", "Cắm trại"]
+				], mau_ki_nang = [
+					[],
+					["w3-margin w3-padding-small w3-tag w3-round-xlarge w3-green", "w3-margin w3-padding-small w3-tag w3-round-xlarge w3-red", "w3-margin w3-padding-small w3-tag w3-round-xlarge w3-deep-orange", "w3-margin w3-padding-small w3-tag w3-round-xlarge w3-blue", "w3-margin w3-padding-small w3-tag w3-round-xlarge w3-indigo"],
+					["w3-margin w3-padding-small w3-tag w3-round-xlarge w3-indigo", "w3-margin w3-padding-small w3-tag w3-round-xlarge w3-blue", "w3-margin w3-padding-small w3-tag w3-round-xlarge w3-red", "w3-margin w3-padding-small w3-tag w3-round-xlarge w3-deep-orange", "w3-margin w3-padding-small w3-tag w3-round-xlarge w3-green"]
+				];
 				
+					ki_nang = i.ki_nang.map((j, ind) => {
+						if (j == 1)
+							return  <span className={mau_ki_nang[i.the_loai][ind]}>{ten_ki_nang[i.the_loai][ind]}</span>;
+						return "";
+					});
+					
 				let cond = true;
 				cond = (this.state.f_soluong === "" || this.state.f_soluong === i.so_luong) && (this.state.f_doihinh === "" || this.state.f_doihinh === i.doi_hinh);
 				
@@ -115,12 +158,12 @@ class AllGames extends React.Component{
 				
 				if (cond)
 					return(
-						<div>
+						<div >
 							<div className="w3-container w3-card w3-pale-green">
-								<h3 className="w3-center">{i.ten}</h3>
+								<h3 className="w3-center font-comic">{i.ten}</h3>
 								<div className="w3-center w3-text-grey"><i>by {author}</i></div>
 								<div className="w3-center w3-text-red"><i>{so_luong} {doi_hinh}</i></div>
-								<div><div className="w3-center">{ki_nang}</div></div>
+								<div><div className="w3-center font-comic">{ki_nang}</div></div>
 								<div className="w3-clear"></div>
 								<div><div className="w3-margin" style={{whiteSpace: "pre-wrap"}}>{i.mo_ta}</div></div>
 							</div>
@@ -173,13 +216,16 @@ class AllGames extends React.Component{
 					{filter}
 				</div>
 				
-				<h1 className="w3-center">Tất cả các trò chơi</h1>
+				<h1 className="w3-center w3-wide">Tất cả các trò chơi</h1>
 				<h5 className="w3-center"><i>Let's play!</i></h5>
-				<br/>
 				<br/>
 				<div className="w3-row-padding">
 					<div className="w3-col l3"><br/></div>
 					<div className="w3-col l6 w3-container">
+						<div className="w3-row-padding w3-center">
+							<button className={this.state.btn_sinhhoat} value='1' onClick={this.switchGames}>Trò chơi sinh hoạt</button>
+							<button className={this.state.btn_kinang}  value='2' onClick={this.switchGames}>Trò chơi kĩ năng</button>
+						</div>
 						<div className="w3-display-container w3-padding w3-margin-bottom">
 							<div className="w3-btn w3-large w3-text-green w3-display-topleft" onClick={this.handleSearch}>
 								<FontAwesomeIcon className="w3-margin-right" icon={faSearch}  size="lg"/>
@@ -187,7 +233,7 @@ class AllGames extends React.Component{
 							</div>
 							<NavLink to="/verify">
 								<div className="w3-btn w3-large w3-text-green w3-display-topright" onClick={this.handleSearch}>
-									Quản lý <FontAwesomeIcon className="w3-margin-right" icon={faCheckSquare}  size="lg"/>
+									Quản lý &nbsp; <FontAwesomeIcon className="w3-margin-right" icon={faCheckSquare}  size="lg"/>
 								</div>
 							</NavLink>
 							<br/>

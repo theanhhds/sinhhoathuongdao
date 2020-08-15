@@ -1,4 +1,4 @@
-//	http://localhost:8080
+//	http://localhost:8000
 //	https://mighty-savannah-08232.herokuapp.com
 const URL = "https://mighty-savannah-08232.herokuapp.com";
 
