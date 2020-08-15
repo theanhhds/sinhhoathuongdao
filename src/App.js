@@ -21,7 +21,7 @@ class App extends React.Component{
 	
 	componentDidMount(){
 		axios({method: "get", url: URL+"/wake"}).then(res => {return res.data}).then(data => {
-			console.log(data);
+			// console.log(data);
 			setTimeout( () => {this.myRef.current.className="w3-hide"},1000);
 		});
 	}

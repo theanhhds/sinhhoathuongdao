@@ -433,8 +433,6 @@ class Verify extends React.Component{
 				<br/>
 				<div className="w3-center">--- Xin chào, {this.state.ten} ---</div>
 				<br/>
-				
-				<br/>
 				<div className="w3-row-padding">
 					<div className="w3-col l3"><br/></div>
 					<div className="w3-col l6">

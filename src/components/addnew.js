@@ -163,7 +163,7 @@ class AddNew extends React.Component {
 					</div>
 				</div>
 				<h1 className="w3-center w3-wide">Thêm trò chơi mới</h1>
-				<h5 className="w3-center"><i>Bạn có ý tưởng trò chơi mới? Hãy chia sẻ ngay với chúng tôi nhé</i></h5>
+				<h5 className="w3-center"><i>Bạn có ý tưởng trò chơi mới? Hãy chia sẻ ngay nhé</i></h5>
 				<div className="w3-center w3-text-grey">Những nơi có dấu (*) là bắt buộc</div>
 				<div className="w3-row">
 					<div className="w3-col l2"><br/></div>
@@ -182,24 +182,27 @@ class AddNew extends React.Component {
 								
 							<lable><b> Kĩ năng rèn luyện </b></lable>
 								{kinang}
-								
-							<lable><b> Số lượng người chơi (*)</b></lable>
-								<select className="w3-select w3-margin" name="n_soluong" value={this.state.n_soluong} onChange={this.handleChange}>
-									<option value="0" disabled selected>Chọn</option>
-									<option value="1">1-10 người</option>
-									<option value="2">10-25 người</option>
-									<option value="3">Trên 25 người</option>
-								</select>
-								
-							<lable><b> Đội hình chơi (*)</b></lable>
-								<select className="w3-select w3-margin" name="n_doihinh" value={this.state.n_doihinh} onChange={this.handleChange}>
-									<option value="0" disabled selected>Chọn</option>
-									<option value="1">Cá nhân</option>
-									<option value="2">Vòng tròn</option>
-									<option value="3">Chia nhóm</option>
-									<option value="4">Khác</option>
-								</select>
-								
+							<div className="w3-row-padding">
+								<div className="w3-col l6">
+									<lable><b> Số lượng người chơi (*)</b></lable>
+									<select className="w3-select w3-margin" name="n_soluong" value={this.state.n_soluong} onChange={this.handleChange}>
+										<option value="0" disabled selected>Chọn</option>
+										<option value="1">1-10 người</option>
+										<option value="2">10-25 người</option>
+										<option value="3">Trên 25 người</option>
+									</select>
+								</div>
+								<div className="w3-col l6">
+									<lable><b> Đội hình chơi (*)</b></lable>
+									<select className="w3-select w3-margin" name="n_doihinh" value={this.state.n_doihinh} onChange={this.handleChange}>
+										<option value="0" disabled selected>Chọn</option>
+										<option value="1">Cá nhân</option>
+										<option value="2">Vòng tròn</option>
+										<option value="3">Chia nhóm</option>
+										<option value="4">Khác</option>
+									</select>
+								</div>
+							</div>
 							<lable><b> Mô tả (*)</b></lable>
 								<textarea className="w3-block w3-margin" value={this.state.n_mota} style={{height:200}} name="n_mota"  
 									onChange={this.handleChange} />
