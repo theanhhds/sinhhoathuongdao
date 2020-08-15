@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import './allgames.css';
 import {URL} from './url.js';
 import Verify from './verify';
 import {NavLink} from 'react-router-dom';
@@ -188,15 +189,14 @@ class AllGames extends React.Component{
 					openOrClose = "w3-hide";
 				}
 				
-				let panelColor = ["w3-pale-green w3-container", "w3-pale-blue w3-container", "w3-pale-red w3-container", 
-						"w3-sand w3-container", "w3-pale-yellow w3-container", "w3-white w3-container"];
-				let pColor = panelColor[Math.floor(Math.random() * 6)];
+				let pColor = index%2==0?"anchor-bg":"food-bg";
 				
 				if (cond)
 					return(
 						<div >
 							<div className="w3-card w3-animate-bottom">
 								<div className={pColor}>
+									<div className="w3-container">
 									<div className="w3-right w3-btn" id={index} onClick={this.handleGameOpen}>
 										<FontAwesomeIcon icon={iconOpen}/>
 									</div>
@@ -209,6 +209,7 @@ class AllGames extends React.Component{
 									<div className={openOrClose}>
 										<div className="w3-clear"></div>
 										<div><div className="w3-margin" style={{whiteSpace: "pre-wrap"}}>{i.mo_ta}</div></div>
+									</div>
 									</div>
 								</div>
 							</div>
