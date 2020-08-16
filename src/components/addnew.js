@@ -23,6 +23,8 @@ class AddNew extends React.Component {
 		this.notEnoughRef = React.createRef();
 		this.overlayRef = React.createRef();
 		this.openAddNew = React.createRef();
+		this.thankyou = React.createRef();
+		this.attention = React.createRef();
 		this.handleChange = this.handleChange.bind(this);
 		this.handleChange1 = this.handleChange1.bind(this);
 		this.handleCheckBox = this.handleCheckBox.bind(this);
@@ -102,7 +104,9 @@ class AddNew extends React.Component {
 		// console.log(data);
 		if (data.ten == "" || data.so_luong == 0 || data.mo_ta == "" || data.doi_hinh == 0 || data.the_loai == 0){
 			this.notEnoughRef.current.style.display = "block";
-			setTimeout(() => {this.notEnoughRef.current.style.display = "none"}, 4000);
+			this.attention.current.style.display = "block";
+			setTimeout(() => {this.notEnoughRef.current.style.display = "none"; 
+								this.attention.current.style.display = "none"}, 4000);
 		}
 		else{
 			// console.log(URL + "/addnew");
@@ -162,25 +166,34 @@ class AddNew extends React.Component {
 		
 		return(
 			<div className="w3-container">
+			
 				<div className="w3-overlay w3-display-container" ref={this.overlayRef}>
-					<div className="w3-pale-green w3-display-middle w3-padding-large">
-						<h3 className="w3-green w3-padding">Cảm ơn bạn</h3>
-						<div className="w3-section">
-							Trò chơi đã được lưu vào dữ liệu và đang đợi để được xác nhận
+					<div className=" w3-display-middle ">
+						<div className="w3-pale-green w3-padding-large animate__animated animate__fadeIn" ref={this.thankyou}
+							style={{display:"none"}}>
+							<h3 className="w3-green w3-padding">Cảm ơn bạn</h3>
+							<div className="w3-section">
+								Trò chơi đã được lưu vào dữ liệu và đang đợi để được xác nhận
+							</div>
 						</div>
 					</div>
 				</div>
-				<div className="w3-overlay w3-display-container" ref={this.notEnoughRef}>
-					<div className="w3-pale-red w3-display-middle w3-padding-large">
-						<h3 className="w3-red w3-padding">Chú ý</h3>
-						<div className="w3-section">
-							Bạn hãy điền đầy đủ thông tin vào các nơi có dấu <b>(*)</b> nhé
+				
+				<div className="w3-overlay w3-display-container " ref={this.notEnoughRef} >
+					<div className=" w3-display-middle ">
+						<div className="w3-pale-red w3-padding animate__animated animate__shakeX" ref={this.attention} 
+							style={{display:"none"}}>
+							<h3 className="w3-red w3-padding">Chú ý</h3>
+							<div className="w3-section">
+								Bạn hãy điền đầy đủ thông tin vào các nơi có dấu <b>(*)</b> nhé
+							</div>
 						</div>
 					</div>
 				</div>
-				<h1 className="w3-center w3-wide">Thêm trò chơi mới</h1>
-				<h5 className="w3-center"><i>Bạn có ý tưởng trò chơi mới? Hãy chia sẻ ngay nhé</i></h5>
-				<div className="w3-center w3-text-grey">Những nơi có dấu (*) là bắt buộc</div>
+				
+				<h1 className="w3-center w3-wide animate__animated animate__jackInTheBox">Thêm trò chơi mới</h1>
+				<h5 className="w3-center animate__animated animate__fadeIn"><i>Bạn có ý tưởng trò chơi mới? Hãy chia sẻ ngay nhé</i></h5>
+				<div className="w3-center w3-text-grey animate__animated ">Những nơi có dấu (*) là bắt buộc</div>
 				<div className="w3-row">
 					<div className="w3-col l3"><br/></div>
 					<div className="w3-col l6 w3-container w3-padding-large" >

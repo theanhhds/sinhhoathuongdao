@@ -98,6 +98,7 @@ class AllGames extends React.Component{
 	closeFilter() {
 		this.filterRef.current.style.display = "none";
 		this.setState({f_doihinh: "", f_soluong: "", f_child: false});
+		document.querySelectorAll('input[type=checkbox]').forEach( el => el.checked = false );
 	}
 	
 	switchGames(e){
@@ -213,25 +214,25 @@ class AllGames extends React.Component{
 				if (cond)
 					return(
 						<div >
-							<div className="w3-card w3-animate-bottom">
+							<div className="w3-card w3-display-container animate__animated animate__slideInUp">
 								<div className={pColor}>
 									<div className="w3-container">
-									<div className={forChild} title="Thích hợp cho trẻ em">
-										<FontAwesomeIcon icon={faChild} size="lg"/>
-									</div>
-									<div className="w3-right w3-btn" id={index} onClick={this.handleGameOpen}>
-										<FontAwesomeIcon icon={iconOpen}/>
-									</div>
-									<h3 className="w3-center font-comic">{i.ten}</h3>
-									<div className="w3-center w3-text-grey"><i>by {author}</i></div>
-									<div className="w3-row-padding">
-										<div className="w3-center w3-col l4 w3-text-red"><i>{so_luong} {doi_hinh}</i></div>
-										<div><div className="w3-center w3-col l8 font-comic">{ki_nang}</div></div>
-									</div>
-									<div className={openOrClose}>
-										<div className="w3-clear"></div>
-										<div><div className="w3-margin" style={{whiteSpace: "pre-wrap"}}>{i.mo_ta}</div></div>
-									</div>
+										<div className={forChild} title="Thích hợp cho trẻ em">
+											<FontAwesomeIcon icon={faChild} size="lg"/>
+										</div>
+										<div className="w3-display-topright w3-btn" id={index} onClick={this.handleGameOpen}>
+											<FontAwesomeIcon icon={iconOpen}/>
+										</div>
+										<h3 className="w3-center font-comic">{i.ten}</h3>
+										<div className="w3-center w3-text-grey"><i>by {author}</i></div>
+										<div className="w3-row-padding">
+											<div className="w3-center w3-col l4 w3-text-red"><i>{so_luong} {doi_hinh}</i></div>
+											<div><div className="w3-center w3-col l8 font-comic">{ki_nang}</div></div>
+										</div>
+										<div className={openOrClose}>
+											<div className="w3-clear"></div>
+											<div><div className="w3-margin" style={{whiteSpace: "pre-wrap"}}>{i.mo_ta}</div></div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -245,7 +246,7 @@ class AllGames extends React.Component{
 		filter = (
 		<div>
 			
-			<div className="w3-sand w3-card w3-padding-large w3-round-xlarge w3-margin-bottom w3-display-container">
+			<div className="w3-sand w3-card w3-padding-large w3-round-xlarge w3-margin-bottom w3-display-container animate__animated animate__fadeIn">
 				<div className=" w3-right" onClick={this.closeFilter} style={{cursor: "pointer"}}>&times;</div>
 				<div className="w3-center w3-text-grey">{this.state.trochoi}</div>
 				<br/>

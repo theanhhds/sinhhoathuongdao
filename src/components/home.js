@@ -12,9 +12,9 @@ class Home extends React.Component {
 	render(){
 		return (
 			<div className="w3-container">
-				<h1 className=" w3-center w3-wide">Chào mừng đến với kho trò chơi!</h1>
+				<h1 className=" w3-center w3-wide animate__animated animate__fadeIn">Chào mừng đến với kho trò chơi!</h1>
 				<br/>
-				<div className="w3-row-padding">
+				<div className="w3-row-padding animate__animated animate__slideInUp">
 					<div className="w3-col l3"><br/></div>
 					<div className="w3-col l6 w3-container w3-padding-large font-comic">
 						Trò chơi là một hoạt động thường dùng để giải trí và đôi khi cũng được sử dụng như một công cụ giáo dục. Nhiều trò chơi đã phát triển thành những môn thể thao và được tổ chức với quy mô lớn như các Đại hội thể thao. Những đặc điểm của trò chơi là: vui, độc lập (hạn chế trong một địa điểm và một khoảng thời gian), may rủi, không sinh lợi (những người chơi không đạt tới một lợi ích vật chất cụ thể), có luật chơi.<br/><br/>
