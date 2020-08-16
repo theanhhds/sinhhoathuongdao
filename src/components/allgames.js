@@ -6,7 +6,7 @@ import Verify from './verify';
 import {NavLink} from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner, faSearch, faCheckSquare, faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faSearch, faCheckSquare, faAngleUp, faAngleDown, faChild } from '@fortawesome/free-solid-svg-icons';
 
 class AllGames extends React.Component{
 	constructor(){
@@ -55,6 +55,7 @@ class AllGames extends React.Component{
 			data: data,
 			url : URL + "/getgames",
 		}).then(res => {return res.data}).then(data => {
+			this.shuffle(data);
 			let g1 = new Array(), g2 = new Array(), openClose = new Array();
 			data.map((i) => {
 				if (i.the_loai == 1){
@@ -190,13 +191,16 @@ class AllGames extends React.Component{
 				}
 				
 				let pColor = index%2==0?"anchor-bg":"food-bg";
-				
+				let forChild = (i.child==1)?"w3-left w3-section w3-text-green":"w3-hide";
 				if (cond)
 					return(
 						<div >
 							<div className="w3-card w3-animate-bottom">
 								<div className={pColor}>
 									<div className="w3-container">
+									<div className={forChild} title="Thích hợp cho trẻ em">
+										<FontAwesomeIcon icon={faChild} size="lg"/>
+									</div>
 									<div className="w3-right w3-btn" id={index} onClick={this.handleGameOpen}>
 										<FontAwesomeIcon icon={iconOpen}/>
 									</div>
@@ -225,7 +229,7 @@ class AllGames extends React.Component{
 			<div className="w3-col l4"><br/></div>
 			<div className="w3-col l4 w3-sand w3-card w3-padding w3-round-xlarge w3-margin-bottom w3-display-container">
 				<h3 className="w3-center">Tìm kiếm</h3>
-				<h4 className="w3-center w3-text-grey">{this.state.trochoi}</h4>
+				<div className="w3-center w3-text-grey">{this.state.trochoi}</div>
 				<br/>
 				<b>Số lượng</b>
 				<select className="w3-select w3-section" name="f_soluong" value={this.state.f_soluong} 

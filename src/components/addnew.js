@@ -14,15 +14,19 @@ class AddNew extends React.Component {
 			n_mota: "",
 			n_doihinh : 0,
 			n_theloai : 0,
-			captcha_OK: false,
 			n_kinang: [0,0,0,0,0],		//Add more here when more ki nang
+			n_child : 0,
+			child_mess : "Không",
+			captcha_OK: false,
 		};
+		
 		this.notEnoughRef = React.createRef();
 		this.overlayRef = React.createRef();
 		this.openAddNew = React.createRef();
 		this.handleChange = this.handleChange.bind(this);
 		this.handleChange1 = this.handleChange1.bind(this);
 		this.handleCheckBox = this.handleCheckBox.bind(this);
+		this.handleCheckBox1 = this.handleCheckBox1.bind(this);
 		this.onChangeCaptcha = this.onChangeCaptcha.bind(this);
 		this.onExpiredCaptcha = this.onExpiredCaptcha.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -41,7 +45,7 @@ class AddNew extends React.Component {
 		const target = event.target;
 		const name = target.name;
 		const value = target.value;
-		
+		console.log(value);
 		this.setState({[name] : value});
 	}
 	
@@ -67,6 +71,16 @@ class AddNew extends React.Component {
 		// console.log(clone);
 	}
 	
+	handleCheckBox1(event){
+		const target = event.target;
+		const name = target.value;
+		const status = target.checked;
+		if (status)
+			this.setState({n_child: 1, child_mess: "Có"});
+		else
+			this.setState({n_child: 0, child_mess: "Không"});
+	}
+	
 	announce(){
 		
 	}
@@ -84,6 +98,8 @@ class AddNew extends React.Component {
 		data.doi_hinh = this.state.n_doihinh;
 		data.dong_gop = this.state.n_donggop;
 		data.the_loai = this.state.n_theloai;
+		data.child = this.state.n_child;
+		// console.log(data);
 		if (data.ten == "" || data.so_luong == 0 || data.mo_ta == "" || data.doi_hinh == 0 || data.the_loai == 0){
 			this.notEnoughRef.current.style.display = "block";
 			setTimeout(() => {this.notEnoughRef.current.style.display = "none"}, 4000);
@@ -166,14 +182,14 @@ class AddNew extends React.Component {
 				<h5 className="w3-center"><i>Bạn có ý tưởng trò chơi mới? Hãy chia sẻ ngay nhé</i></h5>
 				<div className="w3-center w3-text-grey">Những nơi có dấu (*) là bắt buộc</div>
 				<div className="w3-row">
-					<div className="w3-col l2"><br/></div>
-					<div className="w3-col l8 w3-container w3-padding-large">
+					<div className="w3-col l3"><br/></div>
+					<div className="w3-col l6 w3-container w3-padding-large" >
 					
 						<lable><b> Thể loại trò chơi (*)</b></lable>
 						<select className="w3-select w3-margin" name="n_theloai" value={this.state.n_theloai} onChange={this.handleChange1}>
 							<option value="0" disabled selected>Chọn</option>
 							<option value="1">Trò chơi sinh hoạt tập thể</option>
-							<option value="2">Trò chơi rèn luyện kĩ năng sinh hoạt</option>
+							<option value="2">Trò chơi rèn luyện kĩ năng</option>
 						</select>
 						
 						<div ref={this.openAddNew} className="w3-animate-opacity" style={{display:"none"}}>
@@ -182,10 +198,10 @@ class AddNew extends React.Component {
 								
 							<lable><b> Kĩ năng rèn luyện </b></lable>
 								{kinang}
-							<div className="w3-row-padding">
+							<div className="w3-row">
 								<div className="w3-col l6">
 									<lable><b> Số lượng người chơi (*)</b></lable>
-									<select className="w3-select w3-margin" name="n_soluong" value={this.state.n_soluong} onChange={this.handleChange}>
+									<select className="w3-select w3-margin" name="n_soluong" value={this.state.n_soluong} onChange={this.handleChange} style={{width: "85%"}}>
 										<option value="0" disabled selected>Chọn</option>
 										<option value="1">1-10 người</option>
 										<option value="2">10-25 người</option>
@@ -194,7 +210,7 @@ class AddNew extends React.Component {
 								</div>
 								<div className="w3-col l6">
 									<lable><b> Đội hình chơi (*)</b></lable>
-									<select className="w3-select w3-margin" name="n_doihinh" value={this.state.n_doihinh} onChange={this.handleChange}>
+									<select className="w3-select w3-margin" name="n_doihinh" value={this.state.n_doihinh} onChange={this.handleChange} style={{width: "85%"}}>
 										<option value="0" disabled selected>Chọn</option>
 										<option value="1">Cá nhân</option>
 										<option value="2">Vòng tròn</option>
@@ -206,10 +222,18 @@ class AddNew extends React.Component {
 							<lable><b> Mô tả (*)</b></lable>
 								<textarea className="w3-block w3-margin" value={this.state.n_mota} style={{height:200}} name="n_mota"  
 									onChange={this.handleChange} />
-									
-							<lable><b> Người đóng góp </b></lable>
-								<input type="text" className="w3-input w3-margin" name="n_donggop" value={this.state.n_dongop} onChange={this.handleChange}/>
-								
+							<div className="w3-row">
+								<div className="w3-col l6">
+									<lable><b> Thích hợp với trẻ em </b></lable><br/>
+									<input type="checkbox" className="w3-margin w3-check" name="n_child" 
+										onChange={this.handleCheckBox1}/>
+									{this.state.child_mess}
+								</div>
+								<div className="w3-col l6">
+									<lable><b> Người đóng góp </b></lable>
+										<input type="text" className="w3-input w3-margin" name="n_donggop" value={this.state.n_dongop} onChange={this.handleChange}/>
+								</div>
+							</div>	
 							<div className="w3-container w3-row">		
 								<div className="w3-padding-large">
 									<ReCAPTCHA
@@ -222,7 +246,7 @@ class AddNew extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="w3-col l2"><br/></div>
+					<div className="w3-col l3"><br/></div>
 				</div>
 				<br/><br/>
 			</div>

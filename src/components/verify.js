@@ -304,7 +304,7 @@ class Verify extends React.Component{
 						hide += " w3-hide";
 				}
 				
-				
+				let forChild = (i.child==0)?"Không":"Có";
 				return(
 					<div className={hide}>
 						<div className={hide2}>
@@ -312,7 +312,8 @@ class Verify extends React.Component{
 							<div className={hide_style}><b>Status: </b>{hide_status}</div>
 							<div><b>Thể loại trò chơi: </b>{the_loai}</div>
 							<div><b>Số lượng người chơi: </b>{so_luong}</div>
-							<div><b>Đội hình chơi: </b>{doi_hinh}</div>							
+							<div><b>Đội hình chơi: </b>{doi_hinh}</div>		
+							<div><b>Thích hợp cho trẻ em: </b>{forChild}</div>
 							<div><b>Người đóng góp: </b>{i.dong_gop}</div>
 							<div><b>Mô tả:</b><div className="w3-margin" style={{whiteSpace: "pre-wrap"}}>{i.mo_ta}</div></div>
 							<div className="w3-row-padding">
@@ -363,7 +364,6 @@ class Verify extends React.Component{
 					</div>
 					
 					<div className="w3-row">
-						
 						<select name="e_soluong" onChange={this.handleEditChange} value={this.state.e_soluong} className="w3-select w3-margin w3-col l5">
 							<option value="0" disabled selected>Số lượng</option>
 							<option value="1">1-10 người</option>
