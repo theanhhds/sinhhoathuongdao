@@ -199,7 +199,7 @@ class AddNew extends React.Component {
 							<lable><b> Kĩ năng rèn luyện </b></lable>
 								{kinang}
 							<div className="w3-row">
-								<div className="w3-col l6">
+								<div className="w3-col s6">
 									<lable><b> Số lượng người chơi (*)</b></lable>
 									<select className="w3-select w3-margin" name="n_soluong" value={this.state.n_soluong} onChange={this.handleChange} style={{width: "85%"}}>
 										<option value="0" disabled selected>Chọn</option>
@@ -208,7 +208,7 @@ class AddNew extends React.Component {
 										<option value="3">Trên 25 người</option>
 									</select>
 								</div>
-								<div className="w3-col l6">
+								<div className="w3-col s6">
 									<lable><b> Đội hình chơi (*)</b></lable>
 									<select className="w3-select w3-margin" name="n_doihinh" value={this.state.n_doihinh} onChange={this.handleChange} style={{width: "85%"}}>
 										<option value="0" disabled selected>Chọn</option>
@@ -223,13 +223,13 @@ class AddNew extends React.Component {
 								<textarea className="w3-block w3-margin" value={this.state.n_mota} style={{height:200}} name="n_mota"  
 									onChange={this.handleChange} />
 							<div className="w3-row">
-								<div className="w3-col l6">
+								<div className="w3-col s6">
 									<lable><b> Thích hợp với trẻ em </b></lable><br/>
 									<input type="checkbox" className="w3-margin w3-check" name="n_child" 
 										onChange={this.handleCheckBox1}/>
 									{this.state.child_mess}
 								</div>
-								<div className="w3-col l6">
+								<div className="w3-col s6">
 									<lable><b> Người đóng góp </b></lable>
 										<input type="text" className="w3-input w3-margin" name="n_donggop" value={this.state.n_dongop} onChange={this.handleChange}/>
 								</div>

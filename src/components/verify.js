@@ -22,8 +22,9 @@ class Verify extends React.Component{
 			e_mota: "",
 			e_id: "",
 			e_theloai : 0,
-			e_mess : " ",
+			e_mess : "Save",
 			editOpen : false,
+			e_btn: "w3-btn w3-green w3-right",
 		}
 		this.overlayRef = React.createRef();
 		
@@ -192,7 +193,7 @@ class Verify extends React.Component{
 		let id = e.target.value;
 		let game = this.state.games[id];
 		// console.log(game);
-		this.setState({e_ten: game.ten, e_soluong: game.so_luong, e_mota: game.mo_ta, e_doihinh: game.doi_hinh, e_id: game._id, e_mess: " ", e_theloai: game.the_loai});
+		this.setState({e_ten: game.ten, e_soluong: game.so_luong, e_mota: game.mo_ta, e_doihinh: game.doi_hinh, e_id: game._id, e_mess: "Save", e_theloai: game.the_loai, e_btn: "w3-btn w3-green w3-right"});
 	}
 	
 	handleEditChange(e){
@@ -217,7 +218,7 @@ class Verify extends React.Component{
 		}).then(res =>{return res.data}).then(data => {
 			// console.log(data);
 			this.getGames();
-			this.setState({e_mess: "Đã lưu!"});
+			this.setState({e_mess: "Đã lưu", e_btn: "w3-btn w3-red w3-right"});
 		});
 	}
 	
@@ -379,11 +380,10 @@ class Verify extends React.Component{
 						</select>
 					</div>
 					
-					<textarea className="w3-block" placeholder="Mô tả trò chơi" name="e_mota" value={this.state.e_mota} onChange={this.handleEditChange} style={{height: "200px"}}></textarea>
+					<textarea className="w3-block" placeholder="Mô tả trò chơi" name="e_mota" value={this.state.e_mota} onChange={this.handleEditChange} style={{height: "150px"}}></textarea>
 					<br/>
 					<div className="w3-row">
-						<button className="w3-btn w3-green w3-right" onClick={this.handleEditSave}>Save</button>
-						<div className="w3-col l5 w3-text-red w3-center">{this.state.e_mess}</div>
+						<button className={this.state.e_btn} onClick={this.handleEditSave}>{this.state.e_mess}</button>
 					</div>
 				</div>
 			</div>

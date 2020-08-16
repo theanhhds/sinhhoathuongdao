@@ -23,9 +23,10 @@ class AllGames extends React.Component{
 			trochoi: "Trò chơi sinh hoạt tập thể",
 			f_doihinh : "",
 			f_soluong : "",
+			f_child : false,
 			the_loai : 1,
-			btn_sinhhoat: "w3-center w3-margin w3-col w3-large l5 w3-btn w3-green w3-padding",
-			btn_kinang: "w3-center w3-margin w3-col w3-large l5 w3-btn w3-border w3-border-green w3-padding",
+			btn_sinhhoat: "w3-center w3-margin w3-col w3-large m5 w3-btn w3-green w3-padding",
+			btn_kinang: "w3-center w3-margin w3-col w3-large m5 w3-btn w3-border w3-border-green w3-padding",
 		}
 		this.getGames = this.getGames.bind(this);
 		this.shuffle = this.shuffle.bind(this);
@@ -34,6 +35,7 @@ class AllGames extends React.Component{
 		this.closeFilter = this.closeFilter.bind(this);
 		this.switchGames = this.switchGames.bind(this);
 		this.handleGameOpen = this.handleGameOpen.bind(this);
+		this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
 	}
 	
 	shuffle(a) {
@@ -86,12 +88,16 @@ class AllGames extends React.Component{
 		// console.log(this.state.games);
 	}
 	
-	handleSearch() {
-		this.filterRef.current.style.display = "block";
+	handleSearch(e){
+		if (this.filterRef.current.style.display == "none")
+			this.filterRef.current.style.display = "block";
+		else
+			this.filterRef.current.style.display = "none";
 	}
 	
 	closeFilter() {
 		this.filterRef.current.style.display = "none";
+		this.setState({f_doihinh: "", f_soluong: "", f_child: false});
 	}
 	
 	switchGames(e){
@@ -103,8 +109,8 @@ class AllGames extends React.Component{
 			games.map((i) => { isOpen.push(false);});
 			this.setState({
 				games: games,
-				btn_sinhhoat: "w3-center w3-margin w3-col w3-large l5 w3-btn w3-green w3-padding",
-				btn_kinang: "w3-center w3-margin w3-col w3-large l5 w3-btn w3-border w3-border-green w3-padding",
+				btn_sinhhoat: "w3-center w3-margin w3-col w3-large m5 w3-btn w3-green w3-padding",
+				btn_kinang: "w3-center w3-margin w3-col w3-large m5 w3-btn w3-border w3-border-green w3-padding",
 				f_doihinh : "",
 				f_soluong : "",
 				trochoi: "Trò chơi sinh hoạt tập thể",
@@ -118,8 +124,8 @@ class AllGames extends React.Component{
 			// console.log(games);
 			this.setState({
 				games: games,
-				btn_sinhhoat: "w3-center w3-margin w3-col w3-large l5 w3-btn w3-border w3-border-green w3-padding",
-				btn_kinang: "w3-center w3-margin w3-col w3-large l5 w3-btn w3-green w3-padding",
+				btn_sinhhoat: "w3-center w3-margin w3-col w3-large m5 w3-btn w3-border w3-border-green w3-padding",
+				btn_kinang: "w3-center w3-margin w3-col w3-large m5 w3-btn w3-green w3-padding",
 				f_doihinh : "",
 				f_soluong : "",
 				trochoi: "Trò chơi rèn luyện kĩ năng",
@@ -134,6 +140,16 @@ class AllGames extends React.Component{
 		let value = !a[id];
 		a[id] = value;
 		this.setState({isOpen: a});
+	}
+	
+	handleCheckboxChange(e){
+		let value = e.target.checked;
+		if (value){
+			this.setState({f_child: true});
+		}
+		else{
+			this.setState({f_child: false});
+		}
 	}
 	
 	render(){
@@ -173,8 +189,10 @@ class AllGames extends React.Component{
 					});
 					
 				let cond = true;
-				cond = (this.state.f_soluong === "" || this.state.f_soluong === i.so_luong) && (this.state.f_doihinh === "" || this.state.f_doihinh === i.doi_hinh);
-				
+					
+				cond = (this.state.f_soluong === "" || this.state.f_soluong === i.so_luong) && 
+							(this.state.f_doihinh === "" || this.state.f_doihinh === i.doi_hinh) && (i.child == 1 || !this.state.f_child);	
+					
 				let author = "Unknown";
 				if (i.dong_gop != "" && ('dong_gop' in i))
 					author = i.dong_gop;
@@ -225,35 +243,40 @@ class AllGames extends React.Component{
 		
 		let filter;
 		filter = (
-		<div className="w3-row-padding w3-padding w3-margin-top w3-animate-top">
-			<div className="w3-col l4"><br/></div>
-			<div className="w3-col l4 w3-sand w3-card w3-padding w3-round-xlarge w3-margin-bottom w3-display-container">
-				<h3 className="w3-center">Tìm kiếm</h3>
+		<div>
+			
+			<div className="w3-sand w3-card w3-padding-large w3-round-xlarge w3-margin-bottom w3-display-container">
+				<div className=" w3-right" onClick={this.closeFilter} style={{cursor: "pointer"}}>&times;</div>
 				<div className="w3-center w3-text-grey">{this.state.trochoi}</div>
 				<br/>
-				<b>Số lượng</b>
-				<select className="w3-select w3-section" name="f_soluong" value={this.state.f_soluong} 
-					onChange={this.handleChange}>
-					<option value="0" disabled selected>Số lượng</option>
-					<option value="A">-- Tất cả --</option>
-					<option value="1">1-10 người</option>
-					<option value="2">10-25 người</option>
-					<option value="3">Trên 25 người</option>
-				</select>
-				<b>Đội hình</b>
-				<select className="w3-select" name="f_doihinh" value={this.state.f_doihinh} 
-					onChange={this.handleChange}>
-					<option value="0" disabled selected>Đội hình</option>
-					<option value="A">-- Tất cả --</option>
-					<option value="1">Cá nhân</option>
-					<option value="2">Vòng tròn</option>
-					<option value="3">Chia nhóm</option>
-					<option value="4">Khác</option>
-				</select>
-				<br/><br/>
-				<div className="w3-btn w3-border w3-red" onClick={this.closeFilter}>Đóng</div>
+				<div className="w3-row-padding">
+					<div className="w3-col l4">
+						<select className="w3-select" name="f_soluong" value={this.state.f_soluong} 
+							onChange={this.handleChange}>
+							<option value="0" disabled selected>Số lượng</option>
+							<option value="A">-- Tất cả --</option>
+							<option value="1">1-10 người</option>
+							<option value="2">10-25 người</option>
+							<option value="3">Trên 25 người</option>
+						</select>
+					</div>
+					<div className="w3-col l4">	
+						<select className="w3-select" name="f_doihinh" value={this.state.f_doihinh} 
+							onChange={this.handleChange}>
+							<option value="0" disabled selected>Đội hình</option>
+							<option value="A">-- Tất cả --</option>
+							<option value="1">Cá nhân</option>
+							<option value="2">Vòng tròn</option>
+							<option value="3">Chia nhóm</option>
+							<option value="4">Khác</option>
+						</select>
+					</div>
+					<div className="w3-col l4">
+						<input type="checkbox" className="w3-check" onChange={this.handleCheckboxChange} /><lable> Cho trẻ em</lable>
+					</div>
+				</div>
+				
 			</div>
-			<div className="w3-col l4"><br/></div>
 		</div>
 		);
 		
@@ -261,10 +284,6 @@ class AllGames extends React.Component{
 			<div className="w3-container">
 				<div class="w3-overlay w3-display-container" style={{backgroundColor:"rgba(230,230,230,0.7)"}} ref={this.overlayRef}>
 					<FontAwesomeIcon icon={faSpinner} className="w3-display-middle w3-jumbo w3-text-green" spin />
-				</div>
-				
-				<div className="w3-modal w3-display-container w3-row-padding" ref={this.filterRef}>
-					{filter}
 				</div>
 				
 				<h1 className="w3-center w3-wide">Tất cả trò chơi</h1>
@@ -283,11 +302,14 @@ class AllGames extends React.Component{
 								Tìm kiếm
 							</div>
 							<NavLink to="/verify">
-								<div className="w3-btn w3-large w3-text-green w3-display-topright" onClick={this.handleSearch}>
+								<div className="w3-btn w3-large w3-text-green w3-display-topright">
 									Quản lý &nbsp; <FontAwesomeIcon className="w3-margin-right" icon={faCheckSquare}  size="lg"/>
 								</div>
 							</NavLink>
 							<br/>
+						</div>
+						<div className="w3-display-container w3-animate-opacity" ref={this.filterRef} style={{display: "none"}}>
+							{filter}
 						</div>
 						{games}
 					</div>
