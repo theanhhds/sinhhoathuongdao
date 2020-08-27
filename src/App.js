@@ -2,7 +2,6 @@ import React from 'react';
 import {Route, Switch, BrowserRouter} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiceFive } from '@fortawesome/free-solid-svg-icons';
-
 import './App.css';
 import Home from './components/home';
 import Error from './components/error';

@@ -3,7 +3,7 @@ import axios from 'axios';
 import {URL} from './url.js';
 import {withRouter} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faWindowClose, faChild, faBaby, faMale } from '@fortawesome/free-solid-svg-icons';
 
 class Verify extends React.Component{
 	constructor(){
@@ -13,22 +13,31 @@ class Verify extends React.Component{
 			isUser : false,
 			message: "Nhập mã xác nhận của bạn",
 			username: "",
+			admin_list : [],
 			ten: "ai đây ta?",
 			isHidden : true,
-			isHiddenMess : "Đang ẩn các trò chơi đã duyệt",
+			isHiddenMess : "Ẩn trò đã duyệt",
 			e_ten: "",
 			e_soluong : 0,
 			e_doihinh : 0,
 			e_mota: "",
 			e_id: "",
+			e_child : [0,0,0],
 			e_theloai : 0,
 			e_mess : "Save",
 			editOpen : false,
 			e_btn: "w3-btn w3-green w3-right",
+			expand: [],
+			a_name : "",
+			a_pass : "",
+			a_pass_c : "",
+			a_mess : "",
 		}
 		this.overlayRef = React.createRef();
+		this.addAdminOverlayRef = React.createRef();
 		
 		this.getGames = this.getGames.bind(this);
+		this.getAdmin = this.getAdmin.bind(this);
 		this.shuffle = this.shuffle.bind(this);
 		this.handleUserChange = this.handleUserChange.bind(this);
 		this.handleUserConfirm = this.handleUserConfirm.bind(this);
@@ -45,6 +54,12 @@ class Verify extends React.Component{
 		this.handleEditSave = this.handleEditSave.bind(this);
 		this.handleEditOpen = this.handleEditOpen.bind(this);
 		this.closeOverlay = this.closeOverlay.bind(this);
+		this.handleCheck = this.handleCheck.bind(this);
+		this.toggleExpand = this.toggleExpand.bind(this);
+		this.handleOpenAddAdmin = this.handleOpenAddAdmin.bind(this);
+		this.createAdmin = this.createAdmin.bind(this);
+		this.closeAddAdmin = this.closeAddAdmin.bind(this);
+		this.handleChangeInput = this.handleChangeInput.bind(this);
 	}
 	
 	getGames(){
@@ -56,14 +71,54 @@ class Verify extends React.Component{
 		}).then(res => {return res.data}).then(data => {
 			// console.log(data);
 			// this.shuffle(data);
-			let confirm_button = new Array(), confirm_button2 = new Array();
+			let confirm_button = new Array(), confirm_button2 = new Array(), expand = new Array();
 			data.map(i => {
 				confirm_button.push(false);
 				confirm_button2.push(false);
+				expand.push("w3-hide");
+				
 			});
 			// console.log(confirm_button);
-			this.setState({games: data, confirm_button: confirm_button, confirm_button2: confirm_button2});
+			this.setState({games: data, confirm_button: confirm_button, confirm_button2: confirm_button2, expand: expand});
 		})
+	}
+	
+	getAdmin(){
+		var data = {username: this.state.username};
+		axios({
+			method: "post",
+			data: data,
+			url : URL + "/getAdmin"
+		}).then(res => {return res.data}).then(data => {
+			if (data.status == "ok"){
+				this.setState({admin_list: data.list});
+			}
+		});
+	}
+	
+	createAdmin(){
+		if ((this.state.a_pass == this.state.a_pass_c) && 
+			(this.state.a_name != null && this.state.a_pass != null && this.state.a_pass_c != null)){
+			let data = {};
+			data.username = this.state.a_name;
+			data.password = this.state.a_pass;
+			data.creator = this.state.ten;
+			// console.log(data);
+			axios({
+				method: "post",
+				data: data,
+				url : URL + "/addAdmin",
+			}).then(res => {return res.data}).then(data => {
+				if (data.status == "ok"){
+					this.setState({a_mess: "Đã tạo tài khoản kiểm duyệt!"});
+				}
+			});
+		}
+		else{
+			this.setState({a_mess: "Có gì thiếu hoặc mật khẩu không trùng khớp"});
+			// setTimeout(()=>{}, 5000);
+		}
+		
 	}
 	
 	componentDidMount(){
@@ -185,7 +240,7 @@ class Verify extends React.Component{
 	
 	handleHidden(){
 		let value = !this.state.isHidden;
-		let mess = value?"Đang ẩn các trò chơi đã duyệt":"Đang hiện các trò chơi đã duyệt";
+		let mess = value?"Ẩn trò đã duyệt":"Hiện trò đã duyệt";
 		this.setState({isHidden: value, isHiddenMess: mess});
 	}
 	
@@ -193,7 +248,13 @@ class Verify extends React.Component{
 		let id = e.target.value;
 		let game = this.state.games[id];
 		// console.log(game);
-		this.setState({e_ten: game.ten, e_soluong: game.so_luong, e_mota: game.mo_ta, e_doihinh: game.doi_hinh, e_id: game._id, e_mess: "Save", e_theloai: game.the_loai, e_btn: "w3-btn w3-green w3-right"});
+		this.setState({e_ten: game.ten, e_soluong: game.so_luong, e_mota: game.mo_ta, e_doihinh: game.doi_hinh, e_id: game._id, e_mess: "Save", e_theloai: game.the_loai, e_btn: "w3-btn w3-green w3-right", e_child: game.child});
+	}
+	
+	handleChangeInput(e){
+		let name = e.target.name;
+		let value = e.target.value;
+		this.setState({[name]: value});
 	}
 	
 	handleEditChange(e){
@@ -211,6 +272,7 @@ class Verify extends React.Component{
 		data.doi_hinh = this.state.e_doihinh;
 		data.mo_ta = this.state.e_mota;
 		data.the_loai = this.state.e_theloai;
+		data.child = this.state.e_child;
 		axios({
 			method: 'post',
 			url: URL+"/editGame",
@@ -231,6 +293,36 @@ class Verify extends React.Component{
 	closeOverlay(){
 		this.overlayRef.current.style.display = "none";
 		this.setState({editOpen: false});
+	}
+	
+	handleCheck(value){
+		// let value = e.target.name;
+		// console.log(value);
+		let clone = this.state.e_child;
+		clone[value] = 1-clone[value];
+		this.setState({e_child: clone});
+	}
+	
+	toggleExpand(id){
+		// console.log(id);
+		let clone = this.state.expand;
+		if (clone[id] == "w3-hide"){
+			clone[id] = "w3-animate-opacity";
+			this.setState({expand: clone});
+		}
+		else{
+			clone[id] = "w3-hide";
+			this.setState({expand: clone});
+		}
+	}
+	
+	handleOpenAddAdmin(){
+		this.addAdminOverlayRef.current.style.display = "block";
+	}
+	
+	closeAddAdmin(){
+		this.addAdminOverlayRef.current.style.display = "none";
+		this.setState({a_name: "", a_pass: "", a_pass_c: "", a_mess: ""});
 	}
 	
 	render(){
@@ -284,11 +376,11 @@ class Verify extends React.Component{
 					buttons2 = <button className="w3-btn w3-right w3-red" value={ind} onClick={() => {this.handleConfirmButton2(ind)}}>Xoá 4ever</button>
 				}
 				
-				let hide = "w3-animate-bottom", hide2 = "w3-container w3-card w3-pale-blue w3-padding w3-display-container", 
-					hide_status = "Đang ẩn", hide_style = "w3-text-red";
+				let hide = "w3-animate-bottom", hide2 = "w3-container w3-card w3-white w3-padding w3-display-container", 
+					hide_status = "Đang ẩn", hide_style = "w3-text-red w3-center";
 				if (i.check == 1){
 					hide_status = "Đang hiện";
-					hide_style = "w3-text-green";
+					hide_style = "w3-text-green w3-center";
 					hide2 = "w3-container w3-card w3-sand w3-padding w3-display-container";
 					buttons = <button className="w3-btn w3-deep-orange" value={ind} onClick={() => {this.handleConfirmButton(ind)}}>Ẩn trò này</button>
 						if (this.state.confirm_button[ind]){
@@ -305,21 +397,34 @@ class Verify extends React.Component{
 						hide += " w3-hide";
 				}
 				
-				let forChild = (i.child==0)?"Không":"Có";
+				let forChild = "";
+				if (i.child[0] == 1)
+					forChild += "[Ấu] ";
+				if (i.child[1] == 1)
+					forChild += "[Thiếu] ";
+				if (i.child[2] == 1)
+					forChild += "[Kha] ";
+				
 				return(
 					<div className={hide}>
 						<div className={hide2}>
+							<div class="w3-display-topright w3-padding" style={{cursor: "pointer"}} onClick={() => {this.toggleExpand(ind)}} style={{cursor: "pointer"}}>=</div>
 							<h3 className="w3-center">{i.ten}</h3>
-							<div className={hide_style}><b>Status: </b>{hide_status}</div>
-							<div><b>Thể loại trò chơi: </b>{the_loai}</div>
-							<div><b>Số lượng người chơi: </b>{so_luong}</div>
-							<div><b>Đội hình chơi: </b>{doi_hinh}</div>		
-							<div><b>Thích hợp cho trẻ em: </b>{forChild}</div>
-							<div><b>Người đóng góp: </b>{i.dong_gop}</div>
-							<div><b>Mô tả:</b><div className="w3-margin" style={{whiteSpace: "pre-wrap"}}>{i.mo_ta}</div></div>
-							<div className="w3-row-padding">
-								<div className="w3-col s6">{buttons}</div>
-								<div className="w3-col s6">{buttons2}</div>
+							<div className={hide_style}><b>Trạng thái: </b>{hide_status}</div>
+							
+							<div className={this.state.expand[ind]}>
+								
+								<div><b>Thể loại trò chơi: </b>{the_loai}</div>
+								<div><b>Số lượng người chơi: </b>{so_luong}</div>
+								<div><b>Đội hình chơi: </b>{doi_hinh}</div>		
+								<div><b>Độ tuổi: </b>{forChild}</div>
+								<div><b>Người đóng góp: </b>{i.dong_gop}</div>
+								<div><b>Action [add/hide]: </b>{i.confirm_user_a}/ {i.confirm_user_h}</div>
+								<div><b>Mô tả:</b><div className="w3-margin" style={{whiteSpace: "pre-wrap"}}>{i.mo_ta}</div></div>
+								<div className="w3-row-padding">
+									<div className="w3-col s6">{buttons}</div>
+									<div className="w3-col s6">{buttons2}</div>
+								</div>
 							</div>
 						</div>
 						<br/><br/>
@@ -328,12 +433,43 @@ class Verify extends React.Component{
 			}
 		})
 		
+		let addAdmin = (
+			<div className="w3-sand w3-card w3-padding-large w3-container w3-center">
+				<h1 className="w3-center">Tạo tài khoản kiểm duyệt mới</h1>
+				<div className="w3-row-padding w3-stretch">
+					<div class="w3-col m3">
+						<input type="text" placeholder="Tên người kiểm duyệt" className="w3-input" value={this.state.a_name}
+							onChange={this.handleChangeInput} name="a_name"/>
+					</div>
+					<div class="w3-col m3">						
+						<input type="password" className="w3-input" placeholder="Mã xác nhận" value={this.state.a_pass}
+							onChange={this.handleChangeInput} name="a_pass"/>
+					</div>
+					<div class="w3-col m3">						
+						<input type="password" className="w3-input" placeholder="Nhập lại mã xác nhận" value={this.state.a_pass_c}
+							onChange={this.handleChangeInput} name="a_pass_c"/>
+					</div>
+					<div class="w3-col m3">						
+						<button className="w3-btn w3-blue" onClick={this.createAdmin}>Create</button>
+					</div>
+				</div>
+				<br/>
+				<div className=" bold">{this.state.a_mess}</div>
+				<br/>
+				<hr/>
+				<div className="w3-btn w3-green w3-center" onClick={this.getAdmin}>Whosadmin?</div>
+				<br/><br/>
+				<div>{this.state.admin_list.map((i) => {return " [" + i.username + "] "})}</div>
+				<div className="w3-clear"><br/><br/></div>
+				<div className="w3-btn w3-red w3-right" onClick={this.closeAddAdmin}>Close</div>
+			</div>
+		);
 		
 		// ----------------- EDIT -----------------
 		
 		let edit, editHide = "w3-hide";
 		if (this.state.editOpen)
-			editHide = "w3-animate-opacity";
+			editHide = "w3-animate-opacity w3-padding-large";
 		
 		let option_list = this.state.games.map((i, ind) => {
 			let isHide = " (Hiện) ";
@@ -344,8 +480,16 @@ class Verify extends React.Component{
 			);
 		});
 		
+		let check = ["w3-large w3-text-grey w3-margin w3-opacity", "w3-large w3-text-grey w3-margin w3-opacity", "w3-large w3-text-grey w3-margin w3-opacity"];
+		if (this.state.e_child[0] == 1) 
+			check[0] = "w3-large w3-text-amber w3-margin";
+		if (this.state.e_child[1] == 1) 
+			check[1] = "w3-large w3-text-green w3-margin";
+		if (this.state.e_child[2] == 1) 
+			check[2] = "w3-large w3-text-red w3-margin";
+		
 		edit = (
-			<div className="w3-pale-red w3-card w3-container w3-padding">
+			<div className="w3-pale-green w3-card w3-padding-large w3-container">
 				<div onClick={this.closeOverlay} className="w3-btn w3-right w3-text-red"><FontAwesomeIcon icon={faWindowClose} size="lg"/></div>
 				<br/><br/>
 				<div className={editHide}>
@@ -353,34 +497,60 @@ class Verify extends React.Component{
 						<option disabled selected>Chọn trò chơi để chỉnh sửa</option>
 						{option_list}
 					</select>
+					
 					<br/><br/>
 					
-					<div className="w3-row">
-						<input className="w3-input w3-margin w3-col l5" placeholder="Tên trò chơi" name="e_ten" value={this.state.e_ten} onChange={this.handleEditChange}/>
-						<select name="e_theloai" onChange={this.handleEditChange} value={this.state.e_theloai} className="w3-select w3-margin w3-col l5">
-							<option value="0" disabled selected>Thể loại trò chơi</option>
-							<option value="1">Trò chơi sinh hoạt tập thể</option>
-							<option value="2">Trò chơi rèn luyện kĩ năng</option>
-						</select>
+					
+					<div className="w3-row-padding w3-stretch">
+						<div class="w3-col l6 w3-padding-large">
+							<input className="w3-input" placeholder="Tên trò chơi" name="e_ten" value={this.state.e_ten} onChange={this.handleEditChange} />
+						</div>
+						
+						<div class="w3-col l6 w3-padding-large">
+							<select name="e_theloai" onChange={this.handleEditChange} value={this.state.e_theloai} className="w3-select">
+								<option value="0" disabled selected>Thể loại trò chơi</option>
+								<option value="1">Trò chơi sinh hoạt tập thể</option>
+								<option value="2">Trò chơi rèn luyện kĩ năng</option>
+							</select>
+						</div>
 					</div>
 					
-					<div className="w3-row">
-						<select name="e_soluong" onChange={this.handleEditChange} value={this.state.e_soluong} className="w3-select w3-margin w3-col l5">
-							<option value="0" disabled selected>Số lượng</option>
-							<option value="1">1-10 người</option>
-							<option value="2">10-25 người</option>
-							<option value="3">Trên 25 người</option>
-						</select>
-						<select name="e_doihinh" onChange={this.handleEditChange} value={this.state.e_doihinh} className="w3-select w3-margin w3-col l5">
-							<option value="0" disabled selected>Đội hình</option>
-							<option value="1">Cá nhân</option>
-							<option value="2">Vòng tròn</option>
-							<option value="3">Chia nhóm</option>
-							<option value="4">Khác</option>
-						</select>
+					<div className="w3-row-padding w3-stretch">
+						<div class="w3-col l6  w3-padding-large">
+							<select name="e_soluong" onChange={this.handleEditChange} value={this.state.e_soluong} className="w3-select">
+								<option value="0" disabled selected>Số lượng</option>
+								<option value="1">1-10 người</option>
+								<option value="2">10-25 người</option>
+								<option value="3">Trên 25 người</option>
+							</select>
+						</div>
+						<div class="w3-col l6  w3-padding-large">
+							<select name="e_doihinh" onChange={this.handleEditChange} value={this.state.e_doihinh} className="w3-select ">
+								<option value="0" disabled selected>Đội hình</option>
+								<option value="1">Cá nhân</option>
+								<option value="2">Vòng tròn</option>
+								<option value="3">Chia nhóm</option>
+								<option value="4">Khác</option>
+							</select>
+							
+						</div>
+						<div class="w3-center w3-margin">
+								<span className={check[0]} title="Ngành ấu" 
+									onClick={() => {this.handleCheck(0)}} style={{cursor: "pointer"}}>
+									<FontAwesomeIcon size="lg" icon={faBaby} />
+								</span>
+								<span className={check[1]} title="Ngành thiếu" 
+									onClick={() => {this.handleCheck(1)}} style={{cursor: "pointer"}}>
+									<FontAwesomeIcon  size="lg" icon={faChild} />
+								</span>
+								<span className={check[2]} title="Ngành kha" 
+									onClick={() => {this.handleCheck(2)}} style={{cursor: "pointer"}}>
+									<FontAwesomeIcon size="lg" icon={faMale} />
+								</span>
+							</div>
 					</div>
 					
-					<textarea className="w3-block" placeholder="Mô tả trò chơi" name="e_mota" value={this.state.e_mota} onChange={this.handleEditChange} style={{height: "150px"}}></textarea>
+					<textarea className="w3-block" placeholder="Mô tả trò chơi" name="e_mota" value={this.state.e_mota} onChange={this.handleEditChange} style={{height: "100px"}}></textarea>
 					<br/>
 					<div className="w3-row">
 						<button className={this.state.e_btn} onClick={this.handleEditSave}>{this.state.e_mess}</button>
@@ -405,6 +575,7 @@ class Verify extends React.Component{
 		
 		if (this.state.isUser) 
 			verify   =  (<div className="w3-container">
+							<h5 className="w3-center"><i>Xin chào {this.state.ten}. Cảm ơn bạn đã làm một việc cực kỳ <span onClick = {this.handleOpenAddAdmin}>quan trọng</span></i></h5>
 							<div className="w3-container">
 								<div className="w3-center w3-padding-large">
 									<input type="checkbox" className="w3-check" value={this.state.isHidden} 
@@ -413,11 +584,6 @@ class Verify extends React.Component{
 								</div>
 								<div className="w3-center w3-margin-top">
 									<button className="w3-center w3-btn w3-large w3-deep-orange" onClick={this.handleEditOpen}>Chỉnh sửa trò chơi <FontAwesomeIcon icon={faEdit}/> </button>
-								</div>
-								<div className="w3-modal" ref={this.overlayRef}>
-									<div className="w3-modal-content w3-animate-top">
-										{edit}
-									</div>
 								</div>
 								<br/>
 							</div>
@@ -428,11 +594,19 @@ class Verify extends React.Component{
 		
 		return (
 			<div className="w3-container">
+				<div className="w3-modal" ref={this.overlayRef}>
+					<div className="w3-modal-content w3-animate-top">
+						{edit}
+					</div>
+				</div>
+				
+				<div className="w3-modal" ref={this.addAdminOverlayRef}>
+					<div className="w3-modal-content w3-animate-top">
+						{addAdmin}
+					</div>
+				</div>
+				
 				<h1 className="w3-center">Quản lý trò chơi</h1>
-				<h5 className="w3-center"><i>Cảm ơn bạn đã làm một việc cực kỳ quan trọng</i></h5>
-				<br/>
-				<div className="w3-center">--- Xin chào, {this.state.ten} ---</div>
-				<br/>
 				<div className="w3-row-padding">
 					<div className="w3-col l3"><br/></div>
 					<div className="w3-col l6">

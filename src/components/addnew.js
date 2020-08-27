@@ -3,6 +3,8 @@ import {URL, CC_key} from './url.js';
 import {withRouter} from 'react-router-dom';
 import axios from 'axios';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChild, faBaby, faMale  } from '@fortawesome/free-solid-svg-icons';
 
 class AddNew extends React.Component {
 	constructor(){
@@ -15,7 +17,7 @@ class AddNew extends React.Component {
 			n_doihinh : 0,
 			n_theloai : 0,
 			n_kinang: [0,0,0,0,0],		//Add more here when more ki nang
-			n_child : 0,
+			n_child : [0,0,0],
 			child_mess : "Không",
 			captcha_OK: false,
 		};
@@ -28,10 +30,10 @@ class AddNew extends React.Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.handleChange1 = this.handleChange1.bind(this);
 		this.handleCheckBox = this.handleCheckBox.bind(this);
-		this.handleCheckBox1 = this.handleCheckBox1.bind(this);
 		this.onChangeCaptcha = this.onChangeCaptcha.bind(this);
 		this.onExpiredCaptcha = this.onExpiredCaptcha.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleCheck = this.handleCheck.bind(this);
 	}
 	
 	onChangeCaptcha(value){
@@ -47,7 +49,7 @@ class AddNew extends React.Component {
 		const target = event.target;
 		const name = target.name;
 		const value = target.value;
-		console.log(value);
+		// console.log(value);
 		this.setState({[name] : value});
 	}
 	
@@ -61,26 +63,11 @@ class AddNew extends React.Component {
 		setTimeout(() => {this.openAddNew.current.style.display="block";}, 100);
 	}
 	
-	handleCheckBox(event){
-		const target = event.target;
-		const name = target.value;
-		const status = target.checked;
-		
+	handleCheckBox(value){
 		let clone = this.state.n_kinang;
-		clone[name] = status==1?1:0;
+		clone[value] = 1-clone[value];
 		this.setState({n_kinang: clone});
-		
 		// console.log(clone);
-	}
-	
-	handleCheckBox1(event){
-		const target = event.target;
-		const name = target.value;
-		const status = target.checked;
-		if (status)
-			this.setState({n_child: 1, child_mess: "Có"});
-		else
-			this.setState({n_child: 0, child_mess: "Không"});
 	}
 	
 	announce(){
@@ -102,7 +89,7 @@ class AddNew extends React.Component {
 		data.the_loai = this.state.n_theloai;
 		data.child = this.state.n_child;
 		// console.log(data);
-		if (data.ten == "" || data.so_luong == 0 || data.mo_ta == "" || data.doi_hinh == 0 || data.the_loai == 0){
+		if (data.ten == "" || data.so_luong == 0 || data.mo_ta == "" || data.doi_hinh == 0 || data.the_loai == 0 || data.child == [0,0,0]){
 			this.notEnoughRef.current.style.display = "block";
 			this.attention.current.style.display = "block";
 			setTimeout(() => {this.notEnoughRef.current.style.display = "none"; 
@@ -120,7 +107,7 @@ class AddNew extends React.Component {
 				// this.setState({n_ten: "", n_kinang: [], n_mota: "", n_soluong: 0, captcha_OK: false});
 				// document.querySelectorAll('input[type=checkbox]').forEach( el => el.checked = false );	//Uncheck all checkboxes
 				// alert("Trò chơi đã được lưu vào dữ liệu và đang đợi để được xác nhận bởi admin");
-				this.setState({n_ten : "", n_soluong: 0, n_doihinh: 0, n_mota: "", n_kinang : [0,0,0,0,0], n_donggop: ""});
+				this.setState({n_ten : "", n_soluong: 0, n_doihinh: 0, n_mota: "", n_kinang : [0,0,0,0,0], n_donggop: "", n_child: [0,0,0]});
 				document.querySelectorAll('input[type=checkbox]').forEach( el => el.checked = false );	//Uncheck all checkboxes
 				setTimeout(() => {this.overlayRef.current.style.display = "none"}, 4000);
 				// this.props.history.push('/allgames');
@@ -130,47 +117,75 @@ class AddNew extends React.Component {
 		}
 	}
 	
+	handleCheck(value){
+		// let value = e.target.name;
+		// console.log(value);
+		let clone = this.state.n_child;
+		clone[value] = 1-clone[value];
+		this.setState({n_child: clone});
+	}
 	render(){
+		let style_kinang = ["w3-text-grey w3-col s4 w3-opacity", "w3-text-grey w3-col s4 w3-opacity", 
+							"w3-text-grey w3-col s4 w3-opacity", 
+							"w3-text-grey w3-col s4 w3-opacity", "w3-text-grey w3-col s4 w3-opacity"];
+		
+		let i;
+		for (i=0; i<5; i++)
+			if (this.state.n_kinang[i] == 1) style_kinang[i] = "bold w3-text-green w3-col s4";
 		
 		let kinang;
 		if (this.state.n_theloai == 1)
 			kinang = (
-						<div className="w3-container w3-margin w3-bar">
-							<div className="w3-bar-item"><input className="w3-check" value="0" type="checkbox" 
-									onChange={this.handleCheckBox}/> Nhanh nhẹn </div>
-							<div className="w3-bar-item"><input className="w3-check" value="1" type="checkbox" 
-									onChange={this.handleCheckBox}/> Làm việc nhóm </div>
-							<div className="w3-bar-item"><input className="w3-check" value="2" type="checkbox" 
-									onChange={this.handleCheckBox}/> Trí tuệ </div>
-							<div className="w3-bar-item"><input className="w3-check" value="3" type="checkbox" 
-									onChange={this.handleCheckBox}/> Dũng cảm </div>
-							<div className="w3-bar-item"><input className="w3-check" value="4" type="checkbox" 
-								onChange={this.handleCheckBox}/> Khéo léo </div>
+						<div className="w3-container">
+							<div className="w3-row-padding">
+								<span className={style_kinang[0]} style={{cursor: "pointer"}} 
+									onClick={() => {this.handleCheckBox(0)}}>#NhanhNhẹn</span>
+								<span className={style_kinang[2]} style={{cursor: "pointer"}} 
+									onClick={() => {this.handleCheckBox(2)}}>#TríTuệ</span>
+								<span className={style_kinang[3]} style={{cursor: "pointer"}} 
+									onClick={() => {this.handleCheckBox(3)}}>#DũngCảm</span>
+							</div>
+							<div className="w3-row-padding">
+								<span className={style_kinang[4]} style={{cursor: "pointer"}} 
+									onClick={() => {this.handleCheckBox(4)}}>#KhéoLéo</span>
+								<span className={style_kinang[1]} style={{cursor: "pointer"}} 
+									onClick={() => {this.handleCheckBox(1)}}>#Teamwork</span>	
+							</div>
 						</div>
 					);
 		else
 			kinang = (
-					<div className="w3-container w3-margin w3-bar">
-							<div className="w3-bar-item"><input className="w3-check" value="0" type="checkbox" 
-									onChange={this.handleCheckBox}/> Nút dây </div>
-							<div className="w3-bar-item"><input className="w3-check" value="1" type="checkbox" 
-									onChange={this.handleCheckBox}/> Truyền tin </div>
-							<div className="w3-bar-item"><input className="w3-check" value="2" type="checkbox" 
-									onChange={this.handleCheckBox}/> Cứu thương </div>
-							<div className="w3-bar-item"><input className="w3-check" value="3" type="checkbox" 
-									onChange={this.handleCheckBox}/> Phương hướng </div>
-							<div className="w3-bar-item"><input className="w3-check" value="4" type="checkbox" 
-								onChange={this.handleCheckBox}/> Cắm trại </div>
+					<div className="w3-container">
+							<div className="w3-row-padding">
+								<span className={style_kinang[0]} style={{cursor: "pointer"}} 
+									onClick={() => {this.handleCheckBox(0)}}>#NútDây</span>
+								<span className={style_kinang[2]} style={{cursor: "pointer"}} 
+									onClick={() => {this.handleCheckBox(2)}}>#CứuThương</span>
+								<span className={style_kinang[3]} style={{cursor: "pointer"}} 
+									onClick={() => {this.handleCheckBox(3)}}>#PhươngHướng</span>
+							</div>
+							<div className="w3-row-padding">
+								<span className={style_kinang[4]} style={{cursor: "pointer"}} 
+									onClick={() => {this.handleCheckBox(4)}}>#Cắm trại</span>
+								<span className={style_kinang[1]} style={{cursor: "pointer"}} 
+									onClick={() => {this.handleCheckBox(1)}}>#TruyềnTin</span>	
+							</div>
 						</div>
 		);
 		
+		let check = ["w3-large w3-text-grey w3-opacity w3-left", "w3-large w3-text-grey w3-center w3-opacity", "w3-large w3-text-grey w3-opacity w3-right"];
+		if (this.state.n_child[0] == 1) 
+			check[0] = "w3-large w3-text-amber w3-left";
+		if (this.state.n_child[1] == 1) 
+			check[1] = "w3-large w3-text-green w3-center";
+		if (this.state.n_child[2] == 1) 
+			check[2] = "w3-large w3-text-red w3-right";
 		return(
 			<div className="w3-container">
 			
 				<div className="w3-overlay w3-display-container" ref={this.overlayRef}>
 					<div className=" w3-display-middle ">
-						<div className="w3-pale-green w3-padding-large animate__animated animate__fadeIn" ref={this.thankyou}
-							style={{display:"none"}}>
+						<div className="w3-pale-green w3-padding-large w3-animate-opacity" ref={this.thankyou}>
 							<h3 className="w3-green w3-padding">Cảm ơn bạn</h3>
 							<div className="w3-section">
 								Trò chơi đã được lưu vào dữ liệu và đang đợi để được xác nhận
@@ -191,12 +206,12 @@ class AddNew extends React.Component {
 					</div>
 				</div>
 				
-				<h1 className="w3-center w3-wide animate__animated animate__jackInTheBox">Thêm trò chơi mới</h1>
-				<h5 className="w3-center animate__animated animate__fadeIn"><i>Bạn có ý tưởng trò chơi mới? Hãy chia sẻ ngay nhé</i></h5>
-				<div className="w3-center w3-text-grey animate__animated ">Những nơi có dấu (*) là bắt buộc</div>
+				<h1 className="w3-center w3-wide w3-animate-top">Thêm trò chơi</h1>
+				<h5 className="w3-center"><i>Bạn có ý tưởng trò chơi mới? Hãy chia sẻ ngay nhé</i></h5>
+				<div className="w3-center w3-text-grey">Những nơi có dấu (*) là bắt buộc</div>
 				<div className="w3-row">
 					<div className="w3-col l3"><br/></div>
-					<div className="w3-col l6 w3-container w3-padding-large" >
+					<div className="w3-col l6 w3-container w3-padding-large">
 					
 						<lable><b> Thể loại trò chơi (*)</b></lable>
 						<select className="w3-select w3-margin" name="n_theloai" value={this.state.n_theloai} onChange={this.handleChange1}>
@@ -209,22 +224,24 @@ class AddNew extends React.Component {
 							<lable><b> Tên trò chơi (*)</b></lable>
 								<input type="text" className="w3-input w3-margin" name="n_ten" value={this.state.n_ten} onChange={this.handleChange}/>
 								
-							<lable><b> Kĩ năng rèn luyện </b></lable>
+							<span><b> Kĩ năng rèn luyện </b></span>
 								{kinang}
-							<div className="w3-row">
+							<div className="w3-row-padding w3-stretch">
 								<div className="w3-col s6">
-									<lable><b> Số lượng người chơi (*)</b></lable>
-									<select className="w3-select w3-margin" name="n_soluong" value={this.state.n_soluong} onChange={this.handleChange} style={{width: "85%"}}>
-										<option value="0" disabled selected>Chọn</option>
+									<span><b> Số lượng (*)</b></span>
+									<select className="w3-select w3-margin" name="n_soluong" value={this.state.n_soluong} 
+									onChange={this.handleChange}>
+										<option value="0" disabled selected>Số lượng</option>
 										<option value="1">1-10 người</option>
 										<option value="2">10-25 người</option>
 										<option value="3">Trên 25 người</option>
 									</select>
 								</div>
 								<div className="w3-col s6">
-									<lable><b> Đội hình chơi (*)</b></lable>
-									<select className="w3-select w3-margin" name="n_doihinh" value={this.state.n_doihinh} onChange={this.handleChange} style={{width: "85%"}}>
-										<option value="0" disabled selected>Chọn</option>
+									<span><b> Đội hình (*)</b></span>
+									<select className="w3-select w3-margin" name="n_doihinh" value={this.state.n_doihinh} 
+									onChange={this.handleChange}>
+										<option value="0" disabled selected>Đội hình</option>
 										<option value="1">Cá nhân</option>
 										<option value="2">Vòng tròn</option>
 										<option value="3">Chia nhóm</option>
@@ -232,30 +249,45 @@ class AddNew extends React.Component {
 									</select>
 								</div>
 							</div>
-							<lable><b> Mô tả (*)</b></lable>
+							<span><b> Mô tả (*)</b></span>
 								<textarea className="w3-block w3-margin" value={this.state.n_mota} style={{height:200}} name="n_mota"  
 									onChange={this.handleChange} />
 							<div className="w3-row">
 								<div className="w3-col s6">
-									<lable><b> Thích hợp với trẻ em </b></lable><br/>
-									<input type="checkbox" className="w3-margin w3-check" name="n_child" 
-										onChange={this.handleCheckBox1}/>
-									{this.state.child_mess}
+									<lable><b>Độ tuổi (*)</b></lable>
+									<div class="w3-margin w3-center">
+										<span className={check[0]} title="Ngành ấu" 
+											onClick={() => {this.handleCheck(0)}} style={{cursor: "pointer"}}>
+											<FontAwesomeIcon size="lg" icon={faBaby} />
+										</span>
+										<span className={check[1]} title="Ngành thiếu" 
+											onClick={() => {this.handleCheck(1)}} style={{cursor: "pointer"}}>
+											<FontAwesomeIcon  size="lg" icon={faChild} />
+										</span>
+										<span className={check[2]} title="Ngành kha" 
+											onClick={() => {this.handleCheck(2)}} style={{cursor: "pointer"}}>
+											<FontAwesomeIcon size="lg" icon={faMale} />
+										</span>
+									</div>
 								</div>
 								<div className="w3-col s6">
 									<lable><b> Người đóng góp </b></lable>
-										<input type="text" className="w3-input w3-margin" name="n_donggop" value={this.state.n_dongop} onChange={this.handleChange}/>
+										<input type="text" className="w3-input w3-margin" name="n_donggop" value={this.state.n_dongop} onChange={this.handleChange} style={{width: "85%"}} />
 								</div>
 							</div>	
-							<div className="w3-container w3-row">		
-								<div className="w3-padding-large">
+							<div className="w3-row">		
+								<div className="w3-col l7">
 									<ReCAPTCHA
 									sitekey={CC_key}
 									onExpired={this.onExpiredCaptcha}
 									onChange={this.onChangeCaptcha}/></div>
 								<br/>
-								<div className="w3-padding-large"><button class="w3-btn w3-red" 
-									disabled={!this.state.captcha_OK} onClick={this.handleSubmit}> Tạo trò chơi </button></div>
+								
+								<div className="w3-col l5">
+									
+									<button class="w3-btn w3-red w3-right" 
+									disabled={!this.state.captcha_OK} onClick={this.handleSubmit}> Tạo trò chơi </button>
+								</div>
 							</div>
 						</div>
 					</div>
