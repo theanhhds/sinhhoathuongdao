@@ -1,6 +1,6 @@
 //	http://localhost:8000
 //	https://mighty-savannah-08232.herokuapp.com
-const URL = "https://mighty-savannah-08232.herokuapp.com";
+const URL = "http://localhost:8000";
 
 //	local: 6Lf8B7YZAAAAAEBUnMkmXi51zLa3qYGerZ0YjlCH
 //	public: 6LciBrYZAAAAAAtAkZ50JyqZrif0L-zoyIFG15UA

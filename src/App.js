@@ -3,14 +3,17 @@ import {Route, Switch, BrowserRouter} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiceFive } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
-import Home from './components/home';
+import Home from './components/home/home';
 import Error from './components/error';
-import AddNew from './components/addnew';
-import AllGames from './components/allgames';
+import AddNew from './components/addnew/addnew';
+import AllGames from './components/allgames/allgames';
 import Navbar from './components/navbar';
-import Verify from './components/verify';
+import Verify from './components/verify/verify';
 import axios from 'axios';
 import {URL} from './components/url';
+import CoverPic from './pics/cover.png';
+import FooterPic from './pics/footer.png';
+import ScrollToTop from './scroll';
 
 class App extends React.Component{
 	constructor(){
@@ -32,16 +35,24 @@ class App extends React.Component{
 					<FontAwesomeIcon icon={faDiceFive} className="w3-jumbo w3-text-red" />
 				</div>
 			</div>
+			<div>
+				<img src={CoverPic} style={{width: "100%"}} />
+			</div>
 			<BrowserRouter>
 				<Navbar />
-				<Switch>
-					<Route path="/" exact component={Home} />
-					<Route path="/addnew" exact component={AddNew} />
-					<Route path="/allgames" exact component={AllGames} />
-					<Route path="/verify" exact component={Verify} />
-					<Route component={Error}/>
-				</Switch>
+				<ScrollToTop>
+					<Switch>
+						<Route path="/" exact component={Home} />
+						<Route path="/addnew" exact component={AddNew} />
+						<Route path="/allgames" exact component={AllGames} />
+						<Route path="/verify" exact component={Verify} />
+						<Route component={Error}/>
+					</Switch>
+				</ScrollToTop>
 			</BrowserRouter>
+			<div>
+				<img src={FooterPic} style={{width: "100%"}} />
+			</div>
 		</div>
 		);
 	}

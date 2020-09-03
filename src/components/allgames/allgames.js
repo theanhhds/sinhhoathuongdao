@@ -1,12 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import './allgames.css';
-import {URL} from './url.js';
-import Verify from './verify';
+import {URL} from '../url.js';
 import {NavLink} from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner, faSearch, faCheckSquare, faChild, faBaby, faMale, faWindowClose, faSync } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faSearch, faDisease, faChild, faBaby, faMale, faWindowClose, faSync } from '@fortawesome/free-solid-svg-icons';
+
+const LIMIT = 15;	//Must be number % 3 == 0
+const LIMIT2 = 15; 	//Limit for filter
 
 class AllGames extends React.Component{
 	constructor(){
@@ -17,8 +19,8 @@ class AllGames extends React.Component{
 		this.gameOverlayRef = React.createRef();
 		
 		this.state = {
-			games1 : [],
 			games2 : [],
+			games1 : [],
 			games : [],
 			trochoi: "Trò chơi sinh hoạt tập thể",
 			f_doihinh : "",
@@ -34,6 +36,8 @@ class AllGames extends React.Component{
 			c_child: 0,
 			c_kinang: [],
 			c_bg: "",
+			limit: LIMIT,
+			limit_btn : false,
 			btn_sinhhoat: "w3-center w3-col w3-large m6 w3-btn w3-green w3-padding",
 			btn_kinang: "w3-center w3-col w3-large m6 w3-btn w3-border w3-border-green w3-padding",
 			name_kinang: [["#Nhanh", "#Teamwork" ,"#Trí" ,"#Dũng", "#Khéo"], ["#Nút", "#Truyền", "#Cứu", "#Hướng", "#Trại"]],
@@ -50,8 +54,10 @@ class AllGames extends React.Component{
 		this.game_gen = this.game_gen.bind(this);
 		this.handleCheck = this.handleCheck.bind(this);
 		this.handleCheck1 = this.handleCheck1.bind(this);
+		this.handleIncreaseLimit = this.handleIncreaseLimit.bind(this);
 	}
 	
+
 	shuffle(a) {
 		var j, x, i;
 		for (i = a.length - 1; i > 0; i--) {
@@ -71,9 +77,9 @@ class AllGames extends React.Component{
 			data: data,
 			url : URL + "/getgames",
 		}).then(res => {return res.data}).then(data => {
-			this.shuffle(data);
+			// this.shuffle(data);
 			let g1 = new Array(), g2 = new Array(), openClose = new Array();
-			data.map((i) => {
+			data.reverse().map((i) => {
 				if (i.the_loai == 1){
 					g1.push(i);
 					openClose.push(false);
@@ -98,20 +104,20 @@ class AllGames extends React.Component{
 		const name = target.name;
 		let value = target.value;
 		if (value === "A") value = "";
-		this.setState({[name] : value});
+		this.setState({[name] : value, limit: LIMIT2, limit_btn: false});
 		// console.log(this.state.games);
 	}
 	
 	handleCheck(value){
 		let clone = [0,0,0];
 		clone[value] = 1;
-		this.setState({f_child: clone});
+		this.setState({f_child: clone,  limit: LIMIT2, limit_btn: false});
 	}
 	
 	handleCheck1(value){
 		let clone = [0,0,0,0,0];
 		clone[value] = 1;
-		this.setState({f_kinang: clone});
+		this.setState({f_kinang: clone,  limit: LIMIT2, limit_btn: false});
 	}
 	
 	handleSearch(e){
@@ -123,7 +129,7 @@ class AllGames extends React.Component{
 	
 	closeFilter() {
 		// this.filterRef.current.style.display = "none";
-		this.setState({f_doihinh: "", f_soluong: "", f_child: [1,1,1], f_kinang: [1,1,1,1,1]});
+		this.setState({f_doihinh: "", f_soluong: "", f_child: [1,1,1], f_kinang: [1,1,1,1,1], limit: LIMIT2, limit_btn: false});
 		document.querySelectorAll('input[type=checkbox]').forEach( el => el.checked = false );
 	}
 	
@@ -145,6 +151,8 @@ class AllGames extends React.Component{
 				f_kinang: [1,1,1,1,1],
 				trochoi: "Trò chơi sinh hoạt tập thể",
 				isOpen : isOpen,
+				limit: LIMIT,
+				limit_btn: false,
 			});
 		}
 		else if (value == 2){
@@ -163,6 +171,8 @@ class AllGames extends React.Component{
 				f_kinang: [1,1,1,1,1],
 				trochoi: "Trò chơi rèn luyện kĩ năng",
 				isOpen : isOpen,
+				limit: LIMIT,
+				limit_btn: false,
 			});
 		}
 	}
@@ -225,7 +235,15 @@ class AllGames extends React.Component{
 	handleGameClose(e){
 		this.gameOverlayRef.current.style.display = "none";	
 	}
-
+	
+	handleIncreaseLimit(){
+		let value = parseInt(this.state.limit) + LIMIT;
+		let len = this.state.games.length;
+		if (value >= len)
+			this.setState({limit_btn: true});
+		// console.log(value, len);
+		this.setState({limit: value});
+	}
 	
 	game_gen(){
 			// console.log(this.state.games);
@@ -366,17 +384,18 @@ class AllGames extends React.Component{
 		let n = list.length;
 		let games = new Array(), cols = new Array(), i;
 		list.forEach((i, ind) => {
-			cols.push(
-				<div className="w3-col m4 w3-margin-bottom">{i}</div>
-			);
-			
-			if ((ind+1)%3 == 0 || (ind+1 == n)){
-				games.push(
-					<div className="w3-row-padding">{cols}</div>
+			if (ind < this.state.limit){
+				cols.push(
+					<div className="w3-col m4 w3-margin-bottom">{i}</div>
 				);
-				cols = new Array();
+				
+				if ((ind+1)%3 == 0 || (ind+1 == n)){
+					games.push(
+						<div className="w3-row-padding">{cols}</div>
+					);
+					cols = new Array();
+				}
 			}
-			
 		});
 		
 		let check = ["w3-large w3-text-grey w3-margin w3-opacity", "w3-large w3-text-grey w3-margin w3-opacity", "w3-large w3-text-grey w3-margin w3-opacity"];
@@ -387,17 +406,17 @@ class AllGames extends React.Component{
 		if (this.state.f_child[2] == 1) 
 			check[2] = "w3-large w3-text-red w3-margin";
 		
-		let check1 = ["w3-text-grey w3-margin w3-opacity", "w3-text-grey w3-margin w3-opacity", "w3-text-grey w3-margin w3-opacity", "w3-text-grey w3-margin w3-opacity", "w3-text-grey w3-margin w3-opacity"];
+		let check1 = ["w3-text-grey w3-opacity", "w3-text-grey w3-opacity", "w3-text-grey w3-opacity", "w3-text-grey w3-opacity", "w3-text-grey w3-opacity"];
 		if (this.state.f_kinang[0] == 1) 
-			check1[0] = "w3-text-green bold w3-margin";
+			check1[0] = "w3-text-green bold";
 		if (this.state.f_kinang[1] == 1) 
-			check1[1] = "w3-text-green bold w3-margin";
+			check1[1] = "w3-text-purple bold";
 		if (this.state.f_kinang[2] == 1) 
-			check1[2] = "w3-text-green bold w3-margin";
+			check1[2] = "w3-text-orange bold";
 		if (this.state.f_kinang[3] == 1) 
-			check1[3] = "w3-text-green bold w3-margin";
+			check1[3] = "w3-text-blue bold";
 		if (this.state.f_kinang[4] == 1) 
-			check1[4] = "w3-text-green bold w3-margin";
+			check1[4] = "w3-text-indigo bold";
 		
 		// console.log(games);
 		let filter;
@@ -434,7 +453,7 @@ class AllGames extends React.Component{
 					</div>
 				</div>
 				<div className="w3-margin-top">
-					<div class="w3-center">
+					<div className="w3-center">
 						<span className={check[0]} title="Ngành ấu" 
 							onClick={() => {this.handleCheck(0)}} style={{cursor: "pointer"}}>
 							<FontAwesomeIcon size="lg" icon={faBaby} />
@@ -451,19 +470,17 @@ class AllGames extends React.Component{
 				</div>
 				
 				<div className="w3-margin-top">
-					<div class="w3-center">
+					<div className="w3-center">
 					{
 						this.state.name_kinang[this.state.the_loai-1].map((i, stt) => {
 							return (
-								<span className={check1[stt]} title="Ngành ấu" 
+								<span className={check1[stt]} 
 									onClick={() => {this.handleCheck1(stt)}} style={{cursor: "pointer"}}>
-									{i}
+									<span className="w3-center">{i} &nbsp;</span>
 								</span>
 							);
 						})
 					}
-						
-						
 					</div>
 				</div>
 				
@@ -507,7 +524,9 @@ class AllGames extends React.Component{
 				
 				<div className="">
 					<h1 className="w3-center w3-wide">Tất cả trò chơi</h1>
-					<h5 className="w3-center"><i>Cùng chơi cùng vui!</i></h5>
+					<h5 className="w3-center" ><i>
+						Cùng chơi <NavLink to="/verify" style={{textDecoration:"none",cursor: "text"}}>cùng vui!</NavLink>
+					</i></h5>
 					<br/>
 				</div>
 				<div className="w3-row-padding">
@@ -522,23 +541,27 @@ class AllGames extends React.Component{
 								<FontAwesomeIcon className="w3-margin-right" icon={faSearch}  size="lg"/>
 								Tìm kiếm
 							</div>
-							<NavLink to="/verify">
-								<div className="w3-btn w3-large w3-text-green w3-display-topright">
-									Quản lý &nbsp; <FontAwesomeIcon className="w3-margin-right" icon={faCheckSquare}  size="lg"/>
-								</div>
-							</NavLink>
+							
+							<div className="w3-btn w3-large w3-text-green w3-display-topright" id={Math.floor(Math.random() * this.state.games.length)} onClick={this.handleGameOpen} title="Chọn ngẫu nhiên 1 trò chơi">
+								Lucky me! &nbsp; <FontAwesomeIcon className="w3-margin-right animate__animated animate__swing animate__infinite" icon={faDisease}  size="lg"/>
+							</div>
 							<br/>
 						</div>
 						<div className="w3-display-container w3-animate-opacity" ref={this.filterRef} style={{display: "none"}}>
 							{filter}
-						</div>
-						
+						</div>	
 					</div>
 					<div className="w3-col l3"><br/></div>
 					<div className="w3-container">
 						{games}
 					</div>
+					<div className="w3-center w3-margin">
+						<button className="w3-btn w3-green" disabled = {this.state.limit_btn} 
+							onClick={this.handleIncreaseLimit}>Tải thêm</button>
+					</div>
+					
 				</div>
+				
 				<br/><br/>
 			</div >
 		);

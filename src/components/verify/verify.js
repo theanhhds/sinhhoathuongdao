@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {URL} from './url.js';
+import {URL} from '../url.js';
 import {withRouter} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faWindowClose, faChild, faBaby, faMale } from '@fortawesome/free-solid-svg-icons';
@@ -98,7 +98,7 @@ class Verify extends React.Component{
 	
 	createAdmin(){
 		if ((this.state.a_pass == this.state.a_pass_c) && 
-			(this.state.a_name != null && this.state.a_pass != null && this.state.a_pass_c != null)){
+			(this.state.a_name != "" && this.state.a_pass != "" && this.state.a_pass_c != "")){
 			let data = {};
 			data.username = this.state.a_name;
 			data.password = this.state.a_pass;
@@ -455,7 +455,6 @@ class Verify extends React.Component{
 				</div>
 				<br/>
 				<div className=" bold">{this.state.a_mess}</div>
-				<br/>
 				<hr/>
 				<div className="w3-btn w3-green w3-center" onClick={this.getAdmin}>Whosadmin?</div>
 				<br/><br/>

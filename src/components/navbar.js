@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom';
 import {NavLink} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faPlusCircle, faListAlt } from '@fortawesome/free-solid-svg-icons';
-import './allgames.css';
+import './allgames/allgames.css';
 
 class Navbar extends React.Component{
 	constructor(){

@@ -1,5 +1,5 @@
 import React from 'react';
-import {URL, CC_key} from './url.js';
+import {URL, CC_key} from '../url.js';
 import {withRouter} from 'react-router-dom';
 import axios from 'axios';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -293,7 +293,7 @@ class AddNew extends React.Component {
 					</div>
 					<div className="w3-col l3"><br/></div>
 				</div>
-				<br/><br/>
+				<br/><br/><br/><br/><br/><br/><br/><br/>
 			</div>
 		);
 	}
