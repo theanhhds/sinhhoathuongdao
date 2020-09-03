@@ -33,7 +33,7 @@ class Home extends React.Component {
 						<br/><br/>
 						Đặc biệt trong phong trào Hướng đạo, trò chơi được sử dụng như một công cụ giáo dục đặc biệt, nhằm phát triển đoàn sinh một cách toàn diện. Bằng các trò chơi, các em sẽ được rèn luyện sức khoẻ, tăng sức chịu đựng, luyện ý chí và ý thức, hình thành tính cách và phát triển các giác quan. Thông qua các trò chơi, các trưởng rèn luyện cho đoàn sinh mình những đức tính và kĩ năng cần thiết của một người hướng đạo sinh.
 						<br/><br/>
-						Trên những tinh thần đó, <b><span className="w3-text-blue">Games</span><span className="w3-text-red">4</span><span className="w3-text-green">scout</span></b> được ra đời để làm kho dữ liệu lưu trữ trực tuyến các trò chơi sinh hoạt dành cho mọi người. Xin chân thành cảm ơn tất cả đóng góp của tất cả mọi người đã giúp xây dựng và phát triển ứng dụng này. Mong rằng ai cũng sẽ được chơi, và chơi thật vui.
+						Chính vì thế, <b><span className="w3-text-blue">Games</span><span className="w3-text-red">4</span><span className="w3-text-green">scout</span></b> được ra đời để làm kho dữ liệu trực tuyến lưu trữ các trò chơi sinh hoạt dành cho mọi người. Xin chân thành cảm ơn tất cả đóng góp của tất cả mọi người đã giúp xây dựng và phát triển ứng dụng này. Mong rằng ai cũng sẽ được chơi, và chơi thật vui.
 						<br/><br/>
 				
 						<div className="w3-center"><i className="w3-text-grey">-- Gấu DD --</i><br/><br/></div>
