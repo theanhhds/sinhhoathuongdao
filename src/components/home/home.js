@@ -20,6 +20,8 @@ class Home extends React.Component {
 				</h1>
 				<br/>
 				
+				<div className="w3-center"><NavLink to="/allgames"><button className=" w3-btn w3-green w3-large animate__animated animate__heartBeat animate__infinite">Xem trò chơi</button></NavLink></div>
+				
 				<div className="w3-row-padding w3-justify w3-animate-bottom">
 					<div className="w3-col l3"><br/></div>
 					<div className="w3-col l6 w3-container w3-padding-large font-comic">
@@ -37,8 +39,6 @@ class Home extends React.Component {
 						<br/><br/>
 				
 						<div className="w3-center"><i className="w3-text-grey">-- Gấu DD --</i><br/><br/></div>
-						<br/><br/><br/>
-						<div className="w3-center"><NavLink to="/allgames"><button className=" w3-btn w3-green w3-large animate__animated animate__heartBeat animate__infinite">Xem trò chơi</button></NavLink></div>
 					</div>
 					<br/><br/>
 					<div className="w3-col l3"><br/></div>

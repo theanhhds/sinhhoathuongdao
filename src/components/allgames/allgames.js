@@ -273,7 +273,9 @@ class AllGames extends React.Component{
 				/>
 				
 				<div className="">
-					<h1 className="w3-center w3-wide">Tất cả trò chơi</h1>
+					<h1 className="w3-center w3-wide">
+						Tất cả trò chơi
+					</h1>
 					<h5 className="w3-center" ><i>
 						Cùng chơi <NavLink to="/verify" style={{textDecoration:"none",cursor: "text"}}>cùng vui!</NavLink>
 					</i></h5>
@@ -283,8 +285,12 @@ class AllGames extends React.Component{
 					<div className="w3-col l3"><br/></div>
 					<div className="w3-col l6 w3-container">
 						<div className="w3-row-padding w3-center w3-stretch">
-							<button className={this.state.btn_sinhhoat} value='1' onClick={this.switchGames}>Trò chơi sinh hoạt</button>
-							<button className={this.state.btn_kinang}  value='2' onClick={this.switchGames}>Trò chơi kĩ năng</button>
+							<button className={this.state.btn_sinhhoat} value='1' onClick={this.switchGames}>
+								Trò chơi sinh hoạt ({parseInt(this.state.games1.length)})
+							</button>
+							<button className={this.state.btn_kinang}  value='2' onClick={this.switchGames}>
+								Trò chơi kĩ năng ({parseInt(this.state.games2.length)})
+							</button>
 						</div>
 						<div className="w3-display-container w3-padding w3-margin-bottom">
 							<div className="w3-btn w3-large w3-text-green w3-display-topleft" onClick={this.handleSearch}>

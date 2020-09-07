@@ -23,6 +23,7 @@ class Verify extends React.Component{
 			e_mota: "",
 			e_id: "",
 			e_child : [0,0,0],
+			e_kinang: [0,0,0,0,0],
 			e_theloai : 0,
 			e_mess : "Save",
 			editOpen : false,
@@ -55,6 +56,7 @@ class Verify extends React.Component{
 		this.handleEditOpen = this.handleEditOpen.bind(this);
 		this.closeOverlay = this.closeOverlay.bind(this);
 		this.handleCheck = this.handleCheck.bind(this);
+		this.handleCheck1 = this.handleCheck1.bind(this);
 		this.toggleExpand = this.toggleExpand.bind(this);
 		this.handleOpenAddAdmin = this.handleOpenAddAdmin.bind(this);
 		this.createAdmin = this.createAdmin.bind(this);
@@ -248,7 +250,7 @@ class Verify extends React.Component{
 		let id = e.target.value;
 		let game = this.state.games[id];
 		// console.log(game);
-		this.setState({e_ten: game.ten, e_soluong: game.so_luong, e_mota: game.mo_ta, e_doihinh: game.doi_hinh, e_id: game._id, e_mess: "Save", e_theloai: game.the_loai, e_btn: "w3-btn w3-green w3-right", e_child: game.child});
+		this.setState({e_ten: game.ten, e_soluong: game.so_luong, e_mota: game.mo_ta, e_doihinh: game.doi_hinh, e_id: game._id, e_mess: "Save", e_theloai: game.the_loai, e_btn: "w3-btn w3-green w3-right", e_child: game.child, e_kinang: game.ki_nang});
 	}
 	
 	handleChangeInput(e){
@@ -273,6 +275,7 @@ class Verify extends React.Component{
 		data.mo_ta = this.state.e_mota;
 		data.the_loai = this.state.e_theloai;
 		data.child = this.state.e_child;
+		data.ki_nang = this.state.e_kinang;
 		axios({
 			method: 'post',
 			url: URL+"/editGame",
@@ -301,6 +304,14 @@ class Verify extends React.Component{
 		let clone = this.state.e_child;
 		clone[value] = 1-clone[value];
 		this.setState({e_child: clone});
+	}
+	
+	handleCheck1(value){
+		// let value = e.target.name;
+		// console.log(value);
+		let clone = this.state.e_kinang;
+		clone[value] = 1-clone[value];
+		this.setState({e_kinang: clone});
 	}
 	
 	toggleExpand(id){
@@ -332,8 +343,8 @@ class Verify extends React.Component{
 				let so_luong;
 				if (i.so_luong == 1) so_luong = "Dưới 10 người";
 					else if (i.so_luong == 2) so_luong = "Từ 10 đến 25 người";
-					else so_luong = "Trên 25 người";
-					
+					else so_luong = "Trên 25 người";	
+			
 				let doi_hinh = "";
 				if (i.doi_hinh == 1) doi_hinh = "Cá nhân";
 				else if (i.doi_hinh == 2) doi_hinh = "Vòng tròn";
@@ -405,6 +416,32 @@ class Verify extends React.Component{
 				if (i.child[2] == 1)
 					forChild += "[Kha] ";
 				
+				let ki_nang = "";
+				if (i.the_loai == 1){
+					if (i.ki_nang[0] == 1)
+						ki_nang += "[Nhanh nhẹn] ";
+					if (i.ki_nang[1] == 1)
+						ki_nang += "[Teamwork] ";
+					if (i.ki_nang[2] == 1)
+						ki_nang += "[Trí tuệ] ";
+					if (i.ki_nang[3] == 1)
+						ki_nang += "[Dũng cảm] ";
+					if (i.ki_nang[4] == 1)
+						ki_nang += "[Khéo léo] ";
+				}
+				else if (i.the_loai == 2){
+					if (i.ki_nang[0] == 1)
+						ki_nang += "[Nút dây] ";
+					if (i.ki_nang[1] == 1)
+						ki_nang += "[Truyền tin] ";
+					if (i.ki_nang[2] == 1)
+						ki_nang += "[Cứu thương] ";
+					if (i.ki_nang[3] == 1)
+						ki_nang += "[Phương hướng] ";
+					if (i.ki_nang[4] == 1)
+						ki_nang += "[Trại] ";
+				}
+				
 				return(
 					<div className={hide}>
 						<div className={hide2}>
@@ -416,6 +453,7 @@ class Verify extends React.Component{
 								
 								<div><b>Thể loại trò chơi: </b>{the_loai}</div>
 								<div><b>Số lượng người chơi: </b>{so_luong}</div>
+								<div><b>Kĩ năng: </b>{ki_nang}</div>		
 								<div><b>Đội hình chơi: </b>{doi_hinh}</div>		
 								<div><b>Độ tuổi: </b>{forChild}</div>
 								<div><b>Người đóng góp: </b>{i.dong_gop}</div>
@@ -487,6 +525,19 @@ class Verify extends React.Component{
 		if (this.state.e_child[2] == 1) 
 			check[2] = "w3-large w3-text-red w3-margin";
 		
+		let ten_kinang = [
+			[],
+			["Nhanh", "Teamwork", "Trí", "Dũng", "Khéo"],
+			["Nút", "Truyền", "Cứu", "Hướng", "Trại"]
+		];
+		let i;
+		let check1 = 	["w3-text-grey w3-opacity", "w3-text-grey w3-opacity", 
+						"w3-text-grey w3-opacity", "w3-text-grey w3-opacity", "w3-text-grey w3-opacity"];
+		for (i=0; i< 5; i++){
+			if (this.state.e_kinang[i] == 1)
+				check1[i] = "w3-text-green bold";
+		}
+		
 		edit = (
 			<div className="w3-pale-green w3-card w3-padding-large w3-container">
 				<div onClick={this.closeOverlay} className="w3-btn w3-right w3-text-red"><FontAwesomeIcon icon={faWindowClose} size="lg"/></div>
@@ -523,6 +574,7 @@ class Verify extends React.Component{
 								<option value="3">Trên 25 người</option>
 							</select>
 						</div>
+						
 						<div class="w3-col l6  w3-padding-large">
 							<select name="e_doihinh" onChange={this.handleEditChange} value={this.state.e_doihinh} className="w3-select ">
 								<option value="0" disabled selected>Đội hình</option>
@@ -531,22 +583,34 @@ class Verify extends React.Component{
 								<option value="3">Chia nhóm</option>
 								<option value="4">Khác</option>
 							</select>
-							
 						</div>
+						
 						<div class="w3-center w3-margin">
-								<span className={check[0]} title="Ngành ấu" 
-									onClick={() => {this.handleCheck(0)}} style={{cursor: "pointer"}}>
-									<FontAwesomeIcon size="lg" icon={faBaby} />
-								</span>
-								<span className={check[1]} title="Ngành thiếu" 
-									onClick={() => {this.handleCheck(1)}} style={{cursor: "pointer"}}>
-									<FontAwesomeIcon  size="lg" icon={faChild} />
-								</span>
-								<span className={check[2]} title="Ngành kha" 
-									onClick={() => {this.handleCheck(2)}} style={{cursor: "pointer"}}>
-									<FontAwesomeIcon size="lg" icon={faMale} />
-								</span>
-							</div>
+							<span className={check[0]} title="Ngành ấu" 
+								onClick={() => {this.handleCheck(0)}} style={{cursor: "pointer"}}>
+								<FontAwesomeIcon size="lg" icon={faBaby} />
+							</span>
+							<span className={check[1]} title="Ngành thiếu" 
+								onClick={() => {this.handleCheck(1)}} style={{cursor: "pointer"}}>
+								<FontAwesomeIcon  size="lg" icon={faChild} />
+							</span>
+							<span className={check[2]} title="Ngành kha" 
+								onClick={() => {this.handleCheck(2)}} style={{cursor: "pointer"}}>
+								<FontAwesomeIcon size="lg" icon={faMale} />
+							</span>
+						</div>
+						
+						<div class="w3-center w3-margin">
+							{ten_kinang[this.state.e_theloai].map((i, ind) => {
+								return(
+									<span className={check1[ind]} style={{cursor: "pointer"}}
+									onClick={() => {this.handleCheck1(ind)}} >
+										{" [" + i + "] "}
+									</span>
+								);
+							})
+							}
+						</div>
 					</div>
 					
 					<textarea className="w3-block" placeholder="Mô tả trò chơi" name="e_mota" value={this.state.e_mota} onChange={this.handleEditChange} style={{height: "100px"}}></textarea>

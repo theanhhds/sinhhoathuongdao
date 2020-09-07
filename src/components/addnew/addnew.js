@@ -70,6 +70,14 @@ class AddNew extends React.Component {
 		// console.log(clone);
 	}
 	
+	handleCheck(value){
+		// let value = e.target.name;
+		// console.log(value);
+		let clone = this.state.n_child;
+		clone[value] = 1-clone[value];
+		this.setState({n_child: clone});
+	}
+	
 	announce(){
 		
 	}
@@ -89,7 +97,8 @@ class AddNew extends React.Component {
 		data.the_loai = this.state.n_theloai;
 		data.child = this.state.n_child;
 		// console.log(data);
-		if (data.ten == "" || data.so_luong == 0 || data.mo_ta == "" || data.doi_hinh == 0 || data.the_loai == 0 || data.child == [0,0,0]){
+		if (data.ten == "" || data.so_luong == 0 || data.mo_ta == "" || data.doi_hinh == 0 || data.the_loai == 0 
+			|| data.child.reduce((a,b) => a+b, 0) == 0 || data.ki_nang.reduce((a,b) => a+b, 0) == 0){
 			this.notEnoughRef.current.style.display = "block";
 			this.attention.current.style.display = "block";
 			setTimeout(() => {this.notEnoughRef.current.style.display = "none"; 
@@ -117,13 +126,7 @@ class AddNew extends React.Component {
 		}
 	}
 	
-	handleCheck(value){
-		// let value = e.target.name;
-		// console.log(value);
-		let clone = this.state.n_child;
-		clone[value] = 1-clone[value];
-		this.setState({n_child: clone});
-	}
+	
 	render(){
 		let style_kinang = ["w3-text-grey w3-col s4 w3-opacity", "w3-text-grey w3-col s4 w3-opacity", 
 							"w3-text-grey w3-col s4 w3-opacity", 
@@ -224,7 +227,7 @@ class AddNew extends React.Component {
 							<lable><b> Tên trò chơi (*)</b></lable>
 								<input type="text" className="w3-input w3-margin" name="n_ten" value={this.state.n_ten} onChange={this.handleChange}/>
 								
-							<span><b> Kĩ năng rèn luyện </b></span>
+							<span><b> Kĩ năng rèn luyện (*)</b></span>
 								{kinang}
 							<div className="w3-row-padding w3-stretch">
 								<div className="w3-col s6">
@@ -283,9 +286,9 @@ class AddNew extends React.Component {
 									onChange={this.onChangeCaptcha}/></div>
 								<br/>
 								
-								<div className="w3-col l5">
+								<div className="w3-col l5 w3-margin-top">
 									
-									<button class="w3-btn w3-red w3-right" 
+									<button class="w3-btn w3-red w3-right " 
 									disabled={!this.state.captcha_OK} onClick={this.handleSubmit}> Tạo trò chơi </button>
 								</div>
 							</div>
