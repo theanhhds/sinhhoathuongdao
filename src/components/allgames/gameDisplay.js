@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import YouTube from 'react-youtube';
 
 
 class gameDisplay extends React.Component{
@@ -31,6 +32,19 @@ class gameDisplay extends React.Component{
 	render(){
 		// console.log(this.props.data);
 		let style = {display: (this.props.display)?"block":"none"};
+		let youtube;
+		
+		if (this.props.data.video != null)
+		{
+			let youtube_link = "https://youtube.com/watch?v=" + this.props.data.video;
+			let opts = {
+				width: "100%",
+			};
+			youtube = 	<div className="w3-center">
+							<YouTube videoId={this.props.data.video} opts={opts}/>
+							<a href={youtube_link} target="_blank">Youtube</a>
+						</div>;
+		}
 		
 		return (
 		<div className="w3-modal" onClick={(e) => {this.closeM(this.modalRef, e)}} 
@@ -52,9 +66,12 @@ class gameDisplay extends React.Component{
 						</div>
 						<div className="w3-center"><i>{this.props.data.ki_nang}</i></div>
 						<br/>
-						<div className="font-comic" style={{whiteSpace: "pre-wrap", maxHeight: "250px", overflowY: "auto"}}>
+						<div className="font-comic" style={{whiteSpace: "pre-wrap", maxHeight: "350px", overflowY: "auto"}}>
 							{this.props.data.mo_ta}
+							{youtube}
 						</div>
+						<br/>
+						
 						<br/>
 						<div className="w3-center w3-text-grey"><i>-- by {this.props.data.dong_gop} --</i></div>
 					</div>

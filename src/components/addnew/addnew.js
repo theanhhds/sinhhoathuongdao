@@ -5,6 +5,7 @@ import axios from 'axios';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChild, faBaby, faMale  } from '@fortawesome/free-solid-svg-icons';
+import getYoutubeID from 'get-youtube-id';
 
 class AddNew extends React.Component {
 	constructor(){
@@ -18,6 +19,8 @@ class AddNew extends React.Component {
 			n_theloai : 0,
 			n_kinang: [0,0,0,0,0],		//Add more here when more ki nang
 			n_child : [0,0,0],
+			n_video : "",
+			n_pics : [],
 			child_mess : "Không",
 			captcha_OK: false,
 		};
@@ -96,13 +99,15 @@ class AddNew extends React.Component {
 		data.dong_gop = this.state.n_donggop;
 		data.the_loai = this.state.n_theloai;
 		data.child = this.state.n_child;
+		data.video = getYoutubeID(this.state.n_video);
+		
 		// console.log(data);
 		if (data.ten == "" || data.so_luong == 0 || data.mo_ta == "" || data.doi_hinh == 0 || data.the_loai == 0 
 			|| data.child.reduce((a,b) => a+b, 0) == 0 || data.ki_nang.reduce((a,b) => a+b, 0) == 0){
 			this.notEnoughRef.current.style.display = "block";
 			this.attention.current.style.display = "block";
 			setTimeout(() => {this.notEnoughRef.current.style.display = "none"; 
-								this.attention.current.style.display = "none"}, 4000);
+								this.attention.current.style.display = "none"}, 3000);
 		}
 		else{
 			// console.log(URL + "/addnew");
@@ -116,9 +121,9 @@ class AddNew extends React.Component {
 				// this.setState({n_ten: "", n_kinang: [], n_mota: "", n_soluong: 0, captcha_OK: false});
 				// document.querySelectorAll('input[type=checkbox]').forEach( el => el.checked = false );	//Uncheck all checkboxes
 				// alert("Trò chơi đã được lưu vào dữ liệu và đang đợi để được xác nhận bởi admin");
-				this.setState({n_ten : "", n_soluong: 0, n_doihinh: 0, n_mota: "", n_kinang : [0,0,0,0,0], n_donggop: "", n_child: [0,0,0]});
+				this.setState({n_ten : "", n_soluong: 0, n_doihinh: 0, n_mota: "", n_kinang : [0,0,0,0,0], n_donggop: "", n_child: [0,0,0], n_video: ""});
 				document.querySelectorAll('input[type=checkbox]').forEach( el => el.checked = false );	//Uncheck all checkboxes
-				setTimeout(() => {this.overlayRef.current.style.display = "none"}, 4000);
+				setTimeout(() => {this.overlayRef.current.style.display = "none"}, 3000);
 				// this.props.history.push('/allgames');
 			});
 			
@@ -252,9 +257,14 @@ class AddNew extends React.Component {
 									</select>
 								</div>
 							</div>
+							
 							<span><b> Mô tả (*)</b></span>
 								<textarea className="w3-block w3-margin" value={this.state.n_mota} style={{height:200}} name="n_mota"  
 									onChange={this.handleChange} />
+							
+							<lable><b> Video minh hoạ (link Youtube) </b></lable>
+								<input type="text" className="w3-input w3-margin" name="n_video" value={this.state.n_video} onChange={this.handleChange}/>
+							
 							<div className="w3-row">
 								<div className="w3-col s6">
 									<lable><b>Độ tuổi (*)</b></lable>

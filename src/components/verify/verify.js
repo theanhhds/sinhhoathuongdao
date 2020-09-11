@@ -25,6 +25,7 @@ class Verify extends React.Component{
 			e_child : [0,0,0],
 			e_kinang: [0,0,0,0,0],
 			e_theloai : 0,
+			e_video : "",
 			e_mess : "Save",
 			editOpen : false,
 			e_btn: "w3-btn w3-green w3-right",
@@ -250,7 +251,7 @@ class Verify extends React.Component{
 		let id = e.target.value;
 		let game = this.state.games[id];
 		// console.log(game);
-		this.setState({e_ten: game.ten, e_soluong: game.so_luong, e_mota: game.mo_ta, e_doihinh: game.doi_hinh, e_id: game._id, e_mess: "Save", e_theloai: game.the_loai, e_btn: "w3-btn w3-green w3-right", e_child: game.child, e_kinang: game.ki_nang});
+		this.setState({e_ten: game.ten, e_soluong: game.so_luong, e_mota: game.mo_ta, e_doihinh: game.doi_hinh, e_id: game._id, e_mess: "Save", e_theloai: game.the_loai, e_btn: "w3-btn w3-green w3-right", e_child: game.child, e_kinang: game.ki_nang, e_video: ('video' in game)?game.video:""});
 	}
 	
 	handleChangeInput(e){
@@ -276,6 +277,7 @@ class Verify extends React.Component{
 		data.the_loai = this.state.e_theloai;
 		data.child = this.state.e_child;
 		data.ki_nang = this.state.e_kinang;
+		data.video = this.state.e_video;
 		axios({
 			method: 'post',
 			url: URL+"/editGame",
@@ -442,6 +444,12 @@ class Verify extends React.Component{
 						ki_nang += "[Trại] ";
 				}
 				
+				let video_link = "No video";
+				if (i.video != "" && ('video' in i)){
+					let link = "https://youtube.com/watch?v=" + i.video;
+					video_link = <a href={link} target="_blank">{link}</a>
+				}
+				
 				return(
 					<div className={hide}>
 						<div className={hide2}>
@@ -453,9 +461,10 @@ class Verify extends React.Component{
 								
 								<div><b>Thể loại trò chơi: </b>{the_loai}</div>
 								<div><b>Số lượng người chơi: </b>{so_luong}</div>
-								<div><b>Kĩ năng: </b>{ki_nang}</div>		
-								<div><b>Đội hình chơi: </b>{doi_hinh}</div>		
-								<div><b>Độ tuổi: </b>{forChild}</div>
+								<div><b>Đội hình chơi: </b>{doi_hinh}</div>	
+								<div><b>Kĩ năng: </b>{ki_nang}</div>	
+								<div><b>Độ tuổi: </b>{forChild}</div>								
+								<div><b>Link Youtube: </b>{video_link}</div>	
 								<div><b>Người đóng góp: </b>{i.dong_gop}</div>
 								<div><b>Action [add/hide]: </b>{i.confirm_user_a}/ {i.confirm_user_h}</div>
 								<div><b>Mô tả:</b><div className="w3-margin" style={{whiteSpace: "pre-wrap"}}>{i.mo_ta}</div></div>
@@ -552,7 +561,7 @@ class Verify extends React.Component{
 					
 					
 					<div className="w3-row-padding w3-stretch">
-						<div class="w3-col l6 w3-padding-large">
+						<div class="w3-col l6  w3-padding-large">
 							<input className="w3-input" placeholder="Tên trò chơi" name="e_ten" value={this.state.e_ten} onChange={this.handleEditChange} />
 						</div>
 						
@@ -611,8 +620,13 @@ class Verify extends React.Component{
 							})
 							}
 						</div>
+						
+						<div className="w3-center  w3-padding-large">
+							<input className="w3-input" placeholder="ID Youtube (Not link!!!)" name="e_video" value={this.state.e_video} onChange={this.handleEditChange} autocomplete="off"/>
+						</div>
 					</div>
 					
+					<br/>
 					<textarea className="w3-block" placeholder="Mô tả trò chơi" name="e_mota" value={this.state.e_mota} onChange={this.handleEditChange} style={{height: "100px"}}></textarea>
 					<br/>
 					<div className="w3-row">

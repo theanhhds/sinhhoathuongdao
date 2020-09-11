@@ -40,6 +40,7 @@ class AllGames extends React.Component{
 			c_child: 0,
 			c_kinang: [],
 			c_bg: "",
+			c_video: "",
 			limit: LIMIT,
 			limit_btn : false,
 			btn_sinhhoat: "w3-center w3-col w3-large m6 w3-btn w3-green w3-padding",
@@ -223,7 +224,7 @@ class AllGames extends React.Component{
 				if (i.dong_gop != "" && ('dong_gop' in i))
 					author = i.dong_gop;
 		
-		this.setState({c_ten: i.ten, c_mota: i.mo_ta, c_doihinh: doi_hinh, c_soluong: so_luong, c_donggop: author, c_child: child, c_kinang: ki_nang, c_bg: pColor});
+		this.setState({c_ten: i.ten, c_mota: i.mo_ta, c_doihinh: doi_hinh, c_soluong: so_luong, c_donggop: author, c_child: child, c_kinang: ki_nang, c_bg: pColor, c_video: i.video});
 		
 		this.setState({displayGameModal : true});
 		// this.gameOverlayRef.current.style.display = "block";
@@ -253,7 +254,8 @@ class AllGames extends React.Component{
 						ki_nang: this.state.c_kinang,
 						child: this.state.c_child,
 						mo_ta: this.state.c_mota,
-						dong_gop: this.state.c_donggop
+						dong_gop: this.state.c_donggop,
+						video : this.state.c_video,
 					}
 					
 		let filterData = {	child: this.state.f_child, ki_nang: this.state.f_kinang, 
