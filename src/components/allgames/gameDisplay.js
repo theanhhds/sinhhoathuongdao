@@ -2,7 +2,8 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import YouTube from 'react-youtube';
-
+import ImageGallery from 'react-image-gallery';
+import "react-image-gallery/styles/css/image-gallery.css";
 
 class gameDisplay extends React.Component{
 	constructor(props){
@@ -34,7 +35,7 @@ class gameDisplay extends React.Component{
 		let style = {display: (this.props.display)?"block":"none"};
 		let youtube;
 		
-		if (this.props.data.video != null)
+		if (this.props.data.video != null && this.props.data.video != "")
 		{
 			let youtube_link = "https://youtube.com/watch?v=" + this.props.data.video;
 			let opts = {
@@ -44,6 +45,22 @@ class gameDisplay extends React.Component{
 							<YouTube videoId={this.props.data.video} opts={opts}/>
 							<a href={youtube_link} target="_blank">Youtube</a>
 						</div>;
+		}
+		
+		let pics;
+		// console.log(this.props.data.pics);
+		if (Array.isArray(this.props.data.pics) && this.props.data.pics.length > 0 )
+		{
+			// console.log(this.props.data.pics);
+			let images = new Array();
+			this.props.data.pics.map((pic, id) => {
+				images.push({
+					original: pic,
+					thumbnail: pic,
+				});
+			});
+			
+			pics = <ImageGallery items={images} />
 		}
 		
 		return (
@@ -66,8 +83,17 @@ class gameDisplay extends React.Component{
 						</div>
 						<div className="w3-center"><i>{this.props.data.ki_nang}</i></div>
 						<br/>
-						<div className="font-comic" style={{whiteSpace: "pre-wrap", maxHeight: "350px", overflowY: "auto"}}>
+						
+						<div className="font-comic w3-hide-small" style={{whiteSpace: "pre-wrap", maxHeight: "500px", overflowY: "auto"}}>
 							{this.props.data.mo_ta}
+							<br/>
+							{pics}
+							{youtube}
+						</div>
+						
+						<div className="font-comic w3-hide-large w3-hide-medium" style={{whiteSpace: "pre-wrap", maxHeight: "350px", overflowY: "auto"}}>
+							{this.props.data.mo_ta}
+							{pics}
 							{youtube}
 						</div>
 						<br/>

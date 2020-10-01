@@ -6,15 +6,20 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
+    "@ramonak/react-progress-bar": "^1.0.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "get-youtube-id": "^1.0.1",
+    "morsify": "^2.3.2",
+    "random-words": "^1.1.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-google-recaptcha": "^2.1.0",
+    "react-image-gallery": "^1.0.8",
     "react-scripts": "3.4.1",
-    "react-youtube": "^7.12.0"
+    "react-youtube": "^7.12.0",
+    "string-similarity": "^4.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

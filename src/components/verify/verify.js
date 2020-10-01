@@ -4,6 +4,7 @@ import {URL} from '../url.js';
 import {withRouter} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faWindowClose, faChild, faBaby, faMale } from '@fortawesome/free-solid-svg-icons';
+import getYoutubeID from 'get-youtube-id';
 
 class Verify extends React.Component{
 	constructor(){
@@ -26,6 +27,8 @@ class Verify extends React.Component{
 			e_kinang: [0,0,0,0,0],
 			e_theloai : 0,
 			e_video : "",
+			e_pics: [],
+			pic_link : "",
 			e_mess : "Save",
 			editOpen : false,
 			e_btn: "w3-btn w3-green w3-right",
@@ -63,6 +66,9 @@ class Verify extends React.Component{
 		this.createAdmin = this.createAdmin.bind(this);
 		this.closeAddAdmin = this.closeAddAdmin.bind(this);
 		this.handleChangeInput = this.handleChangeInput.bind(this);
+		this.handleLinkChange = this.handleLinkChange.bind(this);
+		this.handleAddPicLink = this.handleAddPicLink.bind(this);
+		this.handleRemovePicLink = this.handleRemovePicLink.bind(this);
 	}
 	
 	getGames(){
@@ -251,7 +257,32 @@ class Verify extends React.Component{
 		let id = e.target.value;
 		let game = this.state.games[id];
 		// console.log(game);
-		this.setState({e_ten: game.ten, e_soluong: game.so_luong, e_mota: game.mo_ta, e_doihinh: game.doi_hinh, e_id: game._id, e_mess: "Save", e_theloai: game.the_loai, e_btn: "w3-btn w3-green w3-right", e_child: game.child, e_kinang: game.ki_nang, e_video: ('video' in game)?game.video:""});
+		this.setState({e_ten: game.ten, e_soluong: game.so_luong, e_mota: game.mo_ta, e_doihinh: game.doi_hinh, e_id: game._id, e_mess: "Save", e_theloai: game.the_loai, e_btn: "w3-btn w3-green w3-right", e_child: game.child, e_kinang: game.ki_nang, e_video: ('video' in game)?game.video:"", e_pics: game.pics});
+	}
+	
+	handleLinkChange(id, e){
+		// console.log(e.target);
+		let clone = this.state.e_pics;
+		clone[id] = e.target.value;
+		this.setState({e_pics: clone});
+	}
+	
+	handleAddPicLink(event){
+		if (this.state.pic_link != ""){
+			let clone;
+			if (Array.isArray(this.state.e_pics) && this.state.e_pics.length > 0)
+				clone = this.state.e_pics;
+			else
+				clone = new Array();
+			clone.push(this.state.pic_link);
+			this.setState({e_pics: clone, pic_link: ""});
+		}
+	}
+	
+	handleRemovePicLink(id){
+		let clone = this.state.e_pics;
+		clone.splice(id, 1);
+		this.setState({e_pics: clone});
 	}
 	
 	handleChangeInput(e){
@@ -277,7 +308,8 @@ class Verify extends React.Component{
 		data.the_loai = this.state.e_theloai;
 		data.child = this.state.e_child;
 		data.ki_nang = this.state.e_kinang;
-		data.video = this.state.e_video;
+		data.video = (this.state.e_video.length > 15)?getYoutubeID(this.state.e_video):this.state.e_video;
+		data.pics = this.state.e_pics;
 		axios({
 			method: 'post',
 			url: URL+"/editGame",
@@ -445,9 +477,16 @@ class Verify extends React.Component{
 				}
 				
 				let video_link = "No video";
-				if (i.video != "" && ('video' in i)){
+				if (i.video != "" && i.video != null && ('video' in i)){
 					let link = "https://youtube.com/watch?v=" + i.video;
 					video_link = <a href={link} target="_blank">{link}</a>
+				}
+				// console.log(i.pics);
+				let pics = "No pic";
+				if (Array.isArray(i.pics) && i.pics.length > 0){
+					pics = i.pics.map((pic, id) => {
+						return <span>[<a href={pic} target="_blank">{pic}</a>] </span>;
+					});
 				}
 				
 				return(
@@ -465,6 +504,7 @@ class Verify extends React.Component{
 								<div><b>Kĩ năng: </b>{ki_nang}</div>	
 								<div><b>Độ tuổi: </b>{forChild}</div>								
 								<div><b>Link Youtube: </b>{video_link}</div>	
+								<div><b>Link hình: </b>{pics}</div>	
 								<div><b>Người đóng góp: </b>{i.dong_gop}</div>
 								<div><b>Action [add/hide]: </b>{i.confirm_user_a}/ {i.confirm_user_h}</div>
 								<div><b>Mô tả:</b><div className="w3-margin" style={{whiteSpace: "pre-wrap"}}>{i.mo_ta}</div></div>
@@ -547,6 +587,27 @@ class Verify extends React.Component{
 				check1[i] = "w3-text-green bold";
 		}
 		
+		let pics_edit;
+		
+		if (Array.isArray(this.state.e_pics) && this.state.e_pics.length > 0){
+			pics_edit = this.state.e_pics.map((game, id) => {
+				return (
+					<div className="w3-row-padding w3-stretch">
+						<div className="w3-col s10">
+							<input type="text" className="w3-input" value={this.state.e_pics[id]} 
+								onChange = {(e) => {this.handleLinkChange(id, e)}}/>
+						</div>
+						<div className="w3-col s2">
+							<span className="w3-btn w3-red" style={{cursor: "pointer"}} 
+								onClick={() => {this.handleRemovePicLink(id)}}>
+								Xoá
+							</span>
+						</div>
+					</div>
+				);
+			})
+		}
+		
 		edit = (
 			<div className="w3-pale-green w3-card w3-padding-large w3-container">
 				<div onClick={this.closeOverlay} className="w3-btn w3-right w3-text-red"><FontAwesomeIcon icon={faWindowClose} size="lg"/></div>
@@ -558,7 +619,6 @@ class Verify extends React.Component{
 					</select>
 					
 					<br/><br/>
-					
 					
 					<div className="w3-row-padding w3-stretch">
 						<div class="w3-col l6  w3-padding-large">
@@ -621,8 +681,24 @@ class Verify extends React.Component{
 							}
 						</div>
 						
-						<div className="w3-center  w3-padding-large">
-							<input className="w3-input" placeholder="ID Youtube (Not link!!!)" name="e_video" value={this.state.e_video} onChange={this.handleEditChange} autocomplete="off"/>
+						<div className="w3-center w3-padding-large">
+							<input className="w3-input" placeholder="Link youtube/ ID youtube" name="e_video" value={this.state.e_video} onChange={this.handleEditChange} autoComplete="off"/>
+						</div>
+						
+						<div className="w3-center w3-padding-large">
+						{
+							pics_edit
+						}
+							<div className="w3-row-padding w3-stretch">
+								<div className="w3-col s10">
+									<input className="w3-input" placeholder="New pic link" name="pic_link" 
+										value={this.state.pic_link} onChange={this.handleEditChange} autoComplete="off"/>
+								</div>
+								
+								<div className="w3-col s2">
+									<button className="w3-btn w3-green" onClick={this.handleAddPicLink}>Add</button>
+								</div>
+							</div>
 						</div>
 					</div>
 					

@@ -9,6 +9,7 @@ import AddNew from './components/addnew/addnew';
 import AllGames from './components/allgames/allgames';
 import Navbar from './components/navbar';
 import Verify from './components/verify/verify';
+import MorseApp from './components/morse/morseApp';
 import axios from 'axios';
 import {URL} from './components/url';
 import CoverPic from './pics/cover.png';
@@ -46,6 +47,7 @@ class App extends React.Component{
 						<Route path="/addnew" exact component={AddNew} />
 						<Route path="/allgames" exact component={AllGames} />
 						<Route path="/verify" exact component={Verify} />
+						<Route path="/morse" exact component={MorseApp} />
 						<Route component={Error}/>
 					</Switch>
 				</ScrollToTop>

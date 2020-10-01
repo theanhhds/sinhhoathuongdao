@@ -21,6 +21,7 @@ class AddNew extends React.Component {
 			n_child : [0,0,0],
 			n_video : "",
 			n_pics : [],
+			input_pic: "",
 			child_mess : "Không",
 			captcha_OK: false,
 		};
@@ -37,6 +38,9 @@ class AddNew extends React.Component {
 		this.onExpiredCaptcha = this.onExpiredCaptcha.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleCheck = this.handleCheck.bind(this);
+		this.handleAddPicLink = this.handleAddPicLink.bind(this);
+		this.handleRemoveLink = this.handleRemoveLink.bind(this);
+		// this.handlePicLinkChange = this.handlePicLinkChange.bind(this);
 	}
 	
 	onChangeCaptcha(value){
@@ -81,8 +85,18 @@ class AddNew extends React.Component {
 		this.setState({n_child: clone});
 	}
 	
-	announce(){
-		
+	handleAddPicLink(){
+		if (this.state.input_pic != ""){
+			let clone = this.state.n_pics;
+			clone.push(this.state.input_pic);
+			this.setState({n_pics: clone, input_pic: ""});
+		}
+	}
+	
+	handleRemoveLink(id){
+		let clone = this.state.n_pics;
+		clone.splice(id, 1);
+		this.setState({n_pics: clone});
 	}
 	
 	handleSubmit(){
@@ -100,7 +114,7 @@ class AddNew extends React.Component {
 		data.the_loai = this.state.n_theloai;
 		data.child = this.state.n_child;
 		data.video = getYoutubeID(this.state.n_video);
-		
+		data.pics = this.state.n_pics;
 		// console.log(data);
 		if (data.ten == "" || data.so_luong == 0 || data.mo_ta == "" || data.doi_hinh == 0 || data.the_loai == 0 
 			|| data.child.reduce((a,b) => a+b, 0) == 0 || data.ki_nang.reduce((a,b) => a+b, 0) == 0){
@@ -121,7 +135,7 @@ class AddNew extends React.Component {
 				// this.setState({n_ten: "", n_kinang: [], n_mota: "", n_soluong: 0, captcha_OK: false});
 				// document.querySelectorAll('input[type=checkbox]').forEach( el => el.checked = false );	//Uncheck all checkboxes
 				// alert("Trò chơi đã được lưu vào dữ liệu và đang đợi để được xác nhận bởi admin");
-				this.setState({n_ten : "", n_soluong: 0, n_doihinh: 0, n_mota: "", n_kinang : [0,0,0,0,0], n_donggop: "", n_child: [0,0,0], n_video: ""});
+				this.setState({n_ten : "", n_soluong: 0, n_doihinh: 0, n_mota: "", n_kinang : [0,0,0,0,0], n_donggop: "", n_child: [0,0,0], n_video: "", n_pics: [], });
 				document.querySelectorAll('input[type=checkbox]').forEach( el => el.checked = false );	//Uncheck all checkboxes
 				setTimeout(() => {this.overlayRef.current.style.display = "none"}, 3000);
 				// this.props.history.push('/allgames');
@@ -188,6 +202,17 @@ class AddNew extends React.Component {
 			check[1] = "w3-large w3-text-green w3-center";
 		if (this.state.n_child[2] == 1) 
 			check[2] = "w3-large w3-text-red w3-right";
+		
+		let pics_list;
+		pics_list = this.state.n_pics.map((i, ind) => {
+			return (
+				<div className="">
+					<a href={i} target="_blank">{i}</a>
+					<span style={{cursor: "pointer"}} onClick={() => {this.handleRemoveLink(ind)}}> [&times;]</span>
+				</div>
+			);
+		})
+		
 		return(
 			<div className="w3-container">
 			
@@ -265,6 +290,17 @@ class AddNew extends React.Component {
 							<lable><b> Video minh hoạ (link Youtube) </b></lable>
 								<input type="text" className="w3-input w3-margin" name="n_video" value={this.state.n_video} onChange={this.handleChange}/>
 							
+							<lable><b> Hình minh hoạ (tải và dán link <a href="https://imgbox.com/" target="_blank">Imgbox</a> có dạng imgbox.com/????????) </b></lable>
+							
+							<div className="">
+								{pics_list}
+							</div>
+							
+							<div className="w3-row-padding w3-stretch w3-margin">
+								<div className=" w3-col s10"><input type="text" className="w3-input" name="input_pic" value={this.state.input_pic} onChange={this.handleChange}/></div>
+								<div className=" w3-col s2"><button className="w3-btn w3-green" 
+									onClick = {this.handleAddPicLink}>Thêm</button></div>
+							</div>
 							<div className="w3-row">
 								<div className="w3-col s6">
 									<lable><b>Độ tuổi (*)</b></lable>
@@ -285,7 +321,7 @@ class AddNew extends React.Component {
 								</div>
 								<div className="w3-col s6">
 									<lable><b> Người đóng góp </b></lable>
-										<input type="text" className="w3-input w3-margin" name="n_donggop" value={this.state.n_dongop} onChange={this.handleChange} style={{width: "85%"}} />
+										<input type="text" className="w3-input w3-margin" name="n_donggop" value={this.state.n_donggop} onChange={this.handleChange} style={{width: "85%"}} />
 								</div>
 							</div>	
 							<div className="w3-row">		
