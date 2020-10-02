@@ -10,7 +10,7 @@ const pathInfo = {
 		description: "Bạn đang tìm trò chơi sinh hoạt tập thể cho đoàn mình? Hãy vào đây",
 	},
 	morse: {
-		title: "Morse Challenge",
+		title: "Dịch Morse",
 		bg: "food-bg",
 		description: "Bạn muốn thử trình độ dịch mã Morse của mình? Hãy vào đây",
 	},
