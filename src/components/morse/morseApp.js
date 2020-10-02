@@ -1,8 +1,9 @@
 import React from 'react';
+import { withRouter, NavLink } from 'react-router-dom';
 import morsify from 'morsify';
 import randomWords from 'random-words';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlayCircle, faPauseCircle, faRandom, faArrowAltCircleDown, faArrowAltCircleUp } 
+import { faPlayCircle, faPauseCircle, faRandom, faArrowAltCircleDown, faArrowAltCircleUp, faHome } 
 		from '@fortawesome/free-solid-svg-icons';
 import stringSimilarity from 'string-similarity';
 import ProgressBar from '@ramonak/react-progress-bar';
@@ -29,6 +30,10 @@ class MorseApp extends React.Component{
 		this.stopMorse = this.stopMorse.bind(this);
 		this.randomWords = this.randomWords.bind(this);
 		this.handleToggleCheck = this.handleToggleCheck.bind(this);
+	}
+	
+	componentDidMount(){
+		document.title = "Morse Challenge"
 	}
 	
 	handleChange(e){
@@ -179,9 +184,15 @@ class MorseApp extends React.Component{
 			random_mess = <span className="w3-margin animate__animated animate__rotateOut">Đã tạo bản tin mới</span>;
 		
 		return(
+		<div className="w3-display-container">
+			<br/>
+			<span className="w3-margin w3-text-red w3-xxlarge w3-display-topleft">
+				<NavLink to="/"><FontAwesomeIcon icon = {faHome}/></NavLink>
+			</span>
 			<div className="w3-content font-comic">
 				<div className="w3-container w3-large">
-					<h1 className="w3-center">Thử tài dịch Morse</h1>
+					<br/><br/><br/>
+					<h1 className="w3-center w3-wide">Morse Challenge</h1>
 					<br/><br/>
 					{play_pause_btn}
 					<br/>
@@ -201,12 +212,15 @@ class MorseApp extends React.Component{
 					<ProgressBar completed={similarity} bgcolor={bar_color} height="40px"/>
 					
 					<br/>
-					<span className={randomDisabledClass} onClick={this.randomWords} style={randomDisabledStyle}>
-						<FontAwesomeIcon icon={faRandom} size="lg" />
-					</span>
-					{random_mess}
+					<div className="w3-center w3-xxlarge">
+						<span className={randomDisabledClass} onClick={this.randomWords} style={randomDisabledStyle}>
+							<FontAwesomeIcon icon={faRandom} size="lg" />
+						</span>
+						<br/>
+						<span className="w3-large">{random_mess}</span>
+					</div>
 					
-					<br/><br/>
+					<br/>
 					<p>
 						<b>Lưu ý:</b> Chỉnh volume bằng máy của bạn. Bản tin sẽ là những từ ngẫu nhiên trong tiếng anh
 					</p>		
@@ -276,9 +290,9 @@ class MorseApp extends React.Component{
 					<br/>
 				</div>
 			</div>
-			
+		</div>	
 		);
 	}
 }
 
-export default MorseApp;
+export default withRouter(MorseApp);

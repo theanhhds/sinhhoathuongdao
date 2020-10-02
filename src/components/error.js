@@ -1,9 +1,9 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
+import {withRouter, NavLink} from 'react-router-dom';
 
 class Error extends React.Component {
-	constructor(){
-		super();
+	constructor(props){
+		super(props);
 		this.state = {
 			
 		};
@@ -11,8 +11,11 @@ class Error extends React.Component {
 	
 	render(){
 		return (
-			<div className="w3-container">
+			<div className="w3-container w3-center">
+				<br/><br/><br/>
 				<h1>Trang bạn muốn vào hiện không thể tìm thấy. Vui lòng thử lại!</h1>
+				<h2>Bấm vào <NavLink to="/">đây</NavLink> để về trang chủ</h2>
+				<br/><br/><br/>
 			</div>
 		);
 	}

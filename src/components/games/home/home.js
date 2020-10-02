@@ -4,8 +4,8 @@ import {NavLink} from 'react-router-dom';
 import './home.css';
 
 class Home extends React.Component {
-	constructor(){
-		super();
+	constructor(props){
+		super(props);
 		this.state = {
 			
 		};
@@ -20,7 +20,7 @@ class Home extends React.Component {
 				</h1>
 				<br/>
 				
-				<div className="w3-center"><NavLink to="/allgames"><button className=" w3-btn w3-green w3-large animate__animated animate__heartBeat animate__infinite">Xem trò chơi</button></NavLink></div>
+				<div className="w3-center"><NavLink to={this.props.url + "/allgames"}><button className=" w3-btn w3-green w3-large animate__animated animate__heartBeat animate__infinite">Xem trò chơi</button></NavLink></div>
 				
 				<div className="w3-row-padding w3-justify w3-animate-bottom">
 					<div className="w3-col l3"><br/></div>

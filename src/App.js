@@ -1,60 +1,32 @@
 import React from 'react';
-import {Route, Switch, BrowserRouter} from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDiceFive } from '@fortawesome/free-solid-svg-icons';
-import './App.css';
-import Home from './components/home/home';
-import Error from './components/error';
-import AddNew from './components/addnew/addnew';
-import AllGames from './components/allgames/allgames';
-import Navbar from './components/navbar';
-import Verify from './components/verify/verify';
-import MorseApp from './components/morse/morseApp';
-import axios from 'axios';
-import {URL} from './components/url';
-import CoverPic from './pics/cover.png';
-import FooterPic from './pics/footer.png';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ScrollToTop from './scroll';
-
+import { pathNames } from './components/pathName';
+import GamesApp from './components/games/GamesApp';
+import MorseApp from './components/morse/MorseApp';
+import Error from './components/error';
+import HomePage from './components/Home';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 class App extends React.Component{
 	constructor(){
 		super();
-		this.myRef = React.createRef();
 	}
 	
-	componentDidMount(){
-		axios({method: "get", url: URL+"/wake"}).then(res => {return res.data}).then(data => {
-			// console.log(data);
-			setTimeout( () => {this.myRef.current.className="w3-hide"},1000);
-		});
-	}
 	render(){
+		console.log(pathNames);
 		return (
-		<div>
-			<div className="overlay w3-display-container" ref={this.myRef}>
-				<div className="w3-display-middle w3-spin">
-					<FontAwesomeIcon icon={faDiceFive} className="w3-jumbo w3-text-red" />
-				</div>
-			</div>
-			<div>
-				<img src={CoverPic} style={{width: "100%"}} />
-			</div>
+		<div className="w3-display-container">
 			<BrowserRouter>
-				<Navbar />
 				<ScrollToTop>
 					<Switch>
-						<Route path="/" exact component={Home} />
-						<Route path="/addnew" exact component={AddNew} />
-						<Route path="/allgames" exact component={AllGames} />
-						<Route path="/verify" exact component={Verify} />
-						<Route path="/morse" exact component={MorseApp} />
+						<Route path="/" exact component={HomePage} />
+						<Route path={pathNames.trochoi} component={GamesApp} />
+						<Route path={pathNames.morse} component={MorseApp} />
 						<Route component={Error}/>
 					</Switch>
 				</ScrollToTop>
 			</BrowserRouter>
-			<div>
-				<img src={FooterPic} style={{width: "100%"}} />
-			</div>
 		</div>
 		);
 	}

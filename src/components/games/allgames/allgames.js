@@ -15,8 +15,8 @@ const LIMIT = 15;	//Must be number % 3 == 0
 const LIMIT2 = 15; 	//Limit for filter
 
 class AllGames extends React.Component{
-	constructor(){
-		super();
+	constructor(props){
+		super(props);
 		
 		this.overlayRef = React.createRef();
 		this.filterRef = React.createRef();
@@ -285,7 +285,7 @@ class AllGames extends React.Component{
 						Tất cả trò chơi
 					</h1>
 					<h5 className="w3-center" ><i>
-						Cùng chơi <NavLink to="/verify" style={{textDecoration:"none",cursor: "text"}}>cùng vui!</NavLink>
+						Cùng chơi <NavLink to={this.props.url + "/verify"} style={{textDecoration:"none",cursor: "text"}}>cùng vui!</NavLink>
 					</i></h5>
 					<br/>
 				</div>
