@@ -3,8 +3,8 @@
 const URL = "https://mighty-savannah-08232.herokuapp.com";
 
 //	local: 6Lf8B7YZAAAAAEBUnMkmXi51zLa3qYGerZ0YjlCH
-//	public: 6LciBrYZAAAAAAtAkZ50JyqZrif0L-zoyIFG15UA
-const CC_key = "6LciBrYZAAAAAAtAkZ50JyqZrif0L-zoyIFG15UA";
+//	public: 6LcsEdMZAAAAAMgKprBxw4pqxnc0Buh-DYi9_hqb
+const CC_key = "6LcsEdMZAAAAAMgKprBxw4pqxnc0Buh-DYi9_hqb";
 
 //export constants to file
 //IMPORTANT!!! Export individual as below, dont know why firebase not work

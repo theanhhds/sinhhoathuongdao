@@ -7,27 +7,18 @@ import Text from './pics/text.png';
 class HomePage extends React.Component{
 	constructor(){
 		super();
-		this.state={
-			overlayClass : "0",
-		}
+		
 	}
 	
 	componentDidMount(){
 		document.title = "Scoutivity - Sinh hoạt hướng đạo";
-		setTimeout(()=>{this.setState({overlayClass: "1"})} , 1000);
-		setTimeout(()=>{this.setState({overlayClass: "2"})} , 1500);
 	}
 	
 	render(){
-		let overlay;
-		if (this.state.overlayClass == "0")
-			overlay = <div className="w3-overlay" style={{backgroundColor: "rgb(255, 230, 255)", display: "block"}}/>
-		else if (this.state.overlayClass == "1")
-			overlay = <div className="w3-overlay animate__animated animate__fadeOut" style={{backgroundColor: "rgb(255, 230, 255)", display: "block"}}/>
-		else overlay = "";
+		
 		return(
 			<div>
-				{overlay}
+				
 				<img src={HeaderPic} style={{width: "100%"}}/>
 				<br/><br/><br/><br/>
 				<div className="w3-center animate__animated animate__bounceIn">

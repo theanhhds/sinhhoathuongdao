@@ -11,12 +11,26 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 class App extends React.Component{
 	constructor(){
 		super();
+		this.state={
+			overlayClass : "0",
+		}
+	}
+	
+	componentDidMount(){
+		setTimeout(()=>{this.setState({overlayClass: "1"})} , 1000);
+		setTimeout(()=>{this.setState({overlayClass: "2"})} , 1500);
 	}
 	
 	render(){
-		console.log(pathNames);
+		let overlay;
+		if (this.state.overlayClass == "0")
+			overlay = <div className="w3-overlay" style={{backgroundColor: "rgb(255, 230, 255)", display: "block"}}/>
+		else if (this.state.overlayClass == "1")
+			overlay = <div className="w3-overlay animate__animated animate__fadeOut" style={{backgroundColor: "rgb(255, 230, 255)", display: "block"}}/>
+		else overlay = "";
 		return (
 		<div className="w3-display-container">
+			{overlay}
 			<BrowserRouter>
 				<ScrollToTop>
 					<Switch>
