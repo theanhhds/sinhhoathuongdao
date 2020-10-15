@@ -21,7 +21,11 @@ class Home extends React.Component {
 				<br/>
 				
 				<div className="w3-center"><NavLink to={this.props.url + "/allgames"}><button className=" w3-btn w3-green w3-large animate__animated animate__heartBeat animate__infinite">Xem trò chơi</button></NavLink></div>
-				
+				<br/>
+				<div>hoặc</div>
+				<br/>
+				<div className="w3-center"><NavLink to={this.props.url + "/addnew"}><button className=" w3-btn w3-blue w3-large">Đóng góp</button></NavLink></div>
+
 				<div className="w3-row-padding w3-justify w3-animate-bottom">
 					<div className="w3-col l3"><br/></div>
 					<div className="w3-col l6 w3-container w3-padding-large font-comic">
@@ -50,6 +54,7 @@ class Home extends React.Component {
 						<a href="http://www.freepik.com">Designed by brgfx / Freepik</a>
 
 					</div>
+					
 				</div>
 				<br/><br/><br/><br/><br/><br/>
 			</div>

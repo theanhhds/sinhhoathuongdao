@@ -29,7 +29,12 @@ class HomePage extends React.Component{
 					<HomeNav />
 				</div>
 				<br/><br/><br/><br/>
-				<img src={FooterPic} style={{width: "100%"}} />
+				<h4 className="w3-center">Và nhiều điều mới mẻ nữa sẽ tới</h4>
+				<br/><br/><br/><br/>
+				<div className="w3-center w3-text-grey w3-opacity">
+					Liên hệ <i><a href="https://www.facebook.com/theanhhds/">Gấu ĐĐ</a></i> nếu có vấn đề về website
+				</div>
+				<img src={FooterPic} style={{width: "100%", bottom: "0px"}} />
 			</div>
 		);
 	}

@@ -32,12 +32,12 @@ class HomeNav extends React.Component{
 						
 		return(
 			<div className="w3-row-padding">
-				<div className="w3-col l6">
-					{morseTag}
+				<div className="w3-col m6">
+					{gamesTag}
 				</div>
 				
-				<div className="w3-col l6">
-					{gamesTag}
+				<div className="w3-col m6">
+					{morseTag}
 				</div>
 			</div>
 		);

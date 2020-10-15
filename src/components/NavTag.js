@@ -9,12 +9,12 @@ class NavTag extends React.Component{
 	
 	render(){
 		return(
-			<div className="animate__animated animate__bounceInDown w3-hover-opacity">
+			<div className="animate__animated animate__bounceIn w3-hover-opacity">
 				<NavLink to={this.props.url} style={{textDecoration: "none"}}>
 					<div 	className={"w3-margin w3-card-4 w3-container w3-padding-large " + this.props.bg}
 							style={{maxHeight: "500px"}}>
 						<div className="w3-center">
-							<img src={this.props.pic} style={{height: "200px"}}/>
+							<img src={this.props.pic} style={{width: "70%"}}/>
 						</div>
 						<h2 className="w3-center">{this.props.title}</h2>
 						<p className="font-comic">{this.props.description}</p>

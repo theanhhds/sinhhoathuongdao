@@ -339,6 +339,9 @@ class AddNew extends React.Component {
 								</div>
 							</div>
 						</div>
+						<div className="w3-center">
+							Liên hệ <a href="https://www.facebook.com/theanhhds/">Thế Anh</a> nếu có vấn đề xảy ra nhé
+						</div>
 					</div>
 					<div className="w3-col l3"><br/></div>
 				</div>
