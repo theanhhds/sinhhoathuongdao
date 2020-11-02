@@ -22,7 +22,7 @@ class Home extends React.Component {
 				
 				<div className="w3-center"><NavLink to={this.props.url + "/allgames"}><button className=" w3-btn w3-green w3-large animate__animated animate__heartBeat animate__infinite">Xem trò chơi</button></NavLink></div>
 				<br/>
-				<div>hoặc</div>
+				<div className="w3-center">hoặc</div>
 				<br/>
 				<div className="w3-center"><NavLink to={this.props.url + "/addnew"}><button className=" w3-btn w3-blue w3-large">Đóng góp</button></NavLink></div>
 

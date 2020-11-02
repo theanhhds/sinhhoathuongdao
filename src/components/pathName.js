@@ -1,6 +1,7 @@
 const pathNames = {
 	trochoi: "/trochoi",
 	morse: "/morse",
+	tailieu: "/tailieu",
 };
 
 const pathInfo = {
@@ -11,9 +12,14 @@ const pathInfo = {
 	},
 	morse: {
 		title: "Dịch Morse",
-		bg: "food-bg",
+		bg: "bubble-bg",
 		description: "Bạn muốn thử trình độ dịch mã Morse của mình? Hãy vào đây",
 	},
+	tailieu: {
+		title: "Tài liệu sinh hoạt",
+		bg: "food-bg",
+		description: "Bạn đang tìm kiếm tài liệu sinh hoạt hướng đạo? Hãy vào đây nghiên cứu nhé"
+	}
 }
 
 export {pathNames};

@@ -4,6 +4,7 @@ import { pathNames, pathInfo } from './pathName';
 import NavTag from './NavTag';
 import trochoiLogo from './pics/trochoi.png';
 import morseLogo from './pics/morse.png';
+import tailieuLogo from './pics/tailieu.png';
 
 class HomeNav extends React.Component{
 	constructor(){
@@ -30,14 +31,28 @@ class HomeNav extends React.Component{
 								pic = {trochoiLogo}
 						/>;
 						
+		let tailieuTag = 	<NavTag url={pathNames.tailieu} 
+									title = {pathInfo.tailieu.title} 
+									description = {pathInfo.tailieu.description}
+									bg = {pathInfo.tailieu.bg}
+									pic = {tailieuLogo}
+							/>;
+
 		return(
-			<div className="w3-row-padding">
-				<div className="w3-col m6">
-					{gamesTag}
+			<div>
+				<div className="w3-row-padding">
+					<div className="w3-col m6">
+						{gamesTag}
+					</div>
+					
+					<div className="w3-col m6">
+						{morseTag}
+					</div>
 				</div>
-				
-				<div className="w3-col m6">
-					{morseTag}
+				<div className="w3-row-padding">
+					<div className="w3-col m6">
+						{tailieuTag}
+					</div>
 				</div>
 			</div>
 		);

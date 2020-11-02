@@ -18,13 +18,13 @@ class Navbar extends React.Component{
 			<div className="w3-bar w3-center navbar-bg w3-bottom">
 				<div className="w3-center w3-large" style={{display: "inline-block"}}>
 					<NavLink to={this.props.url}><div className="w3-btn w3-margin-right w3-text-white w3-bar-item">
-						<FontAwesomeIcon icon={faInfoCircle} size="lg" /> 
+						<FontAwesomeIcon icon={faInfoCircle} size="lg" /> Info
 					</div></NavLink>
 					<NavLink to={this.props.url + "/allgames"}><div className="w3-btn w3-margin-right w3-text-white w3-bar-item">
-						<FontAwesomeIcon icon={faListAlt} size="lg" />
+						<FontAwesomeIcon icon={faListAlt} size="lg" /> Games
 					</div></NavLink> 
 					<NavLink to={this.props.url + "/addnew"}><div className="w3-btn w3-margin-right w3-text-white w3-bar-item">
-						<FontAwesomeIcon icon={faPlusCircle} size="lg" /> 
+						<FontAwesomeIcon icon={faPlusCircle} size="lg" /> Add
 					</div></NavLink> 
 				</div>
 			</div>

@@ -17,8 +17,7 @@ class HomePage extends React.Component{
 	render(){
 		
 		return(
-			<div>
-				
+			<div className="w3-display-container">
 				<img src={HeaderPic} style={{width: "100%"}}/>
 				<br/><br/><br/><br/>
 				<div className="w3-center animate__animated animate__bounceIn">
@@ -32,7 +31,7 @@ class HomePage extends React.Component{
 				<h4 className="w3-center">Và nhiều điều mới mẻ nữa sẽ tới</h4>
 				<br/><br/><br/><br/>
 				<div className="w3-center w3-text-grey w3-opacity">
-					Liên hệ <i><a href="https://www.facebook.com/theanhhds/">Gấu ĐĐ</a></i> nếu có vấn đề về website
+					Liên hệ <i><a href="mailto:sinhhoathuongdao@gmail.com">sinhhoathuongdao@gmail.com</a></i> nếu có vấn đề về website
 				</div>
 				<img src={FooterPic} style={{width: "100%", bottom: "0px"}} />
 			</div>

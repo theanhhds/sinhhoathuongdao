@@ -22,7 +22,7 @@ class GamesApp extends React.Component{
 	}
 	
 	componentDidMount(){
-		document.title = "Games4Scout- Trò chơi sinh hoạt";
+		document.title = "Games4Scout - Trò chơi sinh hoạt";
 		axios({method: "get", url: URL+"/wake"}).then(res => {return res.data}).then(data => {
 			// console.log(data);
 			setTimeout( () => {this.myRef.current.className="w3-hide"},1000);
@@ -32,14 +32,12 @@ class GamesApp extends React.Component{
 	render(){
 		return (
 		<div className="w3-display-container">
-			<span className="w3-text-red w3-xxlarge w3-btn">
-				<NavLink to="/"><FontAwesomeIcon icon = {faHome}/></NavLink>
-			</span>
 			<div className="overlay w3-display-container" ref={this.myRef}>
 				<div className="w3-display-middle w3-spin">
 					<FontAwesomeIcon icon={faDiceFive} className="w3-jumbo w3-text-red" />
 				</div>
 			</div>
+			<br/><br/>
 			<div >
 				<img src={CoverPic} style={{width: "100%", top: "100px"}} />
 			</div>

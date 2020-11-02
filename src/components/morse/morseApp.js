@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import morsify from 'morsify';
 import randomWords from 'random-words';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -184,14 +184,10 @@ class MorseApp extends React.Component{
 			random_mess = <span className="w3-margin animate__animated animate__rotateOut">Đã tạo bản tin mới</span>;
 		
 		return(
-		<div className="w3-display-container">
-			<br/>
-			<span className="w3-margin w3-text-red w3-xxlarge w3-display-topleft">
-				<NavLink to="/"><FontAwesomeIcon icon = {faHome}/></NavLink>
-			</span>
-			<div className="w3-content font-comic">
-				<div className="w3-container w3-large">
-					<br/><br/><br/>
+		<div className="w3-display-container">			
+			<div className="w3-content font-comic w3-padding-large w3-container">
+				<div className="w3-container w3-large  w3-white  w3-card">
+					<br/>
 					<h1 className="w3-center w3-wide">Morse Challenge</h1>
 					<br/><br/>
 					{play_pause_btn}
@@ -287,9 +283,10 @@ class MorseApp extends React.Component{
 					{result_input}
 					<br/>
 					
-					<br/>
+					
 				</div>
 			</div>
+			<br/><br/><br/><br/><br/><br/>
 		</div>	
 		);
 	}
