@@ -17,6 +17,12 @@ export const dangthu = [
         tomtat: "Cuốn sách này sẽ giúp bạn đạt được đẳng thứ Hướng đạo hạng nhất",
         link: "https://drive.google.com/file/d/1VwV3vdgrd5eFTe6ZbCYbZfe63CvH0fAz/view?usp=sharing",
     },
+    {
+        title: "Sổ tay thiếu sinh",
+        tacgia: "Nai Thận Trọng",
+        tomtat: "Sổ tay giúp đoàn sinh và trưởng theo dõi tiến độ đẳng thứ cá nhân",
+        link: "https://drive.google.com/file/d/1BhPBDRosUHeama0xdHpG8JIvyF5G4OdO/view?usp=sharing",
+    }
 ];
 
 export const sinhhoat = [

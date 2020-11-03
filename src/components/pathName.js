@@ -2,6 +2,7 @@ const pathNames = {
 	trochoi: "/trochoi",
 	morse: "/morse",
 	tailieu: "/tailieu",
+	history: "/history",
 };
 
 const pathInfo = {
@@ -17,8 +18,13 @@ const pathInfo = {
 	},
 	tailieu: {
 		title: "Tài liệu sinh hoạt",
-		bg: "food-bg",
+		bg: "shape-bg",
 		description: "Bạn đang tìm kiếm tài liệu sinh hoạt hướng đạo? Hãy vào đây nghiên cứu nhé"
+	},
+	history: {
+		title: "Lịch sử phong trào",
+		bg: "food-bg",
+		description: "Trình bày tổng quan về sự hình thành và phát triển của phong trào Hướng đạo"
 	}
 }
 

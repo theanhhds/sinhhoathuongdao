@@ -9,10 +9,10 @@ function List(){
     let cols = new Array(), item, n = list.dangthu.length;
     list.dangthu.forEach((item, ind) => {
         cols.push(
-            <div className="w3-col m4 w3-padding"><Tag doc={item}/></div>
+            <div className="w3-col m6 w3-padding"><Tag doc={item}/></div>
         );
 
-        if ((ind+1)%3 == 0 || (ind+1 == n)){
+        if ((ind+1)%2 == 0 || (ind+1 == n)){
             doc_dangthu.push(
                 <div className="w3-row-padding">{cols}</div>
             );
@@ -24,10 +24,10 @@ function List(){
     n = list.sinhhoat.length;
     list.sinhhoat.forEach((item, ind) => {
         cols.push(
-            <div className="w3-col m4 w3-padding"><Tag doc={item}/></div>
+            <div className="w3-col m6 w3-padding"><Tag doc={item}/></div>
         );
 
-        if ((ind+1)%3 == 0 || (ind+1 == n)){
+        if ((ind+1)%2 == 0 || (ind+1 == n)){
             doc_sinhhoat.push(
                 <div className="w3-row-padding">{cols}</div>
             );
@@ -39,32 +39,16 @@ function List(){
     n = list.sinhhoat.length;
     list.nghetruong.forEach((item, ind) => {
         cols.push(
-            <div className="w3-col m4 w3-padding"><Tag doc={item}/></div>
+            <div className="w3-col m6 w3-padding"><Tag doc={item}/></div>
         );
 
-        if ((ind+1)%3 == 0 || (ind+1 == n)){
+        if ((ind+1)%2 == 0 || (ind+1 == n)){
             doc_nghetruong.push(
                 <div className="w3-row-padding">{cols}</div>
             );
             cols = new Array();
         }
     });
-
-    // doc_sinhhoat = list.sinhhoat.map((item, index) => {
-    //     return (
-    //         <div className="w3-col m4 w3-padding">
-    //             <Tag doc={item}/>
-    //         </div>
-    //     ); 
-    // });
-
-    // doc_nghetruong = list.nghetruong.map((item, index) => {
-    //     return (
-    //         <div className="w3-col m4 w3-padding">
-    //             <Tag doc={item}/>
-    //         </div>
-    //     ); 
-    // });
 
     return (
         <div className="w3-content w3-padding-large">

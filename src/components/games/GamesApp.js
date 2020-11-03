@@ -31,7 +31,7 @@ class GamesApp extends React.Component{
 	
 	render(){
 		return (
-		<div className="w3-display-container">
+		<div className="" style={{position: "relative"}}>
 			<div className="overlay w3-display-container" ref={this.myRef}>
 				<div className="w3-display-middle w3-spin">
 					<FontAwesomeIcon icon={faDiceFive} className="w3-jumbo w3-text-red" />

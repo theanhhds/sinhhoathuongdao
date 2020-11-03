@@ -1,10 +1,10 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
 import { pathNames, pathInfo } from './pathName';
 import NavTag from './NavTag';
 import trochoiLogo from './pics/trochoi.png';
 import morseLogo from './pics/morse.png';
 import tailieuLogo from './pics/tailieu.png';
+import historyLogo from './pics/history.png';
 
 class HomeNav extends React.Component{
 	constructor(){
@@ -38,11 +38,18 @@ class HomeNav extends React.Component{
 									pic = {tailieuLogo}
 							/>;
 
+		let historyTag = 	<NavTag url={pathNames.history} 
+							title = {pathInfo.history.title} 
+							description = {pathInfo.history.description}
+							bg = {pathInfo.history.bg}
+							pic = {historyLogo}
+					/>;
+
 		return(
 			<div>
 				<div className="w3-row-padding">
 					<div className="w3-col m6">
-						{gamesTag}
+						{historyTag}
 					</div>
 					
 					<div className="w3-col m6">
@@ -50,6 +57,10 @@ class HomeNav extends React.Component{
 					</div>
 				</div>
 				<div className="w3-row-padding">
+					<div className="w3-col m6">
+						{gamesTag}
+					</div>
+
 					<div className="w3-col m6">
 						{tailieuTag}
 					</div>
