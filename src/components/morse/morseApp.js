@@ -7,6 +7,7 @@ import { faPlayCircle, faPauseCircle, faRandom, faArrowAltCircleDown, faArrowAlt
 		from '@fortawesome/free-solid-svg-icons';
 import stringSimilarity from 'string-similarity';
 import ProgressBar from '@ramonak/react-progress-bar';
+import MorsePic from './morse.png';
 
 class MorseApp extends React.Component{
 	constructor(){
@@ -185,10 +186,12 @@ class MorseApp extends React.Component{
 		
 		return(
 		<div className="" style={{position: "relative"}}>			
-			<div className="w3-content font-comic w3-padding-large w3-container">
+			<div className="w3-content font-comic w3-padding-large w3-container">				
 				<div className="w3-container w3-large  w3-white  w3-card">
-					<br/>
-					<h1 className="w3-center w3-wide">Morse Challenge</h1>
+					<br/><br/>
+					<div className="w3-center">
+						<img src={MorsePic} style={{"maxWidth": "70%"}} />
+					</div>
 					<br/><br/>
 					{play_pause_btn}
 					<br/>

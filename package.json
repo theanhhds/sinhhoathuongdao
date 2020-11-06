@@ -12,13 +12,17 @@
     "@testing-library/user-event": "^7.2.1",
     "get-youtube-id": "^1.0.1",
     "morsify": "^2.3.2",
+    "nw-react-slider": "^2.0.1",
     "random-words": "^1.1.1",
     "react": "^16.13.1",
+    "react-bootstrap-range-slider": "^2.0.2",
     "react-dom": "^16.13.1",
     "react-google-recaptcha": "^2.1.0",
+    "react-headroom": "^3.0.0",
     "react-image-gallery": "^1.0.8",
     "react-scripts": "3.4.1",
     "react-sidebar": "^3.0.2",
+    "react-slider": "^1.1.1",
     "react-vertical-timeline-component": "^3.3.1",
     "react-youtube": "^7.12.0",
     "string-similarity": "^4.0.2"
@@ -43,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-slider": "^1.0.0"
   }
 }

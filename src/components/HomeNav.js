@@ -5,6 +5,7 @@ import trochoiLogo from './pics/trochoi.png';
 import morseLogo from './pics/morse.png';
 import tailieuLogo from './pics/tailieu.png';
 import historyLogo from './pics/history.png';
+import semaphoreLogo from './pics/semaphore.png';
 
 class HomeNav extends React.Component{
 	constructor(){
@@ -23,6 +24,13 @@ class HomeNav extends React.Component{
 								pic = {morseLogo}
 								status = {this.state.morseTag}
 						/>;
+
+		let semaphoreTag = 	<NavTag url={pathNames.semaphore} 
+						title = {pathInfo.semaphore.title} 
+						description = {pathInfo.semaphore.description}
+						bg = {pathInfo.semaphore.bg}
+						pic = {semaphoreLogo}
+				/>;
 						
 		let gamesTag = 	<NavTag url={pathNames.trochoi} 
 								title = {pathInfo.trochoi.title} 
@@ -53,16 +61,24 @@ class HomeNav extends React.Component{
 					</div>
 					
 					<div className="w3-col m6">
-						{morseTag}
+						{tailieuTag}
 					</div>
 				</div>
+
 				<div className="w3-row-padding">
 					<div className="w3-col m6">
-						{gamesTag}
+						{morseTag}
 					</div>
 
 					<div className="w3-col m6">
-						{tailieuTag}
+						{semaphoreTag}
+					</div>
+				</div>
+
+				<div className="w3-row-padding">
+					<div className="w3-col m6">
+						
+						{gamesTag}
 					</div>
 				</div>
 			</div>

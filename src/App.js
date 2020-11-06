@@ -10,9 +10,7 @@ import GamesApp from './components/games/GamesApp';
 import MorseApp from './components/morse/MorseApp';
 import TailieuApp from './components/tailieu/Tailieu';
 import HistoryApp from './components/history/History';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import SemaphoreApp from './components/semaphore/Semaphore';
 
 class App extends React.Component{
 	constructor(){
@@ -48,6 +46,7 @@ class App extends React.Component{
 						<Route path={pathNames.morse} component={MorseApp} />
 						<Route path={pathNames.tailieu} component={TailieuApp} />
 						<Route path={pathNames.history} component={HistoryApp} />
+						<Route path="/semaphore" component={SemaphoreApp} />
 						<Route component={Error}/>
 					</Switch>
 				</ScrollToTop>

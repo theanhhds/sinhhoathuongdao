@@ -3,6 +3,7 @@ const pathNames = {
 	morse: "/morse",
 	tailieu: "/tailieu",
 	history: "/history",
+	semaphore: "/semaphore",
 };
 
 const pathInfo = {
@@ -19,13 +20,18 @@ const pathInfo = {
 	tailieu: {
 		title: "Tài liệu sinh hoạt",
 		bg: "shape-bg",
-		description: "Bạn đang tìm kiếm tài liệu sinh hoạt hướng đạo? Hãy vào đây nghiên cứu nhé"
+		description: "Bạn đang tìm kiếm tài liệu sinh hoạt hướng đạo? Hãy vào đây"
 	},
 	history: {
 		title: "Lịch sử phong trào",
 		bg: "food-bg",
 		description: "Trình bày tổng quan về sự hình thành và phát triển của phong trào Hướng đạo"
-	}
+	},
+	semaphore: {
+		title: "Luyện Semaphore",
+		bg: "food-bg",
+		description: "Bạn muốn nâng cao trình độ dịch semaphore của mình? Hãy vào đây"
+	},
 }
 
 export {pathNames};

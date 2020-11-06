@@ -206,6 +206,7 @@ function Histroy(){
                     <p> Các đơn vị hướng đạo hồi sinh tại Sài Gòn và phát triển cho đến nay</p>
                 </VerticalTimelineElement>
             </VerticalTimeline>
+            <br/><br/><br/>
         </div>
     );
 }
