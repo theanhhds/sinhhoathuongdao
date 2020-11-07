@@ -11,6 +11,7 @@ import { faPlayCircle, faRandom } from '@fortawesome/free-solid-svg-icons';
 function Semaphore(){
 
     let [mess, setMess] = useState("hello");
+    let [indexChar, setIndexChar] = useState(0);
     let [character, setCharacter] = useState(" ");
     let [intv, setIntv] = useState(1000);
     let [userInput, setUserInput] = useState("");
@@ -67,6 +68,7 @@ function Semaphore(){
         let i = 0;
         let id = setInterval(()=> {
             setCharacter(mess.charAt(i));
+            setIndexChar(i);
             i++;
             if (i>mess.length){
                 setPlayBtnAvailable(true);
@@ -84,12 +86,10 @@ function Semaphore(){
                 <div className="w3-center font-comic">
                     <p>Tại đây bạn có thể tập dịch bản tin truyền bằng <a href="https://vi.wikipedia.org/wiki/Semaphore" target="_blank">semaphore</a></p>
                     <p>Bản tin sẽ là những từ ngẫu nhiên trong tiếng anh</p>
-                    <p><b>Lưu ý:</b> Những chữ đôi (ví dụ như "ll" trong <b>hello</b>) sẽ hiện liên tục, không có khoảng ngắt ở giữa</p>
-                    <p>Bấm nút Play để xem thử đánh từ "hello" trước. Bấm nút Random bên cạnh để tạo bản tin mới</p>
                 </div>
                 <br/><br/>
                 <div className="">
-                    <FlagDisplay character={character}/>
+                    <FlagDisplay character={character} index={indexChar}/>
                 </div>
                 <div className="w3-center w3-content">
                     <span className={playBtnClass} onClick={()=>{play()}}>

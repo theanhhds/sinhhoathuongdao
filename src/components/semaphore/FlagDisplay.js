@@ -123,9 +123,19 @@ function FlagDisplay(props){
         character = <Space style={{'maxWidth': '100%'}} />
         break;
     }
+
+
+    let spanChar;   //This is to force animation re-render
+        if (parseInt(props.index)%2 == 0){
+            spanChar = <span className="animate__animated animate__fadeIn">{character}</span>
+        }
+        else{
+            spanChar = <span className="w3-animate-opacity">{character}</span>
+        }
+
     return(
         <div className="w3-center">
-            {character}
+            {spanChar}
         </div>
     );
 }
