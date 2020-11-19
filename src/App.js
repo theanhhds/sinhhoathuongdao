@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ScrollToTop from './scroll';
-
 import { pathNames } from './components/pathName';
 import Error from './components/error';
 import HomePage from './components/Home';
@@ -11,6 +10,7 @@ import MorseApp from './components/morse/MorseApp';
 import TailieuApp from './components/tailieu/Tailieu';
 import HistoryApp from './components/history/History';
 import SemaphoreApp from './components/semaphore/Semaphore';
+import MatthuApp from './components/matthu/Matthu';
 
 class App extends React.Component{
 	constructor(){
@@ -21,7 +21,7 @@ class App extends React.Component{
 	}
 	
 	componentDidMount(){
-		setTimeout(()=>{this.setState({overlayClass: "1"})} , 1000);
+		setTimeout(()=>{this.setState({overlayClass: "1"})} , 500);
 		setTimeout(()=>{this.setState({overlayClass: "2"})} , 1500);
 	}
 	
@@ -36,7 +36,6 @@ class App extends React.Component{
 		return (
 		<div className="">
 			{overlay}
-			
 			<BrowserRouter>
 				<Sidebar/>
 				<ScrollToTop>
@@ -46,12 +45,12 @@ class App extends React.Component{
 						<Route path={pathNames.morse} component={MorseApp} />
 						<Route path={pathNames.tailieu} component={TailieuApp} />
 						<Route path={pathNames.history} component={HistoryApp} />
-						<Route path="/semaphore" component={SemaphoreApp} />
+						<Route path={pathNames.semaphore} component={SemaphoreApp} />
+						<Route path={pathNames.matthu} component={MatthuApp} />
 						<Route component={Error}/>
 					</Switch>
 				</ScrollToTop>
 			</BrowserRouter>
-			
 		</div>
 		);
 	}

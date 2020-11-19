@@ -8,7 +8,7 @@ function Tailieu(){
     }, []);
 
     return(
-        <div className="" style={{position: "relative"}}>
+        <div className="w3-animate-opacity " style={{position: "relative"}}>
             <br/><br/><br/>
             <h1 className="w3-center">
                 Tài liệu sinh hoạt hướng đạo

@@ -6,6 +6,7 @@ import morseLogo from './pics/morse.png';
 import tailieuLogo from './pics/tailieu.png';
 import historyLogo from './pics/history.png';
 import semaphoreLogo from './pics/semaphore.png';
+import matthuLogo from './pics/matthu.png';
 
 class HomeNav extends React.Component{
 	constructor(){
@@ -53,6 +54,13 @@ class HomeNav extends React.Component{
 							pic = {historyLogo}
 					/>;
 
+		let matthuTag = 	<NavTag url={pathNames.matthu} 
+							title = {pathInfo.matthu.title} 
+							description = {pathInfo.matthu.description}
+							bg = {pathInfo.matthu.bg}
+							pic = {matthuLogo}
+					/>;
+
 		return(
 			<div>
 				<div className="w3-row-padding">
@@ -77,8 +85,10 @@ class HomeNav extends React.Component{
 
 				<div className="w3-row-padding">
 					<div className="w3-col m6">
-						
 						{gamesTag}
+					</div>
+					<div className="w3-col m6">
+						{matthuTag}
 					</div>
 				</div>
 			</div>

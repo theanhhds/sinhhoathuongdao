@@ -30,6 +30,7 @@ class SidebarApp extends React.Component {
                 <hr/><br/>
                 <div><NavLink to='/history'><div className="w3-btn w3-padding-large" onClick={() => this.onSetSidebarOpen(false)}>Lịch sử phong trào</div></NavLink></div>
                 <div><NavLink to='/trochoi'><div className="w3-btn w3-padding-large" onClick={() => this.onSetSidebarOpen(false)}>Trò chơi</div></NavLink></div>
+                <div><NavLink to='/matthu'><div className="w3-btn w3-padding-large" onClick={() => this.onSetSidebarOpen(false)}>Mật thư</div></NavLink></div>
                 <div><NavLink to='/morse'><div className="w3-btn w3-padding-large" onClick={() => this.onSetSidebarOpen(false)}>Luyện Morse</div></NavLink></div>
                 <div><NavLink to='/semaphore'><div className="w3-btn w3-padding-large" onClick={() => this.onSetSidebarOpen(false)}>Luyện Semaphore</div></NavLink></div>
                 <div><NavLink to='/tailieu'><div className="w3-btn w3-padding-large" onClick={() => this.onSetSidebarOpen(false)}>Tài liệu</div></NavLink></div>

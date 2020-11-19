@@ -79,7 +79,7 @@ function Semaphore(){
     }
 
     return(
-        <div className="w3-display-container w3-container">
+        <div className="w3-display-container w3-container w3-animate-opacity ">
             <div className="w3-container w3-white w3-content">
                 <br/><br/>
                 <h1 className="w3-center">Semaphore Challenge</h1>

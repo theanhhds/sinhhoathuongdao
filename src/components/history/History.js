@@ -10,13 +10,13 @@ function Histroy(){
     },[]);
 
     return(
-        <div className="w3-content">
+        <div className="w3-content w3-animate-opacity ">
             <h1 className="w3-center">Lịch sử phong trào hướng đạo</h1>
             <h3 className="w3-center">trên thế giới và tại Việt Nam</h3>
             <br/><br/>
             <VerticalTimeline>
                 <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
+                    className="vertical-timeline-element--work "
                     contentStyle={{ background: 'rgb(207, 151, 99)', color: '#fff' }}
                     contentArrowStyle={{ borderRight: '7px solid  rgb(207, 151, 99)' }}
                     dateClassName="w3-text-black"
@@ -24,8 +24,8 @@ function Histroy(){
                     iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                     icon={<FontAwesomeIcon icon={faGlobeAmericas} size="lg"/>}
                 >
-                    <h5><FontAwesomeIcon icon={faMapMarkerAlt}/> Đảo Brown Sea</h5>
                     <h5><FontAwesomeIcon icon={faCalendarAlt}/> 1-9/8/1907</h5>
+                    <h5><FontAwesomeIcon icon={faMapMarkerAlt}/> Đảo Brown Sea</h5>
                     <hr/>
                     <p> Baden Powell lần đầu dẫn các em trong độ tuổi ngành thiếu đi cắm trại trên đảo Brown Sea ở Anh</p>
                 </VerticalTimelineElement>
@@ -39,6 +39,7 @@ function Histroy(){
                     iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                     icon={<FontAwesomeIcon icon={faGlobeAmericas} size="lg"/>}
                 >
+                    <h5><FontAwesomeIcon icon={faMapMarkerAlt}/> Thế giới</h5>
                     <h5><FontAwesomeIcon icon={faCalendarAlt}/> 1908</h5>
                     <hr/>
                     <p> BP cho xuất bản cuốn Scouting for Boys. Các thiếu đoàn đầu tiên được thành lập trên khắp thế giới</p>
@@ -53,10 +54,10 @@ function Histroy(){
                     iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                     icon={<FontAwesomeIcon icon={faGlobeAmericas} size="lg"/>}
                 >
-                    <h5><FontAwesomeIcon icon={faMapMarkerAlt}/> Anh Quốc </h5>
                     <h5><FontAwesomeIcon icon={faCalendarAlt}/> 1910</h5>
+                    <h5><FontAwesomeIcon icon={faMapMarkerAlt}/> Anh Quốc </h5>
                     <hr/>
-                    <p> Nữ hướng đạo được thành lập bởi bà Agnes Baden-Powell</p>
+                    <p> Nữ hướng đạo được thành lập bởi bà Agnes Baden-Powell, em gái của BP</p>
                 </VerticalTimelineElement>
 
                 <VerticalTimelineElement
@@ -69,6 +70,7 @@ function Histroy(){
                     icon={<FontAwesomeIcon icon={faGlobeAmericas} size="lg"/>}
                 >
                     <h5><FontAwesomeIcon icon={faCalendarAlt}/> 7/11/1916</h5>
+                    <h5><FontAwesomeIcon icon={faMapMarkerAlt}/> Thế giới</h5>
                     <hr/>
                     <p> Ngành ấu chính thức được coi là một ngành của phong trào</p>
                 </VerticalTimelineElement>
@@ -83,6 +85,7 @@ function Histroy(){
                     icon={<FontAwesomeIcon icon={faGlobeAmericas} size="lg"/>}
                 >
                     <h5><FontAwesomeIcon icon={faCalendarAlt}/> 1918</h5>
+                    <h5><FontAwesomeIcon icon={faMapMarkerAlt}/> Thế giới</h5>
                     <hr/>
                     <p> Ngành tráng được thành lập</p>
                 </VerticalTimelineElement>
@@ -99,7 +102,7 @@ function Histroy(){
                     <h5><FontAwesomeIcon icon={faCalendarAlt}/> 1930</h5>
                     <h5><FontAwesomeIcon icon={faMapMarkerAlt}/> Hà Nội</h5>
                     <hr/>
-                    <p> Trưởng Trần Văn Khắc thành lập đoàn Lê Lợi - đơn vị hướng đạo đầu tiên tại Việt Nam</p>
+                    <p> Trưởng Trần Văn Khắc và trưởng Hoàng Đạo Thuý thành lập các đơn vị hướng đạo đầu tiên của Việt Nam</p>
                 </VerticalTimelineElement>
 
                 <VerticalTimelineElement
@@ -127,6 +130,7 @@ function Histroy(){
                     icon={<FontAwesomeIcon icon={faGlobeAmericas} size="lg"/>}
                 >
                     <h5><FontAwesomeIcon icon={faCalendarAlt}/> 1946</h5>
+                    <h5><FontAwesomeIcon icon={faMapMarkerAlt}/> Thế giới</h5>
                     <hr/>
                     <p> Ngành kha được thành lập tại nhiều quốc gia trên thế giới</p>
                 </VerticalTimelineElement>

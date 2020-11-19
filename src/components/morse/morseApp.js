@@ -185,7 +185,7 @@ class MorseApp extends React.Component{
 			random_mess = <span className="w3-margin animate__animated animate__rotateOut">Đã tạo bản tin mới</span>;
 		
 		return(
-		<div className="" style={{position: "relative"}}>			
+		<div className="w3-animate-opacity " style={{position: "relative"}}>			
 			<div className="w3-content font-comic w3-padding-large w3-container">				
 				<div className="w3-container w3-large  w3-white  w3-card">
 					<br/><br/>

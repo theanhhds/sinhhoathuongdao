@@ -40,8 +40,6 @@ class HomePage extends React.Component{
 					<HomeNav />
 				</div>
 				<br/><br/><br/><br/>
-				<h4 className="w3-center"><i>Và nhiều điều mới mẻ nữa đang đến...</i></h4>
-				<br/><br/><br/><br/>
 				<div className="w3-center w3-text-grey w3-opacity">
 					Liên hệ <i><a href="mailto:sinhhoathuongdao@gmail.com">sinhhoathuongdao@gmail.com</a></i> nếu có vấn đề về website
 				</div>

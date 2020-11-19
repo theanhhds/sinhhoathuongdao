@@ -4,6 +4,7 @@ const pathNames = {
 	tailieu: "/tailieu",
 	history: "/history",
 	semaphore: "/semaphore",
+	matthu: "/matthu",
 };
 
 const pathInfo = {
@@ -31,6 +32,11 @@ const pathInfo = {
 		title: "Luyện Semaphore",
 		bg: "food-bg",
 		description: "Bạn muốn nâng cao trình độ dịch semaphore của mình? Hãy vào đây"
+	},
+	matthu: {
+		title: "Giải mật thư",
+		bg: "bubble-bg",
+		description: "Bạn thích giải mã bí ẩn? Hãy thử giải các mật thư này nhé",
 	},
 }
 
