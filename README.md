@@ -1,3 +1,9 @@
+## About this project
+This project is a web application for all the boyscout in Vietnam to find their information about activities, practicing morese/ semaphore, documentaries, etc.
+
+## Webpage URL:
+http://sinhhoathuongdao.com/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
