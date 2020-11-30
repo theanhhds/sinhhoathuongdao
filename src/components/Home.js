@@ -41,7 +41,7 @@ class HomePage extends React.Component{
 				</div>
 				<br/><br/><br/><br/>
 				<div className="w3-center w3-text-grey w3-opacity">
-					Liên hệ <i><a href="mailto:sinhhoathuongdao@gmail.com">sinhhoathuongdao@gmail.com</a></i> nếu có vấn đề về website
+					Mọi ý kiến đóng góp liên quan đến website, xin vui lòng liên hệ <i><a href="mailto:sinhhoathuongdao@gmail.com">sinhhoathuongdao@gmail.com</a></i>
 				</div>
 				<img src={FooterPic} style={{width: "100%", bottom: "0px"}} />
 			</div>

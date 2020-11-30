@@ -21,7 +21,7 @@ function Matthu(props){
                     </Switch>
                 </ScrollToTop>
                 <div className="w3-center w3-text-grey w3-opacity">
-                    Liên hệ <i><a href="mailto:sinhhoathuongdao@gmail.com">sinhhoathuongdao@gmail.com</a></i> nếu mật thư có vấn đề
+                    Nếu mật thư có vấn đề, xin vui lòng liên hệ <i><a href="mailto:sinhhoathuongdao@gmail.com">sinhhoathuongdao@gmail.com</a></i>
                 </div>
             </BrowserRouter>
         </div>
