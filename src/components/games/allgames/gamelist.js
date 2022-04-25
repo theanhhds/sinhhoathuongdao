@@ -149,7 +149,7 @@ class GameList extends React.Component{
 		list.forEach((i, ind) => {
 			if (ind < this.props.limit){
 				cols.push(
-					<div className="w3-col m4 w3-margin-bottom">{i}</div>
+					<div className="w3-col m4 w3-margin-bottom hvr-grow-shadow">{i}</div>
 				);
 				
 				if ((ind+1)%3 == 0 || (ind+1 == n)){

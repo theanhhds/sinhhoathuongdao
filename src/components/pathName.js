@@ -5,6 +5,7 @@ const pathNames = {
 	history: "/history",
 	semaphore: "/semaphore",
 	matthu: "/matthu",
+	SMminute: "/cauchuyen"
 };
 
 const pathInfo = {
@@ -37,6 +38,11 @@ const pathInfo = {
 		title: "Giải mật thư",
 		bg: "bubble-bg",
 		description: "Bạn thích giải mã bí ẩn? Hãy thử giải các mật thư này nhé",
+	},
+	SMminute: {
+		title: "Câu chuyện dưới cờ",
+		bg: "shape-bg",
+		description: "Bạn đang tìm kiếm câu chuyện dưới cờ cho đoàn mình? Hãy vào đây",
 	},
 }
 

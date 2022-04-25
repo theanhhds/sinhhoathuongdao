@@ -23,9 +23,8 @@ class SidebarApp extends React.Component {
 
     let sidebar_content = 
             <div className="w3-green w3-container">
-                <br/><br/>
                 <h1 className="w3-center w3-padding-large">Scoutivity</h1>
-                <br/><br/>
+                <br/>
                 <div><NavLink to='/'><div className="w3-btn w3-padding-large" onClick={() => this.onSetSidebarOpen(false)}>Trang chủ</div></NavLink></div>
                 <hr/><br/>
                 <div><NavLink to='/history'><div className="w3-btn w3-padding-large" onClick={() => this.onSetSidebarOpen(false)}>Lịch sử phong trào</div></NavLink></div>
@@ -34,6 +33,7 @@ class SidebarApp extends React.Component {
                 <div><NavLink to='/morse'><div className="w3-btn w3-padding-large" onClick={() => this.onSetSidebarOpen(false)}>Luyện Morse</div></NavLink></div>
                 <div><NavLink to='/semaphore'><div className="w3-btn w3-padding-large" onClick={() => this.onSetSidebarOpen(false)}>Luyện Semaphore</div></NavLink></div>
                 <div><NavLink to='/tailieu'><div className="w3-btn w3-padding-large" onClick={() => this.onSetSidebarOpen(false)}>Tài liệu</div></NavLink></div>
+                <div><NavLink to='/cauchuyen'><div className="w3-btn w3-padding-large" onClick={() => this.onSetSidebarOpen(false)}>Câu chuyện dưới cờ</div></NavLink></div>
             </div>
 
     return (

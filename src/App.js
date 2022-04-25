@@ -11,6 +11,7 @@ import TailieuApp from './components/tailieu/Tailieu';
 import HistoryApp from './components/history/History';
 import SemaphoreApp from './components/semaphore/Semaphore';
 import MatthuApp from './components/matthu/Matthu';
+import SMminuteApp from './components/smminute/SMminute';
 
 class App extends React.Component{
 	constructor(){
@@ -47,6 +48,7 @@ class App extends React.Component{
 						<Route path={pathNames.history} component={HistoryApp} />
 						<Route path={pathNames.semaphore} component={SemaphoreApp} />
 						<Route path={pathNames.matthu} component={MatthuApp} />
+						<Route path={pathNames.SMminute} component={SMminuteApp} />
 						<Route component={Error}/>
 					</Switch>
 				</ScrollToTop>
