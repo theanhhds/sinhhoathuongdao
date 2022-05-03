@@ -7,6 +7,7 @@ import tailieuLogo from './pics/tailieu.png';
 import historyLogo from './pics/history.png';
 import semaphoreLogo from './pics/semaphore.png';
 import matthuLogo from './pics/matthu.png';
+import SMminuteLogo from './pics/SMminute.png';
 
 class HomeNav extends React.Component{
 	constructor(){
@@ -61,6 +62,13 @@ class HomeNav extends React.Component{
 							pic = {matthuLogo}
 					/>;
 
+		let SMminuteTag = 	<NavTag url={pathNames.SMminute} 
+							title = {pathInfo.SMminute.title} 
+							description = {pathInfo.SMminute.description}
+							bg = {pathInfo.SMminute.bg}
+							pic = {SMminuteLogo}
+					/>; 
+
 		return(
 			<div>
 				<div className="w3-row-padding">
@@ -89,6 +97,14 @@ class HomeNav extends React.Component{
 					</div>
 					<div className="w3-col m6">
 						{matthuTag}
+					</div>
+				</div>
+				<div className="w3-row-padding">
+					<div className="w3-col m6">
+						{SMminuteTag}
+					</div>
+					<div className="w3-col m6">
+
 					</div>
 				</div>
 			</div>

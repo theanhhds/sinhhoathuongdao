@@ -16,7 +16,7 @@ function Histroy(){
             <br/><br/>
             <VerticalTimeline>
                 <VerticalTimelineElement
-                    className="vertical-timeline-element--work "
+                    className="vertical-timeline-element--work   "
                     contentStyle={{ background: 'rgb(207, 151, 99)', color: '#fff' }}
                     contentArrowStyle={{ borderRight: '7px solid  rgb(207, 151, 99)' }}
                     dateClassName="w3-text-black"
@@ -31,7 +31,7 @@ function Histroy(){
                 </VerticalTimelineElement>
 
                 <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
+                    className="vertical-timeline-element--work  "
                     contentStyle={{ background: 'rgb(0, 179, 60)', color: '#fff' }}
                     contentArrowStyle={{ borderRight: '7px solid rgb(0, 179, 60)' }}
                     dateClassName="w3-text-black"
@@ -46,7 +46,7 @@ function Histroy(){
                 </VerticalTimelineElement>
 
                 <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
+                    className="vertical-timeline-element--work  "
                     contentStyle={{ background: 'rgb(255, 0, 102)', color: '#fff' }}
                     contentArrowStyle={{ borderRight: '7px solid rgb(255, 0, 102)' }}
                     dateClassName="w3-text-black"
@@ -61,7 +61,7 @@ function Histroy(){
                 </VerticalTimelineElement>
 
                 <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
+                    className="vertical-timeline-element--work  "
                     contentStyle={{ background: 'rgb(255, 140, 26)', color: '#fff' }}
                     contentArrowStyle={{ borderRight: '7px solid rgb(255, 140, 26)' }}
                     dateClassName="w3-text-black"
@@ -76,7 +76,7 @@ function Histroy(){
                 </VerticalTimelineElement>
 
                 <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
+                    className="vertical-timeline-element--work  "
                     contentStyle={{ background: 'rgb(255, 0, 0)', color: '#fff' }}
                     contentArrowStyle={{ borderRight: '7px solid rgb(255, 0, 0)' }}
                     dateClassName="w3-text-black"
@@ -91,7 +91,7 @@ function Histroy(){
                 </VerticalTimelineElement>
 
                 <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
+                    className="vertical-timeline-element--work  "
                     contentStyle={{ background: 'rgb(0, 153, 0)', color: '#fff' }}
                     contentArrowStyle={{ borderRight: '7px solid rgb(0, 153, 0)' }}
                     dateClassName="w3-text-black"
@@ -106,7 +106,7 @@ function Histroy(){
                 </VerticalTimelineElement>
 
                 <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
+                    className="vertical-timeline-element--work  "
                     contentStyle={{ background: 'rgb(51, 102, 255)', color: '#fff' }}
                     contentArrowStyle={{ borderRight: '7px solid rgb(51, 102, 255)' }}
                     dateClassName="w3-text-black"
@@ -121,7 +121,7 @@ function Histroy(){
                 </VerticalTimelineElement>
 
                 <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
+                    className="vertical-timeline-element--work  "
                     contentStyle={{ background: 'rgb(179, 0, 0)', color: '#fff' }}
                     contentArrowStyle={{ borderRight: '7px solid rgb(179, 0, 0)' }}
                     dateClassName="w3-text-black"
@@ -136,7 +136,7 @@ function Histroy(){
                 </VerticalTimelineElement>
 
                 <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
+                    className="vertical-timeline-element--work  "
                     contentStyle={{ background: 'rgb(230, 0, 230)', color: '#fff' }}
                     contentArrowStyle={{ borderRight: '7px solid rgb(230, 0, 230)' }}
                     dateClassName="w3-text-black"
@@ -151,7 +151,7 @@ function Histroy(){
                 </VerticalTimelineElement>
 
                 <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
+                    className="vertical-timeline-element--work  "
                     contentStyle={{ background: 'rgb(51, 102, 255)', color: '#fff' }}
                     contentArrowStyle={{ borderRight: '7px solid rgb(51, 102, 255)' }}
                     dateClassName="w3-text-black"
@@ -166,7 +166,7 @@ function Histroy(){
                 </VerticalTimelineElement>
 
                 <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
+                    className="vertical-timeline-element--work  "
                     contentStyle={{ background: 'rgb(0, 153, 51)', color: '#fff' }}
                     contentArrowStyle={{ borderRight: '7px solid rgb(0, 153, 51)' }}
                     dateClassName="w3-text-black"
@@ -181,7 +181,7 @@ function Histroy(){
                 </VerticalTimelineElement>
 
                 <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
+                    className="vertical-timeline-element--work  "
                     contentStyle={{ background: 'rgb(230, 0, 230)', color: '#fff' }}
                     contentArrowStyle={{ borderRight: '7px solid rgb(230, 0, 230)' }}
                     dateClassName="w3-text-black"
@@ -196,7 +196,7 @@ function Histroy(){
                 </VerticalTimelineElement>
 
                 <VerticalTimelineElement
-                    className="vertical-timeline-element--work"
+                    className="vertical-timeline-element--work  "
                     contentStyle={{ background: 'rgb(255, 102, 0)', color: '#fff' }}
                     contentArrowStyle={{ borderRight: '7px solid rgb(255, 102, 0)' }}
                     dateClassName="w3-text-black"
