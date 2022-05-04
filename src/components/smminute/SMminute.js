@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Modal from 'react-awesome-modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRandom } from '@fortawesome/free-solid-svg-icons';
 import {stories} from './story.js';
 
 function SMminute(){
@@ -56,7 +58,7 @@ function SMminute(){
             <h6 className="w3-center" style={{color:"#a3a3a3"}}>Mọi ý kiến đóng góp xin gửi về <a href="mailto:sinhhoathuongdao@gmail.com">sinhhoathuongdao@gmail.com</a></h6>
             <br/><br/>
             <div className="w3-bar w3-center">
-                <div className="w3-btn w3-green w3-large w3-padding w3-round-xlarge" onClick={()=>randomize()}>Kể tôi nghe!</div>
+                <div className="w3-btn w3-green w3-large w3-padding w3-round-xlarge" onClick={()=>randomize()}>Kể tôi nghe! <FontAwesomeIcon icon={faRandom} className="" /></div>
             </div>
             <br/><br/>
             <div className="w3-content w3-center w3-padding-large">
@@ -64,7 +66,11 @@ function SMminute(){
             </div>
             <Modal visible={isModalOpen} onClickAway={()=>setModalOpen(false)} width="75%" height="80%">
                 <div className="w3-padding-large" style={{whiteSpace: "pre-wrap", maxHeight: "90%", overflowY: "auto"}}>
-                    <div className="w3-bar w3-center"><div className="w3-btn w3-circle w3-green" onClick={()=>randomize()}>»</div></div>
+                    <div className="w3-bar w3-center">
+                        <div className="w3-btn w3-circle w3-green" onClick={()=>randomize()}>
+                            <FontAwesomeIcon icon={faRandom} className="w3-large" />
+                        </div>
+                    </div>
                     <h2 className="w3-center">{modalTitle}</h2>
                     <h6 className="w3-center">{modalEng}</h6>
                     <br/>
