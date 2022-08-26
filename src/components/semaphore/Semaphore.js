@@ -18,12 +18,13 @@ function Semaphore(){
     let [randomMessClass, setRandomMessClass] = useState("animate__animated animate__fadeOut");
     let [playBtnClass, setPlayBtnClass] = useState("w3-text-green w3-jumbo w3-margin");
     let [playBtnAvailable, setPlayBtnAvailable] = useState(true);
-
     let [randomBtnClass, setRandomBtnClass] = useState("w3-text-blue w3-jumbo w3-margin");
- 
+    let [resultBtnValue, setResultBtnValue] = useState("Xem đáp án");
+    let [resultDisplay, setResultDisplay] = useState(" ");
+
     let similarity = stringSimilarity.compareTwoStrings(mess, userInput);	
     let bar_color;
-		similarity = (similarity*100).toFixed(2);
+		similarity = (similarity*100).toFixed(0);
 		if (similarity < 30)
 			bar_color = "#ff3300";
 		else if (similarity >= 30 && similarity < 60)
@@ -33,11 +34,11 @@ function Semaphore(){
 		else bar_color = "#33cc33";
 
     useEffect(()=>{
-        document.title = "Luyện Semaphore";
+        document.title = "Semaphore Challenge";
     }, []);
 
     useEffect(()=>{
-        similarity = stringSimilarity.compareTwoStrings(mess, userInput);	
+        similarity = stringSimilarity.compareTwoStrings(mess, userInput);
     }, [userInput]);
     
     useEffect(()=>{
@@ -47,7 +48,7 @@ function Semaphore(){
         }
         else{
             setPlayBtnClass("w3-text-green w3-jumbo w3-margin w3-disabled");
-            setRandomBtnClass("w3-text-blue w3-jumbo w3-margin w3-disabled")
+            setRandomBtnClass("w3-text-blue w3-jumbo w3-margin w3-disabled");
         }
     }, [playBtnAvailable]);
 
@@ -59,23 +60,41 @@ function Semaphore(){
     }, [mess])
 
     const randomMess = () => {
-        let rW = randomWords({min: 3, max: 5, join:' '});
-        setMess(rW);
+        if (playBtnAvailable){
+            let rW = randomWords({min: 3, max: 5, join:' '});
+            setMess(rW);
+            setResultBtnValue("Xem đáp án");
+            setResultDisplay(" ");
+        }
     }
 
     const play = ()=>{
-        setPlayBtnAvailable(false);
-        let i = 0;
-        let id = setInterval(()=> {
-            setCharacter(mess.charAt(i));
-            setIndexChar(i);
-            i++;
-            if (i>mess.length){
-                setPlayBtnAvailable(true);
-                setCharacter(' ');
-                clearInterval(id);
-            }
-        }, intv);
+        if (playBtnAvailable){
+            setPlayBtnAvailable(false);
+            let i = 0;
+            let id = setInterval(()=> {
+                setCharacter(mess.charAt(i));
+                setIndexChar(i);
+                i++;
+                if (i>mess.length){
+                    setPlayBtnAvailable(true);
+                    setCharacter(' ');
+                    clearInterval(id);
+                }
+            }, intv);
+        }
+    }
+
+    const toggleResult = () =>{
+        // console.log(mess);
+        if (resultBtnValue == "Xem đáp án"){
+            setResultBtnValue("Ẩn đáp án");
+            setResultDisplay(mess);
+        }
+        else{
+            setResultBtnValue("Xem đáp án");
+            setResultDisplay(" ");
+        }
     }
 
     return(
@@ -88,7 +107,7 @@ function Semaphore(){
                     <p>Bản tin sẽ là những từ ngẫu nhiên trong tiếng anh</p>
                 </div>
                 <br/><br/>
-                <div className="">
+                <div className="" style={{}}>
                     <FlagDisplay character={character} index={indexChar}/>
                 </div>
                 <div className="w3-center w3-content">
@@ -116,9 +135,17 @@ function Semaphore(){
 						onChange = {(e)=>{setUserInput(e.target.value)}}
 					/>
                     <br/>
-                    <ProgressBar completed={similarity} bgcolor={bar_color} height="40px"/>
+                    <div className>
+                        <ProgressBar completed={similarity} bgcolor={bar_color} height="40px" width="100%"/>
+                    </div>
                 </div>
-            <br/><br/><br/><br/>
+            <br/><br/>
+            <div className="w3-container w3-center">
+                <div className="w3-btn w3-white w3-text-light-grey" onClick={()=>{toggleResult()}}>{resultBtnValue}</div>
+                <br/><br/>
+                <input className="w3-input w3-center w3-border-0" disabled="disabled" value={resultDisplay} placeholder="Đáp án..."></input>
+            </div>
+            <br/><br/>
             </div>
             <br/><br/><br/><br/>
         </div>

@@ -6,7 +6,7 @@ import Error from './components/error';
 import HomePage from './components/Home';
 import Sidebar from './components/Sidebar';
 import GamesApp from './components/games/GamesApp';
-import MorseApp from './components/morse/MorseApp';
+import MorseApp from './components/morse/morseApp';
 import TailieuApp from './components/tailieu/Tailieu';
 import HistoryApp from './components/history/History';
 import SemaphoreApp from './components/semaphore/Semaphore';

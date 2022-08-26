@@ -36,91 +36,91 @@ function FlagDisplay(props){
 
     switch (props.character){
         case 'a':
-        character = <A style={{'maxWidth':'100%'}} />
+        character = <A style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'b':
-        character = <B style={{'maxWidth':'100%'}} />
+        character = <B style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'c':
-        character = <C style={{'maxWidth':'100%'}} />
+        character = <C style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'd':
-        character = <D style={{'maxWidth':'100%'}} />
+        character = <D style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'e':
-        character = <E style={{'maxWidth':'100%'}} />
+        character = <E style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'f':
-        character = <F style={{'maxWidth':'100%'}} />
+        character = <F style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'g':
-        character = <G style={{'maxWidth':'100%'}} />
+        character = <G style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'h':
-        character = <H style={{'maxWidth':'100%'}} />
+        character = <H style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'i':
-        character = <I style={{'maxWidth':'100%'}} />
+        character = <I style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'j':
-        character = <J style={{'maxWidth':'100%'}} />
+        character = <J style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'k':
-        character = <K style={{'maxWidth':'100%'}} />
+        character = <K style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'l':
-        character = <L style={{'maxWidth':'100%'}} />
+        character = <L style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'm':
-        character = <M style={{'maxWidth':'100%'}} />
+        character = <M style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'n':
-        character = <N style={{'maxWidth':'100%'}} />
+        character = <N style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'o':
-        character = <O style={{'maxWidth':'100%'}} />
+        character = <O style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'p':
-        character = <P style={{'maxWidth':'100%'}} />
+        character = <P style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'q':
-        character = <Q style={{'maxWidth':'100%'}} />
+        character = <Q style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'r':
-        character = <R style={{'maxWidth':'100%'}} />
+        character = <R style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 's':
-        character = <S style={{'maxWidth':'100%'}} />
+        character = <S style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 't':
-        character = <T style={{'maxWidth':'100%'}} />
+        character = <T style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'u':
-        character = <U style={{'maxWidth':'100%'}} />
+        character = <U style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'v':
-        character = <V style={{'maxWidth':'100%'}} />
+        character = <V style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'w':
-        character = <W style={{'maxWidth':'100%'}} />
+        character = <W style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'x':
-        character = <X style={{'maxWidth':'100%'}} />
+        character = <X style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'y':
-        character = <Y style={{'maxWidth':'100%'}} />
+        character = <Y style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case 'z':
-        character = <Z style={{'maxWidth':'100%'}} />
+        character = <Z style={{'maxWidth':'85vw', 'maxHeight':'85vh'}} />
         break;
         case ' ':
-        character = <Space style={{'maxWidth': '100%'}} />
+        character = <Space style={{'maxWidth': '85vw', 'maxHeight':'85vh'}} />
         break;
         case '*':
-        character = <Blank style={{'maxWidth': '100%'}} />
+        character = <Blank style={{'maxWidth': '85vw', 'maxHeight':'85vh'}} />
         break;
         default :
-        character = <Space style={{'maxWidth': '100%'}} />
+        character = <Space style={{'maxWidth': '85vw', 'maxHeight':'85vh'}} />
         break;
     }
 

@@ -1,8 +1,6 @@
 import React from 'react';
-import axios from 'axios';
 import './allgames.css';
-import {URL} from '../url.js';
-import {NavLink} from 'react-router-dom';
+import {gamesList} from '../assets/gamesList';
 import {withRouter} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner, faSearch, faDisease } from '@fortawesome/free-solid-svg-icons';
@@ -76,27 +74,21 @@ class AllGames extends React.Component{
 	
 	getGames(){
 		// console.log(URL);
-		var data = {psw: "sc0utgames"}, i = 0;
-		axios({
-			method: "post",
-			data: data,
-			url : URL + "/getgames",
-		}).then(res => {return res.data}).then(data => {
+		var i = 0;
+		let data = gamesList;
 			// this.shuffle(data);
-			let g1 = new Array(), g2 = new Array(), openClose = new Array();
-			data.reverse().map((i) => {
-				if (i.the_loai == 1){
-					g1.push(i);
-					openClose.push(false);
-				}
-				else if (i.the_loai == 2)
-					g2.push(i);
-			});
-			// console.log(g1,g2);
-			this.setState({games1: g1, games2: g2, games: g1, isOpen: openClose});
-			// console.log(data);
-			setTimeout(() => {this.overlayRef.current.style.display = "none"}, 500);
-		})
+		let g1 = new Array(), g2 = new Array(), openClose = new Array();
+		data.reverse().map((i) => {
+			if (i.the_loai == 1){
+				g1.push(i);
+				openClose.push(false);
+			}
+			else if (i.the_loai == 2)
+				g2.push(i);
+		});
+		this.setState({games1: g1, games2: g2, games: g1, isOpen: openClose});
+		// console.log(data);
+		setTimeout(() => {this.overlayRef.current.style.display = "none"}, 500);
 	}
 	
 	componentDidMount(){
@@ -285,7 +277,7 @@ class AllGames extends React.Component{
 						Tất cả trò chơi
 					</h1>
 					<h5 className="w3-center" ><i>
-						Cùng chơi <NavLink to={this.props.url + "/verify"} style={{textDecoration:"none",cursor: "text"}}>cùng vui!</NavLink>
+						Cùng chơi cùng vui!
 					</i></h5>
 					<br/>
 				</div>

@@ -4,9 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiceFive, faHome } from '@fortawesome/free-solid-svg-icons';
 import Home from './home/home';
 import Error from './error';
-import AddNew from './addnew/addnew';
+import AddNew from './addnew/addnew_email';
 import AllGames from './allgames/allgames';
-import Verify from './verify/verify';
 import Navbar from './navbar';
 import axios from 'axios';
 import {URL} from './url';
@@ -53,9 +52,6 @@ class GamesApp extends React.Component{
 						</Route>
 						<Route path={this.props.match.path + "/allgames"} exact>
 							<AllGames url={this.props.match.path} />
-						</Route>
-						<Route path={this.props.match.path + "/verify"} exact>
-							<Verify url = {this.props.match.path} />
 						</Route>
 						<Route>
 							<Error url = {this.props.match.path} />
